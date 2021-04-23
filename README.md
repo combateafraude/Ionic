@@ -67,7 +67,7 @@ Após, execute:
 
 ```typescript
 
-import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'ionic-plugin';
+import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-detector-ionic';
 
 ```
 
