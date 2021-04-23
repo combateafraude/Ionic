@@ -1,0 +1,34 @@
+import { ShowPreview } from './android/show-preview';
+import { DocumentDetectorStep } from './document-detector-step';
+import { AndroidSettings } from './android/android-settings';
+export { DocumentDetectorStep };
+export { DocumentType } from './document-type';
+export declare class DocumentDetector {
+    private mobileToken;
+    private peopleId;
+    private useAnalytics;
+    private documentDetectorSteps;
+    private popup;
+    private sound;
+    private requestTimeout;
+    private showPreview;
+    private androidSettings;
+    private showDelay;
+    private delay;
+    private autoDetection;
+    constructor();
+    set setMobileToken(mobileToken: string);
+    set setPeopleId(peopleId: string);
+    set setUseAnalytics(useAnalytics: boolean);
+    set setPopup(popup: boolean);
+    set setSound(sound: boolean);
+    set setRequestTimeout(requestTimeout: number);
+    set setShowDelay(showDelay: boolean);
+    set setDelay(delay: number);
+    set setAutoDetection(autoDetection: boolean);
+    set setDocumentDetectorSteps(documentDetectorSteps: Array<DocumentDetectorStep>);
+    setCurrentStepDoneDelay(showDelay: boolean, delay: number): void;
+    set setShowPreview(showPreview: ShowPreview);
+    set setAndroidSettings(androidSettings: AndroidSettings);
+    start(): Promise<void>;
+}

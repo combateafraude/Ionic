@@ -1,0 +1,1 @@
+{"version":3,"file":"document-detector-step-customization-android.js","sourceRoot":"","sources":["../../../lib/document-detector-step-customization-android.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,wCAAwC;IAKnD,YAAY,sBAA8B,EAAE,2BAAmC,EAAE,eAAuB;QACtG,IAAI,CAAC,sBAAsB,GAAG,sBAAsB,CAAC;QACrD,IAAI,CAAC,2BAA2B,GAAG,2BAA2B,CAAC;QAC/D,IAAI,CAAC,eAAe,GAAG,eAAe,CAAC;IACzC,CAAC;CAEF"}
