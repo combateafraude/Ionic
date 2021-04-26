@@ -310,10 +310,10 @@ public class DocumentDetectorPlugin extends Plugin {
                 if (mDocumentDetectorResult.wasSuccessful()) {
                         call.success(getSucessResponseMap(mDocumentDetectorResult));
                 } else {
-                        //call.success(mDocumentDetectorResult.getSdkFailure());
+                        call.success(getFailureResponseMap(mDocumentDetectorResult.getSdkFailure()));
                 }
             } else {
-                    //call.success(getClosedResponseMap());
+                    call.success(getClosedResponseMap());
             }
         }
     }
