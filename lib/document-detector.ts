@@ -7,7 +7,7 @@ import { Plugins } from '@capacitor/core';
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
 
-const { IonicPlugin } = Plugins;
+const { DocumentDetectorIonic } = Plugins;
 
 export class DocumentDetector {
   private mobileToken: string;
@@ -88,7 +88,7 @@ export class DocumentDetector {
   async start() {
     var builder = JSON.stringify(this);
 
-    var result = await IonicPlugin.start({ builder });
+    var result = await DocumentDetectorIonic.start({ builder });
 
     return result.results;
   }

@@ -58,7 +58,7 @@ public class DocumentDetectorPlugin extends Plugin {
     public void start(PluginCall call) throws JSONException {
         saveCall(call);
 
-        String value = call.getString("value");
+        String value = call.getString("builder");
         //System.out.println("Parametro:" + value);
         JSONObject jsonObject = null;
         try {
