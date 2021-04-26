@@ -319,9 +319,8 @@ public class DocumentDetectorPlugin extends Plugin {
     }
 
     private JSObject getSucessResponseMap(DocumentDetectorResult mDocumentDetectorResult) {
-        ArrayList<Map> responseList = new ArrayList<>();
         Map<String,Object> responseMap =  new HashMap<String, Object>();
-        responseMap.put("success", Boolean.TRUE.toString());
+        responseMap.put("success", Boolean.TRUE);
 
         ArrayList<HashMap<String, String>> captures = new ArrayList<>();
         for (Capture capture : mDocumentDetectorResult.getCaptures()) {
@@ -335,26 +334,32 @@ public class DocumentDetectorPlugin extends Plugin {
         responseMap.put("captures", captures);
         responseMap.put("type", mDocumentDetectorResult.getType());
         responseMap.put("trackingId", mDocumentDetectorResult.getTrackingId());
-        responseList.add(responseMap);
 
-        JSONArray jsonArray = new JSONArray(responseList);
+        JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
-        result.put("results", jsonArray);
+        result.put("results", jsonObject);
         return result;
     }
 
-    private HashMap<String, Object> getFailureResponseMap(SDKFailure sdkFailure) {
+    private JSObject getFailureResponseMap(SDKFailure sdkFailure) {
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", Boolean.FALSE);
         responseMap.put("message", sdkFailure.getMessage());
         responseMap.put("type", sdkFailure.getClass().getSimpleName());
-        return responseMap;
+
+        JSONObject jsonObject = new JSONObject(responseMap);
+        JSObject result = new JSObject();
+        result.put("results", jsonObject);
+        return result;
     }
 
-    private HashMap<String, Object> getClosedResponseMap() {
+    private JSObject getClosedResponseMap() {
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", null);
-        return responseMap;
+        JSONObject jsonObject = new JSONObject(responseMap);
+        JSObject result = new JSObject();
+        result.put("results", jsonObject);
+        return result;
     }
 
 }
