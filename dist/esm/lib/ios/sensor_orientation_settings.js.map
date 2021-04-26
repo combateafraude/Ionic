@@ -1,0 +1,1 @@
+{"version":3,"file":"sensor_orientation_settings.js","sourceRoot":"","sources":["../../../../lib/ios/sensor_orientation_settings.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,4BAA4B;IAIrC,YAAY,OAAe,EAAE,oBAA4B;QACrD,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,oBAAoB,GAAG,oBAAoB,CAAC;IACrD,CAAC;CACF"}

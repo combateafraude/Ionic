@@ -1,6 +1,7 @@
 import { ShowPreview } from './android/show-preview';
 import { DocumentDetectorStep } from './document-detector-step';
-import { AndroidSettings } from './android/android-settings';
+import { DocumentDetectorIosSettings } from './ios/ios-settings';
+import { DocumentDetectorAndroidSettings } from './android/android-settings';
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
 export declare class DocumentDetector {
@@ -13,6 +14,7 @@ export declare class DocumentDetector {
     private requestTimeout;
     private showPreview;
     private androidSettings;
+    private iosSettings;
     private showDelay;
     private delay;
     private autoDetection;
@@ -29,6 +31,7 @@ export declare class DocumentDetector {
     set setDocumentDetectorSteps(documentDetectorSteps: Array<DocumentDetectorStep>);
     setCurrentStepDoneDelay(showDelay: boolean, delay: number): void;
     set setShowPreview(showPreview: ShowPreview);
-    set setAndroidSettings(androidSettings: AndroidSettings);
-    start(): Promise<void>;
+    set setAndroidSettings(androidSettings: DocumentDetectorAndroidSettings);
+    set setIosSettings(iosSettings: DocumentDetectorIosSettings);
+    start(): Promise<any>;
 }

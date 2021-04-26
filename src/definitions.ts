@@ -1,9 +1,9 @@
 declare module '@capacitor/core' {
   interface PluginRegistry {
-    IonicPlugin: IonicPluginPlugin;
+    DocumentDetectorPlugin: DocumentDetectorPlugin;
   }
 }
 
-export interface IonicPluginPlugin {
+export interface DocumentDetectorPlugin {
   start(options: { builder: string }): Promise<{results: any[]}>; 
 }

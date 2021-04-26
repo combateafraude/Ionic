@@ -7,16 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// import { SensorSettingsAndroid } from './android/sensor-settings';
-// import { stringify } from '@angular/compiler/src/util';
 import { DocumentDetectorStep } from './document-detector-step';
-//import {DocumentDetectorIosSettings}
 import { Plugins } from '@capacitor/core';
-// import { JsonPipe } from '@angular/common';
-// import { WebPlugin } from '@capacitor/core';
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
-const { IonicPlugin } = Plugins;
+const { DocumentDetectorPlugin } = Plugins;
 export class DocumentDetector {
     constructor() { }
     set setMobileToken(mobileToken) {
@@ -59,19 +54,14 @@ export class DocumentDetector {
     set setAndroidSettings(androidSettings) {
         this.androidSettings = androidSettings;
     }
+    set setIosSettings(iosSettings) {
+        this.iosSettings = iosSettings;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
-            let steps = new Array();
-            console.log('start step 1');
-            //var param = JSON.stringify({ mobileToken: this._mobileToken, DocumentDetectorSteps: this._documentDetectorSteps});
-            var param = JSON.stringify(this);
-            console.log('start step 2');
-            console.log('param: ', param);
-            const contacts = (yield IonicPlugin.start({ value: param })).results;
-            console.log('contacts', contacts);
-            /*params["showPreview"] = showPreview?.asMap();
-            params["androidSettings"] = androidSettings?.asMap();
-            params["iosSettings"] = iosSettings?.asMap();*/
+            var builder = JSON.stringify(this);
+            var result = yield DocumentDetectorPlugin.start({ builder });
+            return result;
         });
     }
 }

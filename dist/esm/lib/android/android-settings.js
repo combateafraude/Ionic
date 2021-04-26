@@ -1,4 +1,4 @@
-export class AndroidSettings {
+export class DocumentDetectorAndroidSettings {
     constructor(customization, sensorSettings, captureStages) {
         this.customization = customization;
         this.sensorSettings = sensorSettings;

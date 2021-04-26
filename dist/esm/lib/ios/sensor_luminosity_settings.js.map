@@ -1,0 +1,1 @@
+{"version":3,"file":"sensor_luminosity_settings.js","sourceRoot":"","sources":["../../../../lib/ios/sensor_luminosity_settings.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,2BAA2B;IAIpC,YAAY,OAAe,EAAE,mBAA2B;QACpD,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,mBAAmB,GAAG,mBAAmB,CAAC;IACnD,CAAC;CAEF"}

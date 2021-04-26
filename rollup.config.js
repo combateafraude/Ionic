@@ -9,7 +9,7 @@ export default {
   output: {
     file: 'dist/plugin.js',
     format: 'cjs',
-    name: 'capacitorPlugin', // TODO: change this
+    name: 'DocumentDetectorPlugin', // TODO: change this
     globals: {
       '@capacitor/core': 'capacitorExports',
     },

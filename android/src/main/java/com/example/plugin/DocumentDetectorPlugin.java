@@ -45,8 +45,7 @@ import java.util.Map;
 @NativePlugin(
         requestCodes={IonicPlugin.REQUEST_CODE}
 )
-public class IonicPlugin extends Plugin {
-    protected static final int REQUEST_CONTACTS = 12345; // Unique request code
+public class DocumentDetectorPlugin extends Plugin {
     protected static final int REQUEST_CODE = 1001;
 
     private static final String DRAWABLE_RES = "drawable";
@@ -241,29 +240,6 @@ public class IonicPlugin extends Plugin {
         startActivityForResult(call, mIntent,REQUEST_CODE);
     }
 
-    @Override
-    protected void handleRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.handleRequestPermissionsResult(requestCode, permissions, grantResults);
-
-
-        PluginCall savedCall = getSavedCall();
-        if (savedCall == null) {
-            Log.d("Test", "No stored plugin call for permissions request result");
-            return;
-        }
-
-        for(int result : grantResults) {
-            if (result == PackageManager.PERMISSION_DENIED) {
-                Log.d("Test", "User denied permission");
-                return;
-            }
-        }
-
-        if (requestCode == REQUEST_CONTACTS) {
-            // We got the permission!
-            loadContacts(savedCall);
-        }
-    }
 
     private Integer getResourceId(@Nullable String resourceName, String resourceType) {
         if (resourceName == null || this.bridge.getActivity() == null) return null;

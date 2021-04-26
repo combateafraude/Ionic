@@ -6,8 +6,8 @@ import DocumentDetector
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(IonicPlugin)
-public class IonicPlugin: CAPPlugin, DocumentDetectorControllerDelegate {
+@objc(DocumentDetectorPlugin)
+public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelegate {
     
     var call: CAPPluginCall?
     
@@ -222,14 +222,14 @@ public class IonicPlugin: CAPPlugin, DocumentDetectorControllerDelegate {
         response["captures"] = captureMap
         response["trackingId"] = results.trackingId
         
-        self.call?.success(["response": response])
+        self.call?.success(["result": response])
         
     }
     
     public func documentDetectionControllerDidCancel(_ scanner: DocumentDetectorController) {
         let response : NSMutableDictionary! = [:]
         response["success"] = nil
-        self.call?.success(["response": response])
+        self.call?.success(["result": response])
     }
     
     public  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error:  DocumentDetectorFailure) {
@@ -238,7 +238,7 @@ public class IonicPlugin: CAPPlugin, DocumentDetectorControllerDelegate {
         response["message"] = error.message
         response["type"] = String(describing: type(of: error))
         
-        self.call?.success(["response": response])
+        self.call?.success(["result": response])
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, withName: String) -> String? {

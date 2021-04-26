@@ -1,7 +1,7 @@
 import { CaptureStage } from './capture-stage/capture-stage';
 import { SensorSettingsAndroid } from './sensor-settings';
 import { DocumentDetectorCustomizationAndroid } from './customization';
-export declare class AndroidSettings {
+export declare class DocumentDetectorAndroidSettings {
     private customization;
     private sensorSettings;
     private captureStages;
