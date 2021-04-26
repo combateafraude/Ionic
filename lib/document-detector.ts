@@ -90,7 +90,7 @@ export class DocumentDetector {
     this.iosSettings = iosSettings;
   }
 
-  async start() {
+  async start() : Promise<DocumentDetectorResult>{
     var builder = JSON.stringify(this);
 
     var result = (await DocumentDetectorPlugin.start({ builder })).results;
