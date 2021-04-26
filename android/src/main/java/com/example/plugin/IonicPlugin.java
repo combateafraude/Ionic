@@ -24,7 +24,7 @@ import com.combateafraude.documentdetector.input.SensorStabilitySettings;
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
 import com.combateafraude.documentdetector.output.failure.SDKFailure;
- 
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
- 
+
 @NativePlugin(
         requestCodes={IonicPlugin.REQUEST_CODE}
 )
@@ -59,7 +59,7 @@ public class IonicPlugin extends Plugin {
     public void start(PluginCall call) throws JSONException {
         saveCall(call);
 
-        String value = call.getString("builder");
+        String value = call.getString("value");
         //System.out.println("Parametro:" + value);
         JSONObject jsonObject = null;
         try {
@@ -235,10 +235,34 @@ public class IonicPlugin extends Plugin {
             }
         }
         saveCall(call);
-        
+
         Intent mIntent = new Intent(this.getContext(), DocumentDetectorActivity.class);
         mIntent.putExtra(DocumentDetector.PARAMETER_NAME, mDocumentDetectorBuilder.build());
         startActivityForResult(call, mIntent,REQUEST_CODE);
+    }
+
+    @Override
+    protected void handleRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.handleRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        PluginCall savedCall = getSavedCall();
+        if (savedCall == null) {
+            Log.d("Test", "No stored plugin call for permissions request result");
+            return;
+        }
+
+        for(int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                Log.d("Test", "User denied permission");
+                return;
+            }
+        }
+
+        if (requestCode == REQUEST_CONTACTS) {
+            // We got the permission!
+            loadContacts(savedCall);
+        }
     }
 
     private Integer getResourceId(@Nullable String resourceName, String resourceType) {
@@ -246,7 +270,7 @@ public class IonicPlugin extends Plugin {
         int resId = this.bridge.getActivity().getResources().getIdentifier(resourceName, resourceType, this.bridge.getActivity().getPackageName());
         return resId == 0 ? null : resId;
     }
- 
+
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
         Map<String, Object> retMap = new HashMap<String, Object>();
 
@@ -319,22 +343,27 @@ public class IonicPlugin extends Plugin {
     }
 
     private JSObject getSucessResponseMap(DocumentDetectorResult mDocumentDetectorResult) {
-        HashMap<String, Object> responseMap = new HashMap<>();
-        responseMap.put("success", Boolean.TRUE);
-        JSObject result = new JSObject();
+        ArrayList<Map> responseList = new ArrayList<>();
+        Map<String,Object> responseMap =  new HashMap<String, Object>();
+        responseMap.put("success", Boolean.TRUE.toString());
 
-        ArrayList<HashMap<String, Object>> captures = new ArrayList<>();
+        ArrayList<HashMap<String, String>> captures = new ArrayList<>();
         for (Capture capture : mDocumentDetectorResult.getCaptures()) {
-            HashMap<String, Object> captureResponse = new HashMap<>();
-            result.put("imagePath", capture.getImagePath());
-            result.put("imageUrl", capture.getImageUrl());
-            result.put("label", capture.getLabel());
-            result.put("quality", capture.getQuality());
+            HashMap<String, String> captureResponse = new HashMap<>();
+            captureResponse.put("imagePath", capture.getImagePath());
+            captureResponse.put("imageUrl", capture.getImageUrl());
+            captureResponse.put("label", capture.getLabel());
+            captureResponse.put("quality", capture.getQuality().toString());
             captures.add(captureResponse);
         }
-        result.put("captures", captures);
-        result.put("type", mDocumentDetectorResult.getType());
-        result.put("trackingId", mDocumentDetectorResult.getTrackingId());
+        responseMap.put("captures", captures);
+        responseMap.put("type", mDocumentDetectorResult.getType());
+        responseMap.put("trackingId", mDocumentDetectorResult.getTrackingId());
+        responseList.add(responseMap);
+
+        JSONArray jsonArray = new JSONArray(responseList);
+        JSObject result = new JSObject();
+        result.put("results", jsonArray);
         return result;
     }
 

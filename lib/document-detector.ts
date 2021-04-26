@@ -90,6 +90,6 @@ export class DocumentDetector {
 
     var result = await IonicPlugin.start({ builder });
 
-    return result;
+    return result.results;
   }
 }
