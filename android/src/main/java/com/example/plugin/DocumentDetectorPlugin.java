@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 @NativePlugin(
-        requestCodes={IonicPlugin.REQUEST_CODE}
+        requestCodes={DocumentDetectorPlugin.REQUEST_CODE}
 )
 public class DocumentDetectorPlugin extends Plugin {
     protected static final int REQUEST_CODE = 1001;
@@ -304,8 +304,9 @@ public class DocumentDetectorPlugin extends Plugin {
         }
 
         if (requestCode == REQUEST_CODE) {
+            PluginCall call = getSavedCall();
             if (resultCode == Activity.RESULT_OK && data != null) {
-                PluginCall call = getSavedCall();
+                
                 DocumentDetectorResult mDocumentDetectorResult = (DocumentDetectorResult) data.getSerializableExtra(DocumentDetectorResult.PARAMETER_NAME);
                 if (mDocumentDetectorResult.wasSuccessful()) {
                         call.success(getSucessResponseMap(mDocumentDetectorResult));
