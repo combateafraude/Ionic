@@ -1,6 +1,6 @@
-import 'document_detector_result.dart';
+import { DocumentDetectorResult } from './document-detector-result';
 
-class DocumentDetectorFailure extends DocumentDetectorResult {
+export class DocumentDetectorFailure extends DocumentDetectorResult {
   private message: string;
   private type: string;
 

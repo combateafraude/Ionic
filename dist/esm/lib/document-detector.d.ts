@@ -2,6 +2,8 @@ import { ShowPreview } from './android/show-preview';
 import { DocumentDetectorStep } from './document-detector-step';
 import { DocumentDetectorIosSettings } from './ios/ios-settings';
 import { DocumentDetectorAndroidSettings } from './android/android-settings';
+import { DocumentDetectorSuccess } from './result/document-detector-success';
+import { DocumentDetectorClosed } from './result/document-detector-closed';
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
 export declare class DocumentDetector {
@@ -33,5 +35,5 @@ export declare class DocumentDetector {
     set setShowPreview(showPreview: ShowPreview);
     set setAndroidSettings(androidSettings: DocumentDetectorAndroidSettings);
     set setIosSettings(iosSettings: DocumentDetectorIosSettings);
-    start(): Promise<any>;
+    start(): Promise<DocumentDetectorSuccess | DocumentDetectorClosed | undefined>;
 }

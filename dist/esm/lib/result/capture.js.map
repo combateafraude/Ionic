@@ -1,0 +1,1 @@
+{"version":3,"file":"capture.js","sourceRoot":"","sources":["../../../../lib/result/capture.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,OAAO;IAMhB,YAAY,SAAiB,EAAE,QAAgB,EAAE,KAAa,EAAE,OAAe;QAC3E,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;QAC3B,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IAC3B,CAAC;CACF"}

@@ -81,6 +81,33 @@ class DocumentDetectorStep {
     }
 }
 
+class Capture {
+    constructor(imagePath, imageUrl, label, quality) {
+        this.imagePath = imagePath;
+        this.imageUrl = imageUrl;
+        this.label = label;
+        this.quality = quality;
+    }
+}
+
+class DocumentDetectorResult {
+}
+
+class DocumentDetectorSuccess extends DocumentDetectorResult {
+    constructor(captures, type, trackingId) {
+        super();
+        this.captures = captures;
+        this.type = type;
+        this.trackingId = trackingId;
+    }
+}
+
+class DocumentDetectorClosed extends DocumentDetectorResult {
+    constructor() {
+        super();
+    }
+}
+
 var CameraSource;
 (function (CameraSource) {
     CameraSource["Prompt"] = "PROMPT";
@@ -2190,9 +2217,25 @@ class DocumentDetector {
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("teste 4");
             var builder = JSON.stringify(this);
-            var result = yield DocumentDetectorPlugin.start({ builder });
-            return result;
+            var result = (yield DocumentDetectorPlugin.start({ builder })).results;
+            if (result.success == null) {
+                console.log("success: null");
+                return new DocumentDetectorClosed();
+            }
+            else if (result.success) {
+                console.log("success: true");
+                var captures = new Array();
+                result.captures.forEach((capture) => {
+                    console.log("entrei no foreach");
+                    captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality));
+                });
+                return new DocumentDetectorSuccess(captures, result.type, result.trackingId);
+            }
+            else {
+                console.log("success: failure");
+            }
         });
     }
 }

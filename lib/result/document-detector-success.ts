@@ -1,8 +1,7 @@
 import { Capture } from './capture';
-import 'package:document_detector/result/capture.dart';
-import 'package:document_detector/result/document_detector_result.dart';
+import { DocumentDetectorResult } from './document-detector-result';
 
-class DocumentDetectorSuccess extends DocumentDetectorResult {
+export class DocumentDetectorSuccess extends DocumentDetectorResult {
   private captures: Array<Capture>;
   private type:string;
   private trackingId:string;

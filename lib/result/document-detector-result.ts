@@ -1,3 +1,3 @@
-abstract class DocumentDetectorResult {
+export abstract class DocumentDetectorResult {
 
 }

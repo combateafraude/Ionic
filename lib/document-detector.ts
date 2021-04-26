@@ -2,12 +2,17 @@ import { ShowPreview } from './android/show-preview';
 import { DocumentDetectorStep } from './document-detector-step';
 import { DocumentDetectorIosSettings } from './ios/ios-settings'
 import { DocumentDetectorAndroidSettings } from './android/android-settings';
+import { Capture } from './result/capture';
+import { DocumentDetectorResult } from './result/document-detector-result';
+import { DocumentDetectorSuccess } from './result/document-detector-success';
+import { DocumentDetectorFailure } from './result/document-detector-failure';
+import { DocumentDetectorClosed } from './result/document-detector-closed';
 import { Plugins } from '@capacitor/core';
 
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
 
-const { DocumentDetectorIonic } = Plugins;
+const { DocumentDetectorPlugin } = Plugins;
 
 export class DocumentDetector {
   private mobileToken: string;
@@ -88,8 +93,21 @@ export class DocumentDetector {
   async start() {
     var builder = JSON.stringify(this);
 
-    var result = await DocumentDetectorIonic.start({ builder });
+    var result = (await DocumentDetectorPlugin.start({ builder })).results;
 
-    return result.results;
+    if(result.success == null){
+      return new DocumentDetectorClosed();
+    }else if(result.success){
+      
+      var captures = new Array<Capture>();
+
+      result.captures.forEach((capture: { imagePath: string; imageUrl: string; label: string; quality: number; }) => {
+        captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality))
+      });
+      
+      return new DocumentDetectorSuccess(captures, result.type, result.trackingId)
+    }else{
+      return new DocumentDetectorFailure(result.message, result.type)
+    }
   }
 }

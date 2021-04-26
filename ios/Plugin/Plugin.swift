@@ -222,14 +222,14 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         response["captures"] = captureMap
         response["trackingId"] = results.trackingId
         
-        self.call?.success(["result": response])
+        self.call?.success(["results": response])
         
     }
     
     public func documentDetectionControllerDidCancel(_ scanner: DocumentDetectorController) {
         let response : NSMutableDictionary! = [:]
         response["success"] = nil
-        self.call?.success(["result": response])
+        self.call?.success(["results": response])
     }
     
     public  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error:  DocumentDetectorFailure) {
@@ -238,7 +238,7 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         response["message"] = error.message
         response["type"] = String(describing: type(of: error))
         
-        self.call?.success(["result": response])
+        self.call?.success(["results": response])
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, withName: String) -> String? {
