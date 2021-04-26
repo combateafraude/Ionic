@@ -53,6 +53,8 @@ Por último, adicione a permissão de câmera no arquivo `ROOT_PROJECT/ios/App/R
 
 Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
+[Em breve com versionamento]
+
 ```json
 "dependencies": {
     "document-detector-ionic": "git+https://github.com/combateafraude/document-detector-ionic.git"
