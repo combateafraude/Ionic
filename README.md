@@ -49,7 +49,7 @@ Por último, adicione a permissão de câmera no arquivo `ROOT_PROJECT/ios/App/R
 ```
 
 
-### Flutter
+### Ionic
 
 Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
