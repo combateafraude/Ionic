@@ -58,7 +58,8 @@
     "dist/",
     "ios/",
     "android/",
-    "IonicPlugin.podspec"
+    "lib/",
+    "DocumentDetectorIonic.podspec"
   ],
   "keywords": [
     "capacitor",
