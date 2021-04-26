@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { DocumentDetectorStep } from './document-detector-step';
 import { Capture } from './result/capture';
 import { DocumentDetectorSuccess } from './result/document-detector-success';
+import { DocumentDetectorFailure } from './result/document-detector-failure';
 import { DocumentDetectorClosed } from './result/document-detector-closed';
 import { Plugins } from '@capacitor/core';
 export { DocumentDetectorStep };
@@ -62,24 +63,20 @@ export class DocumentDetector {
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("teste 4");
             var builder = JSON.stringify(this);
             var result = (yield DocumentDetectorPlugin.start({ builder })).results;
             if (result.success == null) {
-                console.log("success: null");
                 return new DocumentDetectorClosed();
             }
             else if (result.success) {
-                console.log("success: true");
                 var captures = new Array();
                 result.captures.forEach((capture) => {
-                    console.log("entrei no foreach");
                     captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality));
                 });
                 return new DocumentDetectorSuccess(captures, result.type, result.trackingId);
             }
             else {
-                console.log("success: failure");
+                return new DocumentDetectorFailure(result.message, result.type);
             }
         });
     }
