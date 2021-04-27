@@ -91,11 +91,14 @@ class Capture {
 }
 
 class DocumentDetectorResult {
+    constructor(result) {
+        this.result = result;
+    }
 }
 
 class DocumentDetectorSuccess extends DocumentDetectorResult {
     constructor(captures, type, trackingId) {
-        super();
+        super("SUCCESS");
         this.captures = captures;
         this.type = type;
         this.trackingId = trackingId;
@@ -104,7 +107,7 @@ class DocumentDetectorSuccess extends DocumentDetectorResult {
 
 class DocumentDetectorFailure extends DocumentDetectorResult {
     constructor(message, type) {
-        super();
+        super("FAILURE");
         this.message = message;
         this.type = type;
     }
@@ -112,7 +115,7 @@ class DocumentDetectorFailure extends DocumentDetectorResult {
 
 class DocumentDetectorClosed extends DocumentDetectorResult {
     constructor() {
-        super();
+        super("CLOSED");
     }
 }
 

@@ -7,7 +7,7 @@ export class DocumentDetectorSuccess extends DocumentDetectorResult {
   private trackingId:string;
 
   constructor(captures: Array<Capture>, type: string, trackingId: string){
-    super();
+    super("SUCCESS");
     this.captures = captures;
     this.type = type;
     this.trackingId = trackingId;

@@ -5,7 +5,7 @@ export class DocumentDetectorFailure extends DocumentDetectorResult {
   private type: string;
 
   constructor(message: string, type: string){
-      super();
+      super("FAILURE");
       this.message = message;
       this.type = type;
   }
