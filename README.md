@@ -76,12 +76,14 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 ## Utilizando 
 ```typescript
 
-let documentDetector = new DocumentDetector();
+    let documentDetector = new DocumentDetector();
+    
     documentDetector.setMobileToken = '<your mobile token>';
 
     var documentDetectorSteps: Array<DocumentDetectorStep> = [
         new DocumentDetectorStep(DocumentType.RG_FRONT, null, null),
         new DocumentDetectorStep(DocumentType.RG_BACK, null, null)];
+        
     documentDetector.setDocumentDetectorSteps = documentDetectorSteps;
 
     var response = await documentDetector.start();
@@ -89,7 +91,7 @@ let documentDetector = new DocumentDetector();
     if(response.result == "SUCCESS"){
       // Sucesso
     }else if(response.result == "FAILURE"){
-      // Falha. Confirma reponse.type e response.message
+      // Falha. Confira reponse.type e response.message
     }else{
       // Usuário fechou a tela
     }
