@@ -14,7 +14,7 @@
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "Luiz Lersch",
+  "author": "Combate à Fraude",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "~11.2.0",
@@ -78,9 +78,9 @@
   "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
-    "url": "github.com/lfLersch/ionicplugin"
+    "url": "https://github.com/combateafraude/document-detector-ionic"
   },
   "bugs": {
-    "url": "github.com/lfLersch/ionicplugin/issues"
+    "url": "https://github.com/combateafraude/document-detector-ionic/issues"
   }
 }
