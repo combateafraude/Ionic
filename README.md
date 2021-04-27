@@ -79,9 +79,20 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 let documentDetector = new DocumentDetector();
     documentDetector.setMobileToken = '<your mobile token>';
 
-    var documentDetectorSteps: Array<DocumentDetectorStep> = [new DocumentDetectorStep(DocumentType.RG_FRONT, null, null)];
+    var documentDetectorSteps: Array<DocumentDetectorStep> = [
+        new DocumentDetectorStep(DocumentType.RG_FRONT, null, null),
+        new DocumentDetectorStep(DocumentType.RG_BACK, null, null)];
     documentDetector.setDocumentDetectorSteps = documentDetectorSteps;
-    const result = await documentDetector.start();
+
+    var response = await documentDetector.start();
+
+    if(response.result == "SUCCESS"){
+      // Sucesso
+    }else if(response.result == "FAILURE"){
+      // Falha. Confirma reponse.type e response.message
+    }else{
+      // Usuário fechou a tela
+    }
 
 ```
 
@@ -209,7 +220,7 @@ let documentDetector = new DocumentDetector();
 
 ### Coletando o resultado
 
-O objeto de retorno do DocumentDetector é do tipo abstrato `DocumentDetectorResult`. Ele pode ser uma instância de `DocumentDetectorSuccess`, `DocumentDtetectorFailure` ou `DocumentDetectorClosed`.
+O objeto de retorno do DocumentDetector terá o atributo `result` que contém uma string `SUCCESS`, `FAILURE` ou `CLOSED`. O retorno terá o padrão DocumentDetectorSuccess, DocumentDetectorFailure e DocumentDetectorClosed, respectivamente, para cada um dos casos.
 
 #### DocumentDetectorSuccess
 
@@ -243,3 +254,6 @@ Os tipos de falha existentes são:
 - `SecurityReason`: quando o dispositivo não é seguro para executar o SDK. Se esta falha ocorrer, avise-nos;
 - `StorageReason`: quando o dispositivo não possui espaço suficiente para a captura de alguma foto. Pode ocorrer em produção;
 - `LibraryReason`: quando alguma falha interna impossibilitou a execução do SDK. Pode ocorrer devico à erros de configuração do projeto, não deve ocorrer em produção;
+
+#### DocumentDetectorClosed
+Objeto vazio indicando fechamento da tela de captura pelo usuário.
