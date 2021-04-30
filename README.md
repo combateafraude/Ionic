@@ -32,6 +32,25 @@ android {
 }
 ```
 
+Importe o pacote e chame o método add() dentro da inicialização em android/app/src/main/java/io/ionic/starter/MainActivity.java:
+
+```java
+
+import com.example.plugin.DocumentDetectorPlugin;
+
+public class MainActivity extends BridgeActivity {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      add(DocumentDetectorPlugin.class);
+    }});
+  }
+}
+
+```
+
 ### iOS
 
 No arquivo `ROOT_PROJECT/ios/App/Podfile`, adicione no final do arquivo:
