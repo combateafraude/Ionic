@@ -32,7 +32,7 @@ android {
 }
 ```
 
-Importe o pacote e chame o método add() dentro da inicialização em android/app/src/main/java/io/ionic/starter/MainActivity.java:
+Importe o pacote e chame o método add() dentro da inicialização em `android/app/src/main/java/io/ionic/starter/MainActivity.java`:
 
 ```java
 
