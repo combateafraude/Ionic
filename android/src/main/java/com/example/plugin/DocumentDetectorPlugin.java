@@ -329,7 +329,8 @@ public class DocumentDetectorPlugin extends Plugin {
             captureResponse.put("imagePath", capture.getImagePath());
             captureResponse.put("imageUrl", capture.getImageUrl());
             captureResponse.put("label", capture.getLabel());
-            captureResponse.put("quality", capture.getQuality().toString());
+            if(capture.getQuality() != null)
+                captureResponse.put("quality", capture.getQuality().toString());
             captures.add(captureResponse);
         }
         responseMap.put("captures", captures);
