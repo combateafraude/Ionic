@@ -42,6 +42,7 @@ android {
     lintOptions {
         abortOnError false
     }
+
     dataBinding {
         enabled = true
     }
@@ -49,11 +50,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    // Necessário apenas para o DocumentDetector
-    aaptOptions {
-        noCompress "tflite"
     }
 }
 
@@ -65,7 +61,7 @@ repositories {
 
 
 dependencies {
-    implementation 'com.combateafraude.sdk:document-detector:6.7.5'
+    implementation 'com.combateafraude.sdk:passive-face-liveness:4.7.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation 'org.jetbrains:annotations:15.0'

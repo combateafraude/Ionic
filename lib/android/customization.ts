@@ -21,16 +21,4 @@ export class DocumentDetectorCustomizationAndroid {
     }
 
 }
-/*
-  Map asMap(){
-    Map<String, dynamic> map = new Map();
 
-    map["styleResIdName"] = styleResIdName;
-    map["layoutResIdName"] = layoutResIdName;
-    map["greenMaskResIdName"] = greenMaskResIdName;
-    map["redMaskResIdName"] = redMaskResIdName;
-    map["whiteMaskResIdName"] = whiteMaskResIdName;
-
-    return map;
-  }
-}*/

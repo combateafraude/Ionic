@@ -2,32 +2,22 @@ PODS:
   - Capacitor (2.4.7):
     - CapacitorCordova
   - CapacitorCordova (2.4.7)
-  - DocumentDetector (4.4.0):
+  - PassiveFaceLiveness (3.3.2):
     - Sentry (= 5.2.0)
-    - TensorFlowLiteSwift (= 2.4.0)
   - Sentry (5.2.0):
     - Sentry/Core (= 5.2.0)
   - Sentry/Core (5.2.0)
-  - TensorFlowLiteC (2.4.0):
-    - TensorFlowLiteC/Core (= 2.4.0)
-  - TensorFlowLiteC/Core (2.4.0)
-  - TensorFlowLiteSwift (2.4.0):
-    - TensorFlowLiteSwift/Core (= 2.4.0)
-  - TensorFlowLiteSwift/Core (2.4.0):
-    - TensorFlowLiteC (= 2.4.0)
 
 DEPENDENCIES:
   - "Capacitor (from `../node_modules/@capacitor/ios`)"
   - "CapacitorCordova (from `../node_modules/@capacitor/ios`)"
-  - DocumentDetector (~> 4.4.0)
+  - PassiveFaceLiveness (~> 3.3.2)
 
 SPEC REPOS:
   https://github.com/combateafraude/iOS.git:
-    - DocumentDetector
+    - PassiveFaceLiveness
   trunk:
     - Sentry
-    - TensorFlowLiteC
-    - TensorFlowLiteSwift
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -38,11 +28,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Capacitor: 4cd7b342d5a15b1f6f333d687358953afd7b2d8b
   CapacitorCordova: 2c9d6e28d9d86c4da087fa2c3537c1841954bb12
-  DocumentDetector: bcaaa79055d9ff7c27ebfd5cc30522ec8128a429
+  PassiveFaceLiveness: e96afa087d34fb10441be65008d0b4d8277bf869
   Sentry: 6e04bc3e11bf771ca79140a112de64dcfbc7d8cb
-  TensorFlowLiteC: 09f8ac75a76caeadb19bcfa694e97454cc1ecf87
-  TensorFlowLiteSwift: f062dc1178120100d825d7799fd9f115b4a37fee
 
-PODFILE CHECKSUM: 73f4febb0af4a7c52983db925208fce8b1ae737a
+PODFILE CHECKSUM: f6f74be82d4c0601153993bde32a15242f9ecff5
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

@@ -1,4 +1,4 @@
-export class DocumentDetectorCustomizationIos {
+export class PassiveFaceLivenessCustomizationIos {
     private colorHex: string;
     private greenMaskImageName: string;
     private whiteMaskImageName: string;

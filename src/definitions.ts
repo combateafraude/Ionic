@@ -1,9 +1,9 @@
 declare module '@capacitor/core' {
   interface PluginRegistry {
-    DocumentDetectorPlugin: DocumentDetectorPlugin;
+    PassiveFaceLivenessPlugin: PassiveFaceLivenessPlugin;
   }
 }
 
-export interface DocumentDetectorPlugin {
-  start(options: { builder: string }): Promise<{results: any}>; 
+export interface PassiveFaceLivenessPlugin {
+  start(options: { builder: string }): Promise<{ results: string }>;
 }

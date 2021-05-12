@@ -9,7 +9,7 @@ export default {
   output: {
     file: 'dist/plugin.js',
     format: 'cjs',
-    name: 'DocumentDetectorPlugin', // TODO: change this
+    name: 'PassiveFaceLivenessPlugin', // TODO: change this
     globals: {
       '@capacitor/core': 'capacitorExports',
     },

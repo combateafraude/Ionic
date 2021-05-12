@@ -1,1 +1,1 @@
-export * from './document-detector';
+export * from './passive-face-liveness';

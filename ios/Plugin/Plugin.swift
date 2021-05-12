@@ -1,13 +1,13 @@
 import Foundation
 import Capacitor
-import DocumentDetector
+import PassiveFaceLiveness
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(DocumentDetectorPlugin)
-public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelegate {
+@objc(PassiveFaceLivenessPlugin)
+public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessControllerDelegate {
     
     var call: CAPPluginCall?
     
@@ -15,60 +15,28 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         self.call = call
         let value = call.getString("builder") ?? ""
         let data = value.data(using: .utf8)!
+        
         do {
             if let arguments = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [String:AnyObject]{
                 
                 let mobileToken = arguments["mobileToken"] as! String
                 
-                var documentDetectorSteps : [DocumentDetectorStep] = []
-                
-                if let flowData = arguments["documentDetectorSteps"] as? [[String: Any]] {
-                    let bundle = Bundle.init(for: type(of: self))
-                    for (_, docStep) in flowData.enumerated() {
-                        let document = convertToDocument(documentType: docStep["documentType"] as! String)
-                        
-                        var audioURL: URL?
-                        var illustration: UIImage?
-                        var stepLabel: String?
-                        
-                        if let iosCustomization = docStep["DocumentDetectorStepCustomizationIos"] as? [String: Any] {
-                            stepLabel = iosCustomization["stepLabel"] as? String
-                            
-                            if let illustrationString = iosCustomization["illustration"] as? String {
-                                let imageURL = URL(fileURLWithPath: bundle.path(forResource: illustrationString, ofType: "png")!)
-                                illustration = UIImage(data: NSData(contentsOf: imageURL)! as Data)
-                            }
-                            
-                            if let audioName = iosCustomization["audioName"] as? String {
-                                audioURL = URL(fileURLWithPath: bundle.path(forResource: audioName, ofType: "mp3")!)
-                            }
-                        }
-                        
-                        documentDetectorSteps.append(DocumentDetectorStep(document: document, stepLabel: stepLabel, illustration: illustration, audio: audioURL))
-                    }
-                }
-                
-                var documentDetectorBuilder = DocumentDetector.Builder(mobileToken: mobileToken)
-                    .setDocumentDetectorFlow(flow: documentDetectorSteps)
-                
-                if let useAnalytics = arguments["useAnalytics"] as! Bool? {
-                    documentDetectorBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
-                }
+                var passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
                 
                 if let peopleId = arguments["peopleId"] as! String? {
-                    documentDetectorBuilder.setPeopleId(peopleId: peopleId)
+                    passiveFaceLivenessBuilder.setPeopleId(peopleId: peopleId)
                 }
                 
-                if let showPopup = arguments["popup"] as! Bool? {
-                    documentDetectorBuilder.setPopupSettings(show: showPopup)
+                if let useAnalytics = arguments["useAnalytics"] as! Bool? {
+                    passiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
                 }
                 
                 if let hasSound = arguments["sound"] as! Bool? {
-                    documentDetectorBuilder.enableSound(enableSound: hasSound)
+                    passiveFaceLivenessBuilder.enableSound(enableSound: hasSound)
                 }
                 
                 if let requestTimeout = arguments["requestTimeout"] as? TimeInterval {
-                    documentDetectorBuilder.setNetworkSettings(requestTimeout: requestTimeout)
+                    passiveFaceLivenessBuilder.setNetworkSettings(requestTimeout: requestTimeout)
                 }
                 
                 if let showPreview = arguments["showPreview"] as? [String: Any] {
@@ -80,55 +48,25 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                     let subtitle = showPreview["subTitle"] as? String
                     let confirmLabel = showPreview["confirmLabel"] as? String
                     let retryLabel = showPreview["retryLabel"] as? String
-                    documentDetectorBuilder.showPreview(show!, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
+                    passiveFaceLivenessBuilder.showPreview(show!, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] {
-                    if let detectionThreshold = iosSettings["detectionThreshold"] as? Float {
-                        documentDetectorBuilder.setDetectionSettings(detectionThreshold: detectionThreshold)
-                    }
-                    
-                    if let verifyQuality = iosSettings["verifyQuality"] as? Bool {
-                        let qualityThreshold = iosSettings["qualityThreshold"] as? Double
-                        documentDetectorBuilder.setQualitySettings(verifyQuality: verifyQuality, qualityThreshold: qualityThreshold)
-                    }
-                    
-                    if let sensorStability = iosSettings["sensorStability"] as? [String: Any] {
-                        
-                        if let sensorLuminosity = iosSettings["sensorLuminosity"] as? [String: Any] {
-                            let message = sensorLuminosity["message"] as! String?
-                            let luminosityThreshold = sensorLuminosity["luminosityThreshold"] as! Float?
-                            documentDetectorBuilder.setLuminositySensorSettings(message: message, luminosityThreshold: luminosityThreshold)
-                        }
-                        
-                        if let sensorOrientation = iosSettings["sensorOrientation"] as? [String: Any] {
-                            let message = sensorOrientation["message"] as! String?
-                            let orientationThreshold = sensorOrientation["orientationThreshold"] as! Double?
-                            documentDetectorBuilder.setOrientationSensorSettings(message: message, orientationThreshold: orientationThreshold)
-                        }
-                        
-                        if let sensorStability = iosSettings["sensorStability"] as? [String: Any] {
-                            let message = sensorStability["message"] as! String?
-                            let stabilityThreshold = sensorStability["stabilityThreshold"] as! Double?
-                            documentDetectorBuilder.setStabilitySensorSettings(message: message, stabilityThreshold: stabilityThreshold)
-                        }
-                        
-                    }
                     
                     if let customization = iosSettings["customization"] as? [String: Any] {
                         
-                        let layout = DocumentDetectorLayout()
+                        let layout = PassiveFaceLivenessLayout()
                         
                         if let colorHex = customization["colorHex"] as? String {
-                            documentDetectorBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
+                            passiveFaceLivenessBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
                         }
                         
                         if let showStepLabel = customization["showStepLabel"] as? Bool {
-                            documentDetectorBuilder.showStepLabel(show: showStepLabel)
+                            passiveFaceLivenessBuilder.showStepLabel(show: showStepLabel)
                         }
                         
                         if let showStatusLabel = customization["showStatusLabel"] as? Bool {
-                            documentDetectorBuilder.showStatusLabel(show: showStatusLabel)
+                            passiveFaceLivenessBuilder.showStatusLabel(show: showStatusLabel)
                         }
                         
                         if let closeImageName = customization["closeImageName"] as? String {
@@ -156,18 +94,33 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                             redMask: redMask)
                         
                         
-                        documentDetectorBuilder.setLayout(layout: layout)
+                        passiveFaceLivenessBuilder.setLayout(layout: layout)
                     }
+                    
+                    if let beforePictureMillis = iosSettings["beforePictureMillis"] as? TimeInterval {
+                        passiveFaceLivenessBuilder.setCaptureSettings(beforePictureInterval: beforePictureMillis)
+                    }
+                    
+                    
+                    if let sensorStability = iosSettings["sensorStability"] as? [String: Any] {
+                        if let sensorStability = sensorStability["sensorStability"] as? [String: Any] {
+                            let message = sensorStability["message"] as! String?
+                            let stabilityThreshold = sensorStability["stabilityThreshold"] as! Double?
+                            passiveFaceLivenessBuilder.setStabilitySensorSettings(message: message, stabilityThreshold: stabilityThreshold)
+                        }
+                    }
+                    
                 }
-                
                 
                 DispatchQueue.main.async {
-                    let scannerVC = DocumentDetectorController(documentDetector: documentDetectorBuilder.build())
-                    scannerVC.documentDetectorDelegate = self
+                    let scannerVC = PassiveFaceLivenessController(passiveFaceLiveness: passiveFaceLivenessBuilder.build())
+                    scannerVC.passiveFaceLivenessDelegate = self
                     
                     self.bridge?.viewController.present(scannerVC, animated: true, completion: nil)
+                    
                 }
-            } else {
+                
+            }else {
                 print("bad json")
             }
         } catch let error as NSError {
@@ -176,64 +129,30 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         
     }
     
-    func convertToDocument (documentType: String) -> Document {
-        switch documentType {
-        case "CNH_FRONT":
-            return Document.CNH_FRONT
-        case "CNH_BACK":
-            return Document.CNH_BACK
-        case "CNH_FULL":
-            return Document.CNH_FULL
-        case "RG_FRONT":
-            return Document.RG_FRONT
-        case "RG_BACK":
-            return Document.RG_BACK
-        case "RG_FULL":
-            return Document.RG_FULL
-        case "CRLV":
-            return Document.CRLV
-        case "RNE_FRONT":
-            return Document.RNE_FRONT
-        case "RNE_BACK":
-            return Document.RNE_BACK
-        default:
-            return Document.OTHERS
-        }
-    }
-    //---------------------------------------------------------------------------------------------
-    // Delegates
-    // --------------------------------------------------------------------------------------------
-    
-    public func documentDetectionController(_ scanner: DocumentDetectorController, didFinishWithResults results: DocumentDetectorResult) {
-        var captureMap : [NSMutableDictionary?]  = []
-        for index in (0 ... results.captures.count - 1) {
-            let capture : NSMutableDictionary! = [:]
-            let imagePath = saveImageToDocumentsDirectory(image: results.captures[index].image, withName: "document\(index).jpg")
-            capture["imagePath"] = imagePath
-            capture["imageUrl"] = results.captures[index].imageUrl
-            capture["quality"] = results.captures[index].quality
-            capture["label"] = results.captures[index].scannedLabel
-            captureMap.append(capture)
-        }
-        
+    public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFinishWithResults results: PassiveFaceLivenessResult) {
         let response : NSMutableDictionary! = [:]
+        
+        let imagePath = saveImageToDocumentsDirectory(image: results.image, withName: "selfie.jpg")
         response["success"] = NSNumber(value: true)
-        response["type"] = results.type
-        response["captures"] = captureMap
+        response["imagePath"] = imagePath
+        response["imageUrl"] = results.imageUrl
+        response["signedResponse"] = results.signedResponse
         response["trackingId"] = results.trackingId
         
         self.call?.success(["results": response])
-        
     }
     
-    public func documentDetectionControllerDidCancel(_ scanner: DocumentDetectorController) {
+    public func passiveFaceLivenessControllerDidCancel(_ passiveFacelivenessController: PassiveFaceLivenessController) {
         let response : NSMutableDictionary! = [:]
+        
         response["success"] = nil
+        
         self.call?.success(["results": response])
     }
     
-    public  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error:  DocumentDetectorFailure) {
+    public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFailWithError error: PassiveFaceLivenessFailure) {
         let response : NSMutableDictionary! = [:]
+        
         response["success"] = NSNumber(value: false)
         response["message"] = error.message
         response["type"] = String(describing: type(of: error))
@@ -257,14 +176,11 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
     }
     
     func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
         return paths[0]
     }
 }
 
-//---------------------------------------------------------------------------------------------
-// Extension
-// --------------------------------------------------------------------------------------------
 extension UIColor {
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -293,3 +209,4 @@ extension UIColor {
         return String(format:"#%06x", rgb)
     }
 }
+

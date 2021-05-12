@@ -1,7 +1,7 @@
 {
-  "name": "document-detector-ionic",
+  "name": "passive-face-liveness-plugin",
   "version": "0.0.1",
-  "description": "DocumentDetectorPlugin",
+  "description": "a",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -14,36 +14,17 @@
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "Combate à Fraude",
+  "author": "CAF",
   "license": "MIT",
-  "dependencies": {
-    "@angular/common": "~11.2.0",
-    "@angular/core": "~11.2.0",
-    "@angular/forms": "~11.2.0",
-    "@angular/platform-browser": "~11.2.0",
-    "@angular/platform-browser-dynamic": "~11.2.0",
-    "@angular/router": "~11.2.0"
-  },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.4",
-    "@angular-eslint/builder": "2.0.2",
-    "@angular-eslint/eslint-plugin": "2.0.2",
-    "@angular-eslint/eslint-plugin-template": "2.0.2",
-    "@angular-eslint/template-parser": "2.0.2",
-    "@angular/cli": "^11.2.9",
-    "@angular/compiler": "~11.2.0",
-    "@angular/compiler-cli": "~11.2.0",
-    "@angular/language-service": "~11.2.0",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "^2.4.7",
     "@capacitor/ios": "^2.4.7",
     "@ionic/prettier-config": "^1.0.0",
     "@ionic/swiftlint-config": "^1.0.0",
-    "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
-    "@types/jest": "^26.0.22",
-    "@types/mocha": "^8.2.2",
     "prettier": "^2.0.5",
     "prettier-plugin-java": "^0.8.0",
     "rimraf": "^3.0.0",
@@ -58,8 +39,7 @@
     "dist/",
     "ios/",
     "android/",
-    "lib/",
-    "DocumentDetectorIonic.podspec"
+    "PassiveFaceLivenessPlugin.podspec"
   ],
   "keywords": [
     "capacitor",
@@ -78,9 +58,9 @@
   "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/combateafraude/document-detector-ionic"
+    "url": "a"
   },
   "bugs": {
-    "url": "https://github.com/combateafraude/document-detector-ionic/issues"
+    "url": "a/issues"
   }
 }
