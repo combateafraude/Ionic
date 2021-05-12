@@ -1,7 +1,7 @@
 {
   "name": "passive-face-liveness-plugin",
-  "version": "0.0.1",
-  "description": "a",
+  "version": "1.0.1",
+  "description": "PassiveFaceLiveness",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -14,7 +14,7 @@
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "CAF",
+  "author": "Combate à Fraude",
   "license": "MIT",
   "devDependencies": {
     "@capacitor/android": "^2.4.7",
@@ -39,6 +39,7 @@
     "dist/",
     "ios/",
     "android/",
+    "lib/",
     "PassiveFaceLivenessPlugin.podspec"
   ],
   "keywords": [
@@ -58,9 +59,9 @@
   "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
-    "url": "a"
+    "url": "https://github.com/combateafraude/Ionic.git"
   },
   "bugs": {
-    "url": "a/issues"
+    "url": "https://github.com/combateafraude/Ionic/issues"
   }
 }
