@@ -1,1 +1,0 @@
-{"version":3,"file":"sensor-settings.js","sourceRoot":"","sources":["../../../../lib/android/sensor-settings.ts"],"names":[],"mappings":"AAIA,MAAM,OAAO,qBAAqB;IAKhC,YACE,wBAAyD,EACzD,yBAA2D,EAC3D,uBAAuD;QACrD,IAAI,CAAC,wBAAwB,GAAG,wBAAwB,CAAC;QACzD,IAAI,CAAC,yBAAyB,GAAG,yBAAyB,CAAC;QAC3D,IAAI,CAAC,uBAAuB,GAAG,uBAAuB,CAAC;IACzD,CAAC;CACJ;AAIC;;;;;;;;;GASC"}

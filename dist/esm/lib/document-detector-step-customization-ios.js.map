@@ -1,1 +1,0 @@
-{"version":3,"file":"document-detector-step-customization-ios.js","sourceRoot":"","sources":["../../../lib/document-detector-step-customization-ios.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,oCAAoC;IAK7C,YAAY,SAAiB,EAAE,YAAoB,EAAE,SAAiB;QAClE,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;QAC3B,IAAI,CAAC,YAAY,GAAG,YAAY,CAAC;QACjC,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;IAC/B,CAAC;CACF"}

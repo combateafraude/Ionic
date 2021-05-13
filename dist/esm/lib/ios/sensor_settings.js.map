@@ -1,1 +1,0 @@
-{"version":3,"file":"sensor_settings.js","sourceRoot":"","sources":["../../../../lib/ios/sensor_settings.ts"],"names":[],"mappings":"AAKA,MAAM,OAAO,iBAAiB;IAK5B,YAAY,gBAA6C,EAAE,iBAA+C,EAAE,eAA2C;QACnJ,IAAI,CAAC,gBAAgB,GAAG,gBAAgB,CAAC;QACzC,IAAI,CAAC,iBAAiB,GAAG,iBAAiB,CAAC;QAC3C,IAAI,CAAC,eAAe,GAAG,eAAe,CAAC;IAC3C,CAAC;CACF"}
