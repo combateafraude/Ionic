@@ -5,5 +5,5 @@ declare module '@capacitor/core' {
 }
 
 export interface PassiveFaceLivenessPlugin {
-  start(options: { builder: string }): Promise<{ results: string }>;
+  start(options: { builder: string }): Promise<{ results: any }>;
 }
