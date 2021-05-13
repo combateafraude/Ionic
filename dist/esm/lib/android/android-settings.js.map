@@ -1,0 +1,1 @@
+{"version":3,"file":"android-settings.js","sourceRoot":"","sources":["../../../../lib/android/android-settings.ts"],"names":[],"mappings":"AAGA,MAAM,OAAO,eAAe;IAM1B,YACM,aAAmD,EACnD,cAAqC;QAEnC,IAAI,CAAC,aAAa,GAAG,aAAa,CAAC;QACnC,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;IAC7C,CAAC;CACF"}

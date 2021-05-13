@@ -1,0 +1,1 @@
+{"version":3,"file":"capture-settings.js","sourceRoot":"","sources":["../../../../lib/android/capture-settings.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,sBAAsB;IAI/B,YAAY,mBAA2B,EAAE,kBAA0B;QAC/D,IAAI,CAAC,mBAAmB,GAAG,mBAAmB,CAAC;QAC/C,IAAI,CAAC,kBAAkB,GAAG,kBAAkB,CAAC;IACjD,CAAC;CAEF"}
