@@ -71,7 +71,7 @@ public class DocumentDetectorPlugin extends Plugin {
 
         // People ID
         String peopleId = (String) argumentsMap.get("peopleId");
-        mDocumentDetectorBuilder.setPeopleId(peopleId);
+        mDocumentDetectorBuilder.setPersonId(peopleId);
 
         // Use Analytics
         Boolean useAnalytics = (Boolean) argumentsMap.get("useAnalytics");
