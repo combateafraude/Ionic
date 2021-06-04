@@ -70,7 +70,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v1.0.3.tar.gz"
+    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v1.1.0.tar.gz"
 }
 ```
 

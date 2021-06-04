@@ -50,10 +50,8 @@ export class PassiveFaceLiveness {
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
-            //var param = JSON.stringify({ mobileToken: this._mobileToken, DocumentDetectorSteps: this._documentDetectorSteps});
             var param = JSON.stringify(this);
             const result = (yield PassiveFaceLivenessPlugin.start({ builder: param })).results;
-            console.log("result", result);
             if (result.success == null) {
                 return new PassiveFaceLivenessClosed();
             }

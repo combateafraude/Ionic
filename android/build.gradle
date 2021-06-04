@@ -61,7 +61,7 @@ repositories {
 
 
 dependencies {
-    implementation 'com.combateafraude.sdk:passive-face-liveness:4.7.0'
+    implementation 'com.combateafraude.sdk:passive-face-liveness:4.7.7'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation 'org.jetbrains:annotations:15.0'

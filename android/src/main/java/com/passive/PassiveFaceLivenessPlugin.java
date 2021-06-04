@@ -17,6 +17,7 @@ import com.combateafraude.passivefaceliveness.input.CaptureSettings;
 import com.combateafraude.passivefaceliveness.input.SensorStabilitySettings;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 import com.combateafraude.passivefaceliveness.output.failure.SDKFailure;
+import com.combateafraude.passivefaceliveness.input.MessageSettings;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -54,11 +55,14 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             Log.d("Error", err.toString());
        }
         Map<String, Object> argumentsMap = jsonToMap(jsonObject);
-        PassiveFaceLiveness.Builder mPassiveFaceLivenessBuilder = new PassiveFaceLiveness.Builder((String) argumentsMap.get("mobileToken"));
+        // Mobile token
+        String mobileToken = (String) argumentsMap.get("mobileToken");
+
+        PassiveFaceLiveness.Builder mPassiveFaceLivenessBuilder = new PassiveFaceLiveness.Builder(mobileToken);
 
         // People ID
         String peopleId = (String) argumentsMap.get("peopleId");
-        mPassiveFaceLivenessBuilder.setPeopleId(peopleId);
+        mPassiveFaceLivenessBuilder.setPersonId(peopleId);
 
         // Use Analytics
         Boolean useAnalytics = (Boolean) argumentsMap.get("useAnalytics");
@@ -73,6 +77,42 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             boolean show = (boolean) showPreview.get("show");
             mPassiveFaceLivenessBuilder.showPreview(show, title, subTitle, confirmLabel, retryLabel);
         }
+
+        HashMap<String, Object> messageSettingsParam = (HashMap<String, Object>) argumentsMap.get("messageSettings");
+        if (messageSettingsParam != null) {
+            String stepName = (String) messageSettingsParam.get("stepName");
+            String faceNotFoundMessage = (String) messageSettingsParam.get("faceNotFoundMessage");
+            String faceTooFarMessage = (String) messageSettingsParam.get("faceTooFarMessage");
+            String faceTooCloseMessage = (String) messageSettingsParam.get("faceTooCloseMessage");
+            String faceNotFittedMessage = (String) messageSettingsParam.get("faceNotFittedMessage");
+            String multipleFaceDetectedMessage = (String) messageSettingsParam.get("multipleFaceDetectedMessage");
+            String verifyingLivenessMessage = (String) messageSettingsParam.get("verifyingLivenessMessage");
+            String holdItMessage = (String) messageSettingsParam.get("holdItMessage");
+            String invalidFaceMessage = (String) messageSettingsParam.get("invalidFaceMessage");
+
+            MessageSettings messageSettings = new MessageSettings();
+            if (stepName != null)
+                messageSettings.setStepName(stepName);
+            if (faceNotFoundMessage != null)
+                messageSettings.setFaceNotFoundMessage(faceNotFoundMessage);
+            if (faceTooFarMessage != null)
+                messageSettings.setFaceTooFarMessage(faceTooFarMessage);
+            if (faceTooCloseMessage != null)
+                messageSettings.setFaceTooCloseMessage(faceTooCloseMessage);
+            if (faceNotFittedMessage != null)
+                messageSettings.setFaceNotFittedMessage(faceNotFittedMessage);
+            if (multipleFaceDetectedMessage != null)
+                messageSettings.setMultipleFaceDetectedMessage(multipleFaceDetectedMessage);
+            if (verifyingLivenessMessage != null)
+                messageSettings.setVerifyingLivenessMessage(verifyingLivenessMessage);
+            if (holdItMessage != null)
+                messageSettings.setHoldItMessage(holdItMessage);
+            if (invalidFaceMessage != null)
+                messageSettings.setInvalidFaceMessage(invalidFaceMessage);
+
+            mPassiveFaceLivenessBuilder.setMessageSettings(messageSettings);
+        }
+
 
         // Android specific settings
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
@@ -117,10 +157,9 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 }
             }
 
-
             if (androidSettings.get("showButtonTime") != null){
-                    int showButtonTime = (int) androidSettings.get("showButtonTime");
-                    mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
+                int showButtonTime = (int) androidSettings.get("showButtonTime");
+                mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
             }
         }
 
