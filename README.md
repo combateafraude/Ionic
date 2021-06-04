@@ -74,13 +74,13 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v1.0.1.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v1.1.0.tar.gz"
 }
 ```
 
 Após, execute:
 1. npm install
-2. ionic capacitor build <platform> [options]
+2. ionic capacitor build < platform > [ options ]
 
 ## Importando
 
