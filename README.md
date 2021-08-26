@@ -137,6 +137,7 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `DocumentDetectorStepCustomizationIos ios`<br><br>Customizações visuais do respectivo passo aplicados em iOS |
 
 | ShowPreview |
+|Caso deseje personalizar os valores, crie uma String em `ROOT_PROJECT/android/app/src/main/res/values/strings.xml` com o nome e valor desejado e parametrize|
 | --------- |
 | `bool show`<br><br>Habilita/Desabilita preview |
 | `String title`<br><br>Título |

@@ -108,10 +108,10 @@ public class DocumentDetectorPlugin extends Plugin {
         HashMap<String, Object> showPreview = (HashMap<String, Object>) argumentsMap.get("showPreview");
         if (showPreview != null) {
             boolean show = (boolean) showPreview.get("show");
-            String title = (String) showPreview.get("title");
-            String subTitle = (String) showPreview.get("subTitle");
-            String confirmLabel = (String) showPreview.get("confirmLabel");
-            String retryLabel = (String) showPreview.get("retryLabel");
+            Integer title = getResourceId((String) showPreview.get("title"), LAYOUT_RES);
+            Integer subTitle = getResourceId((String) showPreview.get("subTitle"), LAYOUT_RES);
+            Integer confirmLabel = getResourceId((String) showPreview.get("confirmLabel"), LAYOUT_RES);
+            Integer retryLabel = getResourceId((String) showPreview.get("retryLabel"), LAYOUT_RES);
             mDocumentDetectorBuilder.showPreview(show, title, subTitle, confirmLabel, retryLabel);
         }
 
