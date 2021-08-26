@@ -119,11 +119,27 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 
 | ShowPreview |
 | --------- |
+|Caso deseje mostrar outra valor em String, crie uma String em `ROOT_PROJECT/android/app/src/main/res/values/strings.xml` com o nome e valor desejado e parametrize o mesmo| 
 | `bool show`<br><br>Habilita/Desabilita preview |
 | `String title`<br><br>Título |
 | `String subTitle`<br><br>Subtítulo |
 | `String confirmLabel`<br><br>Texto do botão de confirmação |
 | `String retryLabel`<br><br>Texto do botão de capturar novamente |
+
+| messageSettingsParam |
+| --------- |
+|Caso deseje mostrar outra valor em String, crie uma String em `ROOT_PROJECT/android/app/src/main/res/values/strings.xml` com o nome e valor desejado e parametrize o mesmo| 
+| `bool show`<br><br>Padrão: Habilita/Desabilita preview |
+| `String stepName`<br><br>Padrão: "Registro Facial" |
+| `String holdItMessage`<br><br>Padrão: "Segure assim" |
+| `String faceNotFoundMessage`<br><br>Padrão: "Não encontramos nenhum rosto" |
+| `String faceTooFarMessage`<br><br>Padrão: ""Aproxime o rosto" |
+| `String faceTooCloseMessage`<br><br>Padrão: "Afaste o rosto" |
+| `String faceNotFittedMessage`<br><br>Padrão: "Encaixe seu rosto" |
+| `String multipleFaceDetectedMessage`<br><br>Padrão: "Mais de um rosto detectado" |
+| `String verifyingLivenessMessage`<br><br>Padrão: "Verificando selfie…" |
+| `String invalidFaceMessage`<br><br>Padrão: "Ops, rosto inválido. Por favor, tente novamente" |
+
 
 #### Android
 

@@ -70,25 +70,25 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
         HashMap<String, Object> showPreview = (HashMap<String, Object>) argumentsMap.get("showPreview");
         if (showPreview != null) {
-            String title = (String) showPreview.get("title");
-            String subTitle = (String) showPreview.get("subTitle");
-            String confirmLabel = (String) showPreview.get("confirmLabel");
-            String retryLabel = (String) showPreview.get("retryLabel");
+            Integer title = getResourceId((String) showPreview.get("title"), LAYOUT_RES);
+            Integer subTitle = getResourceId((String) showPreview.get("subTitle"), LAYOUT_RES);
+            Integer confirmLabel = getResourceId((String) showPreview.get("confirmLabel"), LAYOUT_RES);
+            Integer retryLabel = getResourceId((String) showPreview.get("retryLabel"), LAYOUT_RES);
             boolean show = (boolean) showPreview.get("show");
             mPassiveFaceLivenessBuilder.showPreview(show, title, subTitle, confirmLabel, retryLabel);
         }
 
         HashMap<String, Object> messageSettingsParam = (HashMap<String, Object>) argumentsMap.get("messageSettings");
         if (messageSettingsParam != null) {
-            String stepName = (String) messageSettingsParam.get("stepName");
-            String faceNotFoundMessage = (String) messageSettingsParam.get("faceNotFoundMessage");
-            String faceTooFarMessage = (String) messageSettingsParam.get("faceTooFarMessage");
-            String faceTooCloseMessage = (String) messageSettingsParam.get("faceTooCloseMessage");
-            String faceNotFittedMessage = (String) messageSettingsParam.get("faceNotFittedMessage");
-            String multipleFaceDetectedMessage = (String) messageSettingsParam.get("multipleFaceDetectedMessage");
-            String verifyingLivenessMessage = (String) messageSettingsParam.get("verifyingLivenessMessage");
-            String holdItMessage = (String) messageSettingsParam.get("holdItMessage");
-            String invalidFaceMessage = (String) messageSettingsParam.get("invalidFaceMessage");
+            Integer stepName = getResourceId((String) messageSettingsParam.get("stepName"), LAYOUT_RES);
+            Integer faceNotFoundMessage = getResourceId((String) messageSettingsParam.get("faceNotFoundMessage"), LAYOUT_RES);
+            Integer faceTooFarMessage = getResourceId((String) messageSettingsParam.get("faceTooFarMessage"), LAYOUT_RES);
+            Integer faceTooCloseMessage = getResourceId((String) messageSettingsParam.get("faceTooCloseMessage"), LAYOUT_RES);
+            Integer faceNotFittedMessage = getResourceId((String) messageSettingsParam.get("faceNotFittedMessage"), LAYOUT_RES);
+            Integer multipleFaceDetectedMessage = getResourceId((String) messageSettingsParam.get("multipleFaceDetectedMessage"), LAYOUT_RES);
+            Integer verifyingLivenessMessage = getResourceId((String) messageSettingsParam.get("verifyingLivenessMessage"), LAYOUT_RES);
+            Integer holdItMessage = getResourceId((String) messageSettingsParam.get("holdItMessage"), LAYOUT_RES);
+            Integer invalidFaceMessage = getResourceId((String) messageSettingsParam.get("invalidFaceMessage"), LAYOUT_RES);
 
             MessageSettings messageSettings = new MessageSettings();
             if (stepName != null)
