@@ -96,6 +96,13 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
+
+                if let manualCaptureEnable = iosSettings["manualCaptureEnable"] as? Bool ?? nil {
+                    if let manualCaptureTime = iosSettings["manualCaptureTime"] as? TimeInterval ?? nil {
+                        documentDetectorBuilder.setManualCaptureSettings(enable: manualCaptureEnable, time: manualCaptureTime)
+                    }
+                }  
+
                     if let detectionThreshold = iosSettings["detectionThreshold"] as? Float ?? nil {
                         documentDetectorBuilder.setDetectionSettings(detectionThreshold: detectionThreshold)
                     }

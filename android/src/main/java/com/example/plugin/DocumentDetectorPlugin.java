@@ -154,6 +154,11 @@ public class DocumentDetectorPlugin extends Plugin {
                     captureStages[i] = new CaptureStage(durationMillis, wantSensorCheck, qualitySettings, detectionSettings, captureMode);
                 }
                 mDocumentDetectorBuilder.setCaptureStages(captureStages);
+
+                if(androidSettings.get("enableSwitchCameraButton") != null){
+                    boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
+                    mDocumentDetectorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
+                }
             }
 
             // Layout customization

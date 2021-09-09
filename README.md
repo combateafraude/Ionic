@@ -158,6 +158,7 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `DocumentDetectorCustomizationAndroid customization`<br><br>Customização do layout em Android da activity |
 | `SensorSettingsAndroid sensorSettings`<br><br>Customização das configurações dos sensores de captura |
 | `List<CaptureStage> captureStages`<br><br>Array de estágios para cada captura. Esse parâmetro é útil caso você deseje modificar a maneira com qual o DocumentDetector é executado, como configurações de detecção, captura automática ou manual, verificar a qualidade da foto, etc |
+|`bool enableSwitchCameraButton`<br><br>Permite habilitar ou desabilitar o botão de inversão da câmera. O padrão é `True` |
 
 | CaptureStage constructor |
 | --------- |
@@ -206,6 +207,8 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `double qualityThreshold`<br><br>Limiar de aceitação da qualidade, entre 1.0 e 5.0. 1.8 é o recomendado para um futuro OCR |
 | `DocumentDetectorCustomizationIos customization`<br><br>Customização visual do DocumentDetector |
 | `SensorSettingsIos sensorSettings`<br><br>Configurações personalizadas dos sensores em iOS, null para desabilitar |
+| `bool manualCaptureEnable`<br><br>Habilita/desabilita captura manual. |
+| `number manualCaptureTime`<br><br>Define o tempo para o modo de captura ser habilitado. |
 
 | DocumentDetectorCustomizationIos constructor |
 | --------- |
