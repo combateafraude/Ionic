@@ -56,7 +56,7 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                 }
                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    documentDetectorBuilder.setPeopleId(peopleId: peopleId)
+                    documentDetectorBuilder.setPersonId(personId: peopleId)
                 }
                 
                 if let showPopup = arguments["popup"] as? Bool ?? nil {
@@ -178,6 +178,9 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                         documentDetectorBuilder.setLayout(layout: layout)
                     }
                 }
+                
+                documentDetectorBuilder.enableMultiLanguage(enable: false)
+                documentDetectorBuilder.setManualCaptureSettings(enable: true, time: 15)
                 
                 
                 DispatchQueue.main.async {

@@ -74,7 +74,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v1.1.0.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v2.0.0.tar.gz"
 }
 ```
 
@@ -207,8 +207,6 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `double qualityThreshold`<br><br>Limiar de aceitação da qualidade, entre 1.0 e 5.0. 1.8 é o recomendado para um futuro OCR |
 | `DocumentDetectorCustomizationIos customization`<br><br>Customização visual do DocumentDetector |
 | `SensorSettingsIos sensorSettings`<br><br>Configurações personalizadas dos sensores em iOS, null para desabilitar |
-| `bool manualCaptureEnable`<br><br>Habilita/desabilita captura manual. |
-| `number manualCaptureTime`<br><br>Define o tempo para o modo de captura ser habilitado. |
 
 | DocumentDetectorCustomizationIos constructor |
 | --------- |
