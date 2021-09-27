@@ -7,6 +7,17 @@ import  {AndroidSettings}  from "./android/android-settings";
 import { Plugins } from '@capacitor/core';
 const { PassiveFaceLivenessPlugin } = Plugins;
 
+export {ShowPreview} from './show-preview';
+
+export {AndroidSettings} from "./android/android-settings" ;
+export { CaptureAndroidSettings } from './android/capture-settings';
+export { SensorSettingsAndroid } from './android/sensor-settings';
+export { DocumentDetectorCustomizationAndroid } from './android/customization';
+
+export { IosSettings } from './ios/ios-settings';
+import { PassiveFaceLivenessCustomizationIos } from './ios/customization';
+import { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
+
 export class PassiveFaceLiveness {
   private mobileToken: string;
   private peopleId: string;

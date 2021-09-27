@@ -4,6 +4,12 @@ import { PassiveFaceLivenessClosed } from './result/passive-face-liveness-closed
 import { IosSettings } from './ios/ios-settings';
 import { ShowPreview } from './show-preview';
 import { AndroidSettings } from "./android/android-settings";
+export { ShowPreview } from './show-preview';
+export { AndroidSettings } from "./android/android-settings";
+export { CaptureAndroidSettings } from './android/capture-settings';
+export { SensorSettingsAndroid } from './android/sensor-settings';
+export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { IosSettings } from './ios/ios-settings';
 export declare class PassiveFaceLiveness {
     private mobileToken;
     private peopleId;

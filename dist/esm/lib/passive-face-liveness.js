@@ -12,6 +12,12 @@ import { PassiveFaceLivenessFailure } from './result/passive-face-liveness-failu
 import { PassiveFaceLivenessClosed } from './result/passive-face-liveness-closed';
 import { Plugins } from '@capacitor/core';
 const { PassiveFaceLivenessPlugin } = Plugins;
+export { ShowPreview } from './show-preview';
+export { AndroidSettings } from "./android/android-settings";
+export { CaptureAndroidSettings } from './android/capture-settings';
+export { SensorSettingsAndroid } from './android/sensor-settings';
+export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { IosSettings } from './ios/ios-settings';
 export class PassiveFaceLiveness {
     constructor() { }
     set setMobileToken(mobileToken) {

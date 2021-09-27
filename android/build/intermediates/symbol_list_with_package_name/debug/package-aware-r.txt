@@ -441,6 +441,7 @@ attr iconifiedByDefault
 attr imageAspectRatio
 attr imageAspectRatioAdjust
 attr imageButtonStyle
+attr implementationMode
 attr indeterminateProgressStyle
 attr initialActivityCount
 attr insetForeground
@@ -1743,6 +1744,7 @@ id chip3
 id chip_group
 id chronometer
 id clear_text
+id compatible
 id confirm_button
 id container
 id content
@@ -1883,6 +1885,7 @@ id password_toggle
 id path
 id pathRelative
 id percent
+id performance
 id photoImageView
 id pin
 id position
@@ -3079,7 +3082,7 @@ styleable OnClick clickAction targetId
 styleable OnSwipe dragDirection dragScale dragThreshold limitBoundsTo maxAcceleration maxVelocity moveWhenScrollAtTop nestedScrollFlags onTouchUp touchAnchorId touchAnchorSide touchRegionId
 styleable PopupWindow android_popupAnimationStyle android_popupBackground overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor
-styleable PreviewView scaleType
+styleable PreviewView implementationMode scaleType
 styleable PropertySet android_alpha android_visibility layout_constraintTag motionProgress visibilityMode
 styleable RangeSlider values
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle
