@@ -6,5 +6,7 @@ export declare class DocumentDetectorIosSettings {
     private qualityThreshold;
     private customization;
     private sensorSettings;
-    constructor(detectionThreshold: number, verifyQuality: boolean, qualityThreshold: number, customization: DocumentDetectorCustomizationIos, sensorSettings: SensorSettingsIos);
+    private manualCaptureEnable;
+    private manualCaptureTime;
+    constructor(detectionThreshold: number, verifyQuality: boolean, qualityThreshold: number, customization: DocumentDetectorCustomizationIos, sensorSettings: SensorSettingsIos, manualCaptureEnable: boolean, manualCaptureTime: number);
 }

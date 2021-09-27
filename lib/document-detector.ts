@@ -11,6 +11,11 @@ import { Plugins } from '@capacitor/core';
 
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
+export { ShowPreview } from './android/show-preview';
+export { DocumentDetectorAndroidSettings } from './android/android-settings';
+export { Capture } from './result/capture';
+export {DocumentDetectorStepCustomizationAndroid} from './android/step-customization';
+export { DocumentDetectorIosSettings } from './ios/ios-settings'
 
 const { DocumentDetectorPlugin } = Plugins;
 

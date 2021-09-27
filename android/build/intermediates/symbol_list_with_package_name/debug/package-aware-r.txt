@@ -164,7 +164,6 @@ attr buttonStyle
 attr buttonStyleSmall
 attr buttonTint
 attr buttonTintMode
-attr captureMode
 attr cardBackgroundColor
 attr cardCornerRadius
 attr cardElevation
@@ -373,7 +372,6 @@ attr fastScrollHorizontalTrackDrawable
 attr fastScrollVerticalThumbDrawable
 attr fastScrollVerticalTrackDrawable
 attr firstBaselineToTopHeight
-attr flash
 attr floatingActionButtonStyle
 attr flow_firstHorizontalBias
 attr flow_firstHorizontalStyle
@@ -441,6 +439,7 @@ attr iconifiedByDefault
 attr imageAspectRatio
 attr imageAspectRatioAdjust
 attr imageButtonStyle
+attr implementationMode
 attr indeterminateProgressStyle
 attr initialActivityCount
 attr insetForeground
@@ -541,7 +540,6 @@ attr layout_keyline
 attr layout_optimizationLevel
 attr layout_scrollFlags
 attr layout_scrollInterpolator
-attr lensFacing
 attr liftOnScroll
 attr liftOnScrollTargetViewId
 attr limitBoundsTo
@@ -651,7 +649,6 @@ attr percentWidth
 attr percentX
 attr percentY
 attr perpendicularPath_percent
-attr pinchToZoomEnabled
 attr pivotAnchor
 attr placeholderText
 attr placeholderTextAppearance
@@ -1731,7 +1728,6 @@ id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
 id bOK
-id back
 id baseline
 id blocking
 id bottom
@@ -1755,6 +1751,7 @@ id chip3
 id chip_group
 id chronometer
 id clear_text
+id compatible
 id confirm_button
 id container
 id content
@@ -1806,18 +1803,20 @@ id fixed
 id flip
 id floating
 id forever
-id front
 id ghost_view
 id ghost_view_holder
 id gone
 id group_divider
 id guidelineBottom
 id guidelineEnd
+id guidelineEnd2
 id guidelineEndDocument
 id guidelineStart
+id guidelineStart2
 id guidelineStartDocument
 id guidelineStatus
 id guidelineTop
+id guidelineTop2
 id home
 id honorRequest
 id icon
@@ -1847,7 +1846,6 @@ id masked
 id message
 id middle
 id mini
-id mixed
 id month_grid
 id month_navigation_bar
 id month_navigation_fragment_toggle
@@ -1898,6 +1896,7 @@ id password_toggle
 id path
 id pathRelative
 id percent
+id performance
 id photoImageView
 id pin
 id position
@@ -2009,7 +2008,6 @@ id unchecked
 id uniform
 id unlabeled
 id up
-id video
 id view_offset_helper
 id visible
 id webview
@@ -2204,7 +2202,6 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
-string androidx_camera_default_config_provider
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -2261,6 +2258,7 @@ string fit_document_caf
 string generic_step_label_caf
 string google_security_provider_error_caf
 string hide_bottom_view_on_scroll_behavior
+string hold_it_caf
 string icon_content_description
 string image_classifier_fail_caf
 string item_view_role_description
@@ -3065,7 +3063,6 @@ styleable BottomAppBar backgroundTint elevation fabAlignmentMode fabAnimationMod
 styleable BottomNavigationView backgroundTint elevation itemBackground itemHorizontalTranslationEnabled itemIconSize itemIconTint itemRippleColor itemTextAppearanceActive itemTextAppearanceInactive itemTextColor labelVisibilityMode menu
 styleable BottomSheetBehavior_Layout android_elevation backgroundTint behavior_draggable behavior_expandedOffset behavior_fitToContents behavior_halfExpandedRatio behavior_hideable behavior_peekHeight behavior_saveFlags behavior_skipCollapsed gestureInsetBottomIgnored shapeAppearance shapeAppearanceOverlay
 styleable ButtonBarLayout allowStacking
-styleable CameraView captureMode flash lensFacing pinchToZoomEnabled scaleType
 styleable CardView android_minHeight android_minWidth cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_checkable android_ellipsize android_maxWidth android_text android_textAppearance android_textColor checkedIcon checkedIconEnabled checkedIconTint checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipMinTouchTargetSize chipStartPadding chipStrokeColor chipStrokeWidth chipSurfaceColor closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible ensureMinTouchTargetSize hideMotionSpec iconEndPadding iconStartPadding rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical selectionRequired singleLine singleSelection
@@ -3130,7 +3127,7 @@ styleable OnClick clickAction targetId
 styleable OnSwipe dragDirection dragScale dragThreshold limitBoundsTo maxAcceleration maxVelocity moveWhenScrollAtTop nestedScrollFlags onTouchUp touchAnchorId touchAnchorSide touchRegionId
 styleable PopupWindow android_popupAnimationStyle android_popupBackground overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor
-styleable PreviewView scaleType
+styleable PreviewView implementationMode scaleType
 styleable PropertySet android_alpha android_visibility layout_constraintTag motionProgress visibilityMode
 styleable RangeSlider values
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle

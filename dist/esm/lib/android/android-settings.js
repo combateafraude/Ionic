@@ -1,8 +1,9 @@
 export class DocumentDetectorAndroidSettings {
-    constructor(customization, sensorSettings, captureStages) {
+    constructor(customization, sensorSettings, captureStages, enableSwitchCameraButton) {
         this.customization = customization;
         this.sensorSettings = sensorSettings;
         this.captureStages = captureStages;
+        this.enableSwitchCameraButton = enableSwitchCameraButton;
     }
 }
 /*Map asMap() {

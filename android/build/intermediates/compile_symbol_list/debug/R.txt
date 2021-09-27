@@ -163,7 +163,6 @@ int attr buttonStyle 0x0
 int attr buttonStyleSmall 0x0
 int attr buttonTint 0x0
 int attr buttonTintMode 0x0
-int attr captureMode 0x0
 int attr cardBackgroundColor 0x0
 int attr cardCornerRadius 0x0
 int attr cardElevation 0x0
@@ -372,7 +371,6 @@ int attr fastScrollHorizontalTrackDrawable 0x0
 int attr fastScrollVerticalThumbDrawable 0x0
 int attr fastScrollVerticalTrackDrawable 0x0
 int attr firstBaselineToTopHeight 0x0
-int attr flash 0x0
 int attr floatingActionButtonStyle 0x0
 int attr flow_firstHorizontalBias 0x0
 int attr flow_firstHorizontalStyle 0x0
@@ -440,6 +438,7 @@ int attr iconifiedByDefault 0x0
 int attr imageAspectRatio 0x0
 int attr imageAspectRatioAdjust 0x0
 int attr imageButtonStyle 0x0
+int attr implementationMode 0x0
 int attr indeterminateProgressStyle 0x0
 int attr initialActivityCount 0x0
 int attr insetForeground 0x0
@@ -540,7 +539,6 @@ int attr layout_keyline 0x0
 int attr layout_optimizationLevel 0x0
 int attr layout_scrollFlags 0x0
 int attr layout_scrollInterpolator 0x0
-int attr lensFacing 0x0
 int attr liftOnScroll 0x0
 int attr liftOnScrollTargetViewId 0x0
 int attr limitBoundsTo 0x0
@@ -650,7 +648,6 @@ int attr percentWidth 0x0
 int attr percentX 0x0
 int attr percentY 0x0
 int attr perpendicularPath_percent 0x0
-int attr pinchToZoomEnabled 0x0
 int attr pivotAnchor 0x0
 int attr placeholderText 0x0
 int attr placeholderTextAppearance 0x0
@@ -1730,7 +1727,6 @@ int id autoComplete 0x0
 int id autoCompleteToEnd 0x0
 int id autoCompleteToStart 0x0
 int id bOK 0x0
-int id back 0x0
 int id baseline 0x0
 int id blocking 0x0
 int id bottom 0x0
@@ -1754,6 +1750,7 @@ int id chip3 0x0
 int id chip_group 0x0
 int id chronometer 0x0
 int id clear_text 0x0
+int id compatible 0x0
 int id confirm_button 0x0
 int id container 0x0
 int id content 0x0
@@ -1805,18 +1802,20 @@ int id fixed 0x0
 int id flip 0x0
 int id floating 0x0
 int id forever 0x0
-int id front 0x0
 int id ghost_view 0x0
 int id ghost_view_holder 0x0
 int id gone 0x0
 int id group_divider 0x0
 int id guidelineBottom 0x0
 int id guidelineEnd 0x0
+int id guidelineEnd2 0x0
 int id guidelineEndDocument 0x0
 int id guidelineStart 0x0
+int id guidelineStart2 0x0
 int id guidelineStartDocument 0x0
 int id guidelineStatus 0x0
 int id guidelineTop 0x0
+int id guidelineTop2 0x0
 int id home 0x0
 int id honorRequest 0x0
 int id icon 0x0
@@ -1846,7 +1845,6 @@ int id masked 0x0
 int id message 0x0
 int id middle 0x0
 int id mini 0x0
-int id mixed 0x0
 int id month_grid 0x0
 int id month_navigation_bar 0x0
 int id month_navigation_fragment_toggle 0x0
@@ -1897,6 +1895,7 @@ int id password_toggle 0x0
 int id path 0x0
 int id pathRelative 0x0
 int id percent 0x0
+int id performance 0x0
 int id photoImageView 0x0
 int id pin 0x0
 int id position 0x0
@@ -2008,7 +2007,6 @@ int id unchecked 0x0
 int id uniform 0x0
 int id unlabeled 0x0
 int id up 0x0
-int id video 0x0
 int id view_offset_helper 0x0
 int id visible 0x0
 int id webview 0x0
@@ -2203,7 +2201,6 @@ int string abc_searchview_description_voice 0x0
 int string abc_shareactionprovider_share_with 0x0
 int string abc_shareactionprovider_share_with_application 0x0
 int string abc_toolbar_collapse_description 0x0
-int string androidx_camera_default_config_provider 0x0
 int string app_name 0x0
 int string appbar_scrolling_view_behavior 0x0
 int string bottom_sheet_behavior 0x0
@@ -2260,6 +2257,7 @@ int string fit_document_caf 0x0
 int string generic_step_label_caf 0x0
 int string google_security_provider_error_caf 0x0
 int string hide_bottom_view_on_scroll_behavior 0x0
+int string hold_it_caf 0x0
 int string icon_content_description 0x0
 int string image_classifier_fail_caf 0x0
 int string item_view_role_description 0x0
@@ -3342,12 +3340,6 @@ int styleable BottomSheetBehavior_Layout_shapeAppearance 11
 int styleable BottomSheetBehavior_Layout_shapeAppearanceOverlay 12
 int[] styleable ButtonBarLayout { 0x0 }
 int styleable ButtonBarLayout_allowStacking 0
-int[] styleable CameraView { 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable CameraView_captureMode 0
-int styleable CameraView_flash 1
-int styleable CameraView_lensFacing 2
-int styleable CameraView_pinchToZoomEnabled 3
-int styleable CameraView_scaleType 4
 int[] styleable CardView { 0x1010140, 0x101013f, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
 int styleable CardView_android_minHeight 0
 int styleable CardView_android_minWidth 1
@@ -4250,8 +4242,9 @@ int styleable PopupWindow_android_popupBackground 1
 int styleable PopupWindow_overlapAnchor 2
 int[] styleable PopupWindowBackgroundState { 0x0 }
 int styleable PopupWindowBackgroundState_state_above_anchor 0
-int[] styleable PreviewView { 0x0 }
-int styleable PreviewView_scaleType 0
+int[] styleable PreviewView { 0x0, 0x0 }
+int styleable PreviewView_implementationMode 0
+int styleable PreviewView_scaleType 1
 int[] styleable PropertySet { 0x101031f, 0x10100dc, 0x0, 0x0, 0x0 }
 int styleable PropertySet_android_alpha 0
 int styleable PropertySet_android_visibility 1

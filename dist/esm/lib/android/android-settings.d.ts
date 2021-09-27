@@ -5,5 +5,6 @@ export declare class DocumentDetectorAndroidSettings {
     private customization;
     private sensorSettings;
     private captureStages;
-    constructor(customization: DocumentDetectorCustomizationAndroid, sensorSettings: SensorSettingsAndroid, captureStages: Array<CaptureStage>);
+    private enableSwitchCameraButton;
+    constructor(customization: DocumentDetectorCustomizationAndroid, sensorSettings: SensorSettingsAndroid, captureStages: Array<CaptureStage>, enableSwitchCameraButton: Boolean);
 }

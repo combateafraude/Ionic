@@ -2180,6 +2180,69 @@ exports.DocumentType = void 0;
     DocumentType["OTHERS"] = "OTHERS";
 })(exports.DocumentType || (exports.DocumentType = {}));
 
+class ShowPreview {
+    constructor(show, title, subTitle, confirmLabel, retryLabel) {
+        this.title = title;
+        this.subTitle = subTitle;
+        this.confirmLabel = confirmLabel;
+        this.retryLabel = retryLabel;
+        this.show = show;
+    }
+}
+
+class DocumentDetectorAndroidSettings {
+    constructor(customization, sensorSettings, captureStages, enableSwitchCameraButton) {
+        this.customization = customization;
+        this.sensorSettings = sensorSettings;
+        this.captureStages = captureStages;
+        this.enableSwitchCameraButton = enableSwitchCameraButton;
+    }
+}
+/*Map asMap() {
+    Map<String, dynamic> map = new Map();
+
+    map["customization"] = customization?.asMap();
+    map["sensorSettings"] = sensorSettings?.asMap();
+
+    if (captureStages != null) {
+      List<Map<String, dynamic>> stagesMap = [];
+      for (var stage in captureStages!) {
+        stagesMap.add(stage.asMap() as Map<String, dynamic>);
+      }
+      map["captureStages"] = stagesMap;
+    }
+    return map;
+  }*/
+
+class DocumentDetectorStepCustomizationAndroid {
+    constructor(stepLabelStringResName, illustrationDrawableResName, audioRawResName) {
+        this.stepLabelStringResName = stepLabelStringResName;
+        this.illustrationDrawableResName = illustrationDrawableResName;
+        this.audioRawResName = audioRawResName;
+    }
+}
+/*Map asMap(){
+  Map<String, dynamic> map = new Map();
+
+  map["stepLabelStringResName"] = stepLabelStringResName;
+  map["illustrationDrawableResName"] = illustrationDrawableResName;
+  map["audioRawResName"] = audioRawResName;
+
+  return map;
+}*/
+
+class DocumentDetectorIosSettings {
+    constructor(detectionThreshold, verifyQuality, qualityThreshold, customization, sensorSettings, manualCaptureEnable, manualCaptureTime) {
+        this.detectionThreshold = detectionThreshold;
+        this.verifyQuality = verifyQuality;
+        this.qualityThreshold = qualityThreshold;
+        this.customization = customization;
+        this.sensorSettings = sensorSettings;
+        this.manualCaptureEnable = manualCaptureEnable;
+        this.manualCaptureTime = manualCaptureTime;
+    }
+}
+
 const { DocumentDetectorPlugin } = Plugins;
 class DocumentDetector {
     constructor() { }
@@ -2247,6 +2310,11 @@ class DocumentDetector {
     }
 }
 
+exports.Capture = Capture;
 exports.DocumentDetector = DocumentDetector;
+exports.DocumentDetectorAndroidSettings = DocumentDetectorAndroidSettings;
+exports.DocumentDetectorIosSettings = DocumentDetectorIosSettings;
 exports.DocumentDetectorStep = DocumentDetectorStep;
+exports.DocumentDetectorStepCustomizationAndroid = DocumentDetectorStepCustomizationAndroid;
+exports.ShowPreview = ShowPreview;
 //# sourceMappingURL=plugin.js.map
