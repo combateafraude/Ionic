@@ -24,7 +24,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 var passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    passiveFaceLivenessBuilder.setPeopleId(peopleId: peopleId)
+                    passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
                 }
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
@@ -129,6 +129,8 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                     }
                     
                 }
+                
+                passiveFaceLivenessBuilder.enableMultiLanguage(enable: false)
                 
                 DispatchQueue.main.async {
                     let scannerVC = PassiveFaceLivenessController(passiveFaceLiveness: passiveFaceLivenessBuilder.build())

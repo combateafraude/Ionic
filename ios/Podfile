@@ -5,7 +5,7 @@ def capacitor_pods
   use_frameworks!
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
-  pod 'PassiveFaceLiveness', '~> 3.3.2'
+  pod 'PassiveFaceLiveness', '~> 3.6.7'
 end
 
 target 'Plugin' do
