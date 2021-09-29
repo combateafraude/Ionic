@@ -1,6 +1,6 @@
 {
   "name": "document-detector-ionic",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "DocumentDetectorPlugin",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
