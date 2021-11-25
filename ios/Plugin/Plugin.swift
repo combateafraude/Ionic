@@ -22,7 +22,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 let mobileToken = arguments["mobileToken"] as! String
                 
                 var passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
-                
+                                
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
                     passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
                 }
@@ -46,27 +46,6 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                     let confirmLabel = showPreview["confirmLabel"] as? String ?? nil
                     let retryLabel = showPreview["retryLabel"] as? String ?? nil
                     passiveFaceLivenessBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
-                }
-                
-                if let messageSettingsParam = arguments["messageSettings"] as? [String: Any] ?? nil {
-                    let stepName = messageSettingsParam["stepName"] as? String ?? nil
-                    let faceNotFoundMessage = messageSettingsParam["faceNotFoundMessage"] as? String ?? nil
-                    let faceTooFarMessage = messageSettingsParam["faceTooFarMessage"] as? String ?? nil
-                    let faceNotFittedMessage = messageSettingsParam["faceNotFittedMessage"] as? String ?? nil
-                    let multipleFaceDetectedMessage = messageSettingsParam["multipleFaceDetectedMessage"] as? String ?? nil
-                    let holdItMessage = messageSettingsParam["holdItMessage"] as? String ?? nil
-                    let invalidFaceMessage = messageSettingsParam["invalidFaceMessage"] as? String ?? nil
-                    
-                    let messageSettings = MessageSettings()
-                    if(stepName != nil){ messageSettings.stepName = stepName}
-                    if(faceNotFoundMessage != nil){ messageSettings.faceNotFoundMessage = faceNotFoundMessage}
-                    if(faceTooFarMessage != nil){ messageSettings.faceTooFarMessage = faceTooFarMessage}
-                    if(faceNotFittedMessage != nil){ messageSettings.faceNotFittedMessage = faceNotFittedMessage}
-                    if(multipleFaceDetectedMessage != nil){ messageSettings.multipleFaceDetectedMessage = multipleFaceDetectedMessage}
-                    if(holdItMessage != nil){ messageSettings.holdItMessage = holdItMessage}
-                    if(invalidFaceMessage != nil){ messageSettings.invalidFaceMessage = invalidFaceMessage}
-                    
-                    passiveFaceLivenessBuilder.setMessageSettings(messageSettings)
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
@@ -129,8 +108,6 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                     }
                     
                 }
-                
-                passiveFaceLivenessBuilder.enableMultiLanguage(enable: false)
                 
                 DispatchQueue.main.async {
                     let scannerVC = PassiveFaceLivenessController(passiveFaceLiveness: passiveFaceLivenessBuilder.build())

@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
-  s.dependency 'PassiveFaceLiveness', '~> 3.6.7'
+  s.dependency 'PassiveFaceLiveness', '~> 3.8.0'
 end
