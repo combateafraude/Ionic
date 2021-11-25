@@ -34,7 +34,7 @@ import java.util.Map;
         requestCodes={PassiveFaceLivenessPlugin.REQUEST_CODE}
 )
 public class PassiveFaceLivenessPlugin extends Plugin {
-    protected static final int REQUEST_CODE = 1001;
+    protected static final int REQUEST_CODE = 1002;
 
     private static final String DRAWABLE_RES = "drawable";
     private static final String STYLE_RES = "style";
