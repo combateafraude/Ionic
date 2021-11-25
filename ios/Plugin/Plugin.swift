@@ -80,21 +80,6 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                     documentDetectorBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
                 }
                 
-                if let messageSettingsParam = arguments["messageSettings"] as? [String: Any] ?? nil {
-                    let fitTheDocumentMessage = messageSettingsParam["fitTheDocumentMessage"] as? String ?? nil
-                    let verifyingQualityMessage = messageSettingsParam["verifyingQualityMessage"] as? String ?? nil
-                    let lowQualityDocumentMessage = messageSettingsParam["lowQualityDocumentMessage"] as? String ?? nil
-                    let uploadingImageMessage = messageSettingsParam["uploadingImageMessage"] as? String ?? nil
-                    
-                    let messageSettings = MessageSettings()
-                    if(fitTheDocumentMessage != nil){ messageSettings.fitTheDocumentMessage = fitTheDocumentMessage}
-                    if(verifyingQualityMessage != nil){ messageSettings.verifyingQualityMessage = verifyingQualityMessage}
-                    if(lowQualityDocumentMessage != nil){ messageSettings.lowQualityDocumentMessage = lowQualityDocumentMessage}
-                    if(uploadingImageMessage != nil){ messageSettings.uploadingImageMessage = uploadingImageMessage}
-                    
-                    documentDetectorBuilder.setMessageSettings(messageSettings)
-                }
-                
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
 
                 if let manualCaptureEnable = iosSettings["manualCaptureEnable"] as? Bool ?? nil {
