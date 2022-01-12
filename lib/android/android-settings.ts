@@ -7,16 +7,32 @@ export class DocumentDetectorAndroidSettings {
    private sensorSettings: SensorSettingsAndroid;
    private captureStages: Array<CaptureStage>;
    private enableSwitchCameraButton: Boolean;
+   private compressQuality: number;
+   private resolution: String;
+   private enableGoogleServices: boolean;
+   private useRoot: boolean;
+   private useEmulator: boolean;
+
 
   constructor(
         customization: DocumentDetectorCustomizationAndroid,
         sensorSettings: SensorSettingsAndroid,
         captureStages: Array<CaptureStage>,
-        enableSwitchCameraButton: Boolean){
+        enableSwitchCameraButton: Boolean,
+        compressQuality: number,
+        resolution: String,
+        enableGoogleServices: boolean,
+        useRoot: boolean,
+        useEmulator: boolean){
           this.customization = customization;
           this.sensorSettings = sensorSettings;
           this.captureStages = captureStages;
           this.enableSwitchCameraButton = enableSwitchCameraButton;
+          this.compressQuality = compressQuality;
+          this.resolution = resolution;
+          this.enableGoogleServices = enableGoogleServices;
+          this.useRoot = useRoot;
+          this.useEmulator = useEmulator;
   }
 }
 

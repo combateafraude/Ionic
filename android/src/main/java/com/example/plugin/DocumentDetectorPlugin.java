@@ -17,7 +17,9 @@ import com.combateafraude.documentdetector.input.DetectionSettings;
 import com.combateafraude.documentdetector.input.Document;
 import com.combateafraude.documentdetector.input.DocumentDetector;
 import com.combateafraude.documentdetector.input.DocumentDetectorStep;
+import com.combateafraude.documentdetector.input.PreviewSettings;
 import com.combateafraude.documentdetector.input.QualitySettings;
+import com.combateafraude.documentdetector.input.Resolution;
 import com.combateafraude.documentdetector.input.SensorLuminositySettings;
 import com.combateafraude.documentdetector.input.SensorOrientationSettings;
 import com.combateafraude.documentdetector.input.SensorStabilitySettings;
@@ -107,12 +109,21 @@ public class DocumentDetectorPlugin extends Plugin {
         // Preview
         HashMap<String, Object> showPreview = (HashMap<String, Object>) argumentsMap.get("showPreview");
         if (showPreview != null) {
+            String title = (String) showPreview.get("title");
+            String subTitle = (String) showPreview.get("subTitle");
+            String confirmLabel = (String) showPreview.get("confirmLabel");
+            String retryLabel = (String) showPreview.get("retryLabel");
             boolean show = (boolean) showPreview.get("show");
-            Integer title = getResourceId((String) showPreview.get("title"), LAYOUT_RES);
-            Integer subTitle = getResourceId((String) showPreview.get("subTitle"), LAYOUT_RES);
-            Integer confirmLabel = getResourceId((String) showPreview.get("confirmLabel"), LAYOUT_RES);
-            Integer retryLabel = getResourceId((String) showPreview.get("retryLabel"), LAYOUT_RES);
-            mDocumentDetectorBuilder.showPreview(show, title, subTitle, confirmLabel, retryLabel);
+
+            PreviewSettings previewSettings = new PreviewSettings(
+                    true,
+                    title,
+                    subTitle,
+                    confirmLabel,
+                    retryLabel
+            );
+
+            mDocumentDetectorBuilder.setPreviewSettings(previewSettings);
         }
 
 
@@ -159,6 +170,32 @@ public class DocumentDetectorPlugin extends Plugin {
                     boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                     mDocumentDetectorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
                 }
+
+                if(androidSettings.get("compressQuality") != null){
+                    int compressQuality = (int) androidSettings.get("compressQuality");
+                    mDocumentDetectorBuilder.setCompressSettings(compressQuality);
+                }
+
+                String resolution = (String) androidSettings.get("resolution");
+                    if(resolution != null){
+                    mDocumentDetectorBuilder.setResolutionSettings(Resolution.valueOf(resolution));
+                }
+
+                if (androidSettings.get("useEmulator") != null){
+                    Boolean useEmulator = (Boolean) androidSettings.get("useEmulator");
+                    mDocumentDetectorBuilder.setUseEmulator(useEmulator);
+                }
+
+                if(androidSettings.get("useRoot") != null){
+                    Boolean useRoot = (Boolean) androidSettings.get("useRoot");
+                    mDocumentDetectorBuilder.setUseRoot(useRoot);
+                }
+
+                if(androidSettings.get("useGoogleServices") != null){
+                    Boolean useGoogleServices = (Boolean) androidSettings.get("useGoogleServices");
+                    mDocumentDetectorBuilder.enableGoogleServices(useGoogleServices);
+                }
+
             }
 
             // Layout customization
@@ -171,7 +208,8 @@ public class DocumentDetectorPlugin extends Plugin {
                 Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
                 Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
                 Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
-                mDocumentDetectorBuilder.setLayout(layoutId, greenMaskId, whiteMaskId, redMaskId);
+                mDocumentDetectorBuilder.setLayout(layoutId);
+                mDocumentDetectorBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
             }
 
 
@@ -180,10 +218,9 @@ public class DocumentDetectorPlugin extends Plugin {
             if (sensorSettings != null) {
                 HashMap<String, Object> sensorLuminosity = (HashMap<String, Object>) sensorSettings.get("sensorLuminositySettings");
                 if (sensorLuminosity != null) {
-                    Integer sensorMessageId = getResourceId((String) sensorLuminosity.get("messageResourceIdName"), STRING_RES);
                     Integer luminosityThreshold = (Integer) sensorLuminosity.get("luminosityThreshold");
-                    if (sensorMessageId != null && luminosityThreshold != null) {
-                        mDocumentDetectorBuilder.setLuminositySensorSettings(new SensorLuminositySettings(sensorMessageId, luminosityThreshold));
+                    if (luminosityThreshold != null) {
+                        mDocumentDetectorBuilder.setLuminositySensorSettings(new SensorLuminositySettings(luminosityThreshold));
                     }
                 } else {
                     mDocumentDetectorBuilder.setLuminositySensorSettings(null);
@@ -191,10 +228,9 @@ public class DocumentDetectorPlugin extends Plugin {
 
                 HashMap<String, Object> sensorOrientation = (HashMap<String, Object>) sensorSettings.get("sensorOrientationSettings");
                 if (sensorOrientation != null) {
-                    Integer sensorMessageId = getResourceId((String) sensorOrientation.get("messageResourceIdName"), STRING_RES);
                     Double orientationThreshold = (Double) sensorOrientation.get("orientationThreshold");
-                    if (sensorMessageId != null && orientationThreshold != null) {
-                        mDocumentDetectorBuilder.setOrientationSensorSettings(new SensorOrientationSettings(sensorMessageId, orientationThreshold));
+                    if (orientationThreshold != null) {
+                        mDocumentDetectorBuilder.setOrientationSensorSettings(new SensorOrientationSettings(orientationThreshold));
                     }
                 } else {
                     mDocumentDetectorBuilder.setOrientationSensorSettings(null);
@@ -202,11 +238,10 @@ public class DocumentDetectorPlugin extends Plugin {
 
                 HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
                 if (sensorStability != null) {
-                    Integer sensorMessageId = getResourceId((String) sensorStability.get("messageResourceIdName"), STRING_RES);
                     Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
                     Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
-                    if (sensorMessageId != null && stabilityStabledMillis != null && stabilityThreshold != null) {
-                        mDocumentDetectorBuilder.setStabilitySensorSettings(new SensorStabilitySettings(sensorMessageId, stabilityStabledMillis, stabilityThreshold));
+                    if (stabilityStabledMillis != null && stabilityThreshold != null) {
+                        mDocumentDetectorBuilder.setStabilitySensorSettings(new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
                     }
                 } else {
                     mDocumentDetectorBuilder.setStabilitySensorSettings(null);

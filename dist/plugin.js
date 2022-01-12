@@ -2191,11 +2191,16 @@ class ShowPreview {
 }
 
 class DocumentDetectorAndroidSettings {
-    constructor(customization, sensorSettings, captureStages, enableSwitchCameraButton) {
+    constructor(customization, sensorSettings, captureStages, enableSwitchCameraButton, compressQuality, resolution, enableGoogleServices, useRoot, useEmulator) {
         this.customization = customization;
         this.sensorSettings = sensorSettings;
         this.captureStages = captureStages;
         this.enableSwitchCameraButton = enableSwitchCameraButton;
+        this.compressQuality = compressQuality;
+        this.resolution = resolution;
+        this.enableGoogleServices = enableGoogleServices;
+        this.useRoot = useRoot;
+        this.useEmulator = useEmulator;
     }
 }
 /*Map asMap() {
