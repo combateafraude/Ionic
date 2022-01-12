@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
+import com.combateafraude.passivefaceliveness.input.PreviewSettings;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
@@ -17,7 +18,6 @@ import com.combateafraude.passivefaceliveness.input.CaptureSettings;
 import com.combateafraude.passivefaceliveness.input.SensorStabilitySettings;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 import com.combateafraude.passivefaceliveness.output.failure.SDKFailure;
-import com.combateafraude.passivefaceliveness.input.MessageSettings;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -75,44 +75,17 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             String confirmLabel = (String) showPreview.get("confirmLabel");
             String retryLabel = (String) showPreview.get("retryLabel");
             boolean show = (boolean) showPreview.get("show");
-            mPassiveFaceLivenessBuilder.showPreview(show, title, subTitle, confirmLabel, retryLabel);
+
+            PreviewSettings previewSettings = new PreviewSettings(
+                    true,
+                    title,
+                    subTitle,
+                    confirmLabel,
+                    retryLabel
+            );
+
+            mPassiveFaceLivenessBuilder.setPreviewSettings(previewSettings);
         }
-
-        HashMap<String, Object> messageSettingsParam = (HashMap<String, Object>) argumentsMap.get("messageSettings");
-        if (messageSettingsParam != null) {
-            String stepName = (String) messageSettingsParam.get("stepName");
-            String faceNotFoundMessage = (String) messageSettingsParam.get("faceNotFoundMessage");
-            String faceTooFarMessage = (String) messageSettingsParam.get("faceTooFarMessage");
-            String faceTooCloseMessage = (String) messageSettingsParam.get("faceTooCloseMessage");
-            String faceNotFittedMessage = (String) messageSettingsParam.get("faceNotFittedMessage");
-            String multipleFaceDetectedMessage = (String) messageSettingsParam.get("multipleFaceDetectedMessage");
-            String verifyingLivenessMessage = (String) messageSettingsParam.get("verifyingLivenessMessage");
-            String holdItMessage = (String) messageSettingsParam.get("holdItMessage");
-            String invalidFaceMessage = (String) messageSettingsParam.get("invalidFaceMessage");
-
-            MessageSettings messageSettings = new MessageSettings();
-            if (stepName != null)
-                messageSettings.setStepName(stepName);
-            if (faceNotFoundMessage != null)
-                messageSettings.setFaceNotFoundMessage(faceNotFoundMessage);
-            if (faceTooFarMessage != null)
-                messageSettings.setFaceTooFarMessage(faceTooFarMessage);
-            if (faceTooCloseMessage != null)
-                messageSettings.setFaceTooCloseMessage(faceTooCloseMessage);
-            if (faceNotFittedMessage != null)
-                messageSettings.setFaceNotFittedMessage(faceNotFittedMessage);
-            if (multipleFaceDetectedMessage != null)
-                messageSettings.setMultipleFaceDetectedMessage(multipleFaceDetectedMessage);
-            if (verifyingLivenessMessage != null)
-                messageSettings.setVerifyingLivenessMessage(verifyingLivenessMessage);
-            if (holdItMessage != null)
-                messageSettings.setHoldItMessage(holdItMessage);
-            if (invalidFaceMessage != null)
-                messageSettings.setInvalidFaceMessage(invalidFaceMessage);
-
-            mPassiveFaceLivenessBuilder.setMessageSettings(messageSettings);
-        }
-
 
         // Android specific settings
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
@@ -128,7 +101,8 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
                 Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
                 Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
-                mPassiveFaceLivenessBuilder.setLayout(layoutId, greenMaskId, whiteMaskId, redMaskId);
+                mPassiveFaceLivenessBuilder.setLayout(layoutId);
+                mPassiveFaceLivenessBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
             }
 
             // Sensor settings
@@ -136,11 +110,10 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             if (sensorSettings != null) {
                 HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
                 if (sensorStability != null) {
-                    Integer sensorMessageId = getResourceId((String) sensorStability.get("messageResourceIdName"), STRING_RES);
                     Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
                     Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
-                    if (sensorMessageId != null && stabilityStabledMillis != null && stabilityThreshold != null) {
-                        mPassiveFaceLivenessBuilder.setStabilitySensorSettings(new SensorStabilitySettings(sensorMessageId, stabilityStabledMillis, stabilityThreshold));
+                    if (stabilityStabledMillis != null && stabilityThreshold != null) {
+                        mPassiveFaceLivenessBuilder.setStabilitySensorSettings(new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
                     }
                 } else {
                     mPassiveFaceLivenessBuilder.setStabilitySensorSettings(null);
@@ -161,6 +134,27 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 int showButtonTime = (int) androidSettings.get("showButtonTime");
                 mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
             }
+
+            if (androidSettings.get("enableSwitchCameraButton") != null){
+                boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
+                mPassiveFaceLivenessBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
+            }
+
+            if (androidSettings.get("enableGoogleServices") != null){
+                boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
+                mPassiveFaceLivenessBuilder.enableGoogleServices(enableGoogleServices);
+            }
+
+            if (androidSettings.get("useEmulator") != null){
+                boolean useEmulator = (boolean) androidSettings.get("useEmulator");
+                mPassiveFaceLivenessBuilder.setUseEmulator(useEmulator);
+            }
+
+            if (androidSettings.get("useRoot") != null){
+                boolean useRoot = (boolean) androidSettings.get("useRoot");
+                mPassiveFaceLivenessBuilder.setUseRoot(useRoot);
+            }
+
         }
 
         // Sound settings
