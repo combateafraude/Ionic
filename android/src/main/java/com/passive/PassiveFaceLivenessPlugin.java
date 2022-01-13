@@ -91,66 +91,75 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
 
-            // Layout customization
-            HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
-            if (customizationAndroid != null) {
-                Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
-                if (styleId != null) mPassiveFaceLivenessBuilder.setStyle(styleId);
+            if(!androidSettings.get("customization").equals(null)){
+                // Layout customization
+                HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
+                if (customizationAndroid != null) {
+                    Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
+                    if (styleId != null) mPassiveFaceLivenessBuilder.setStyle(styleId);
 
-                Integer layoutId = getResourceId((String) customizationAndroid.get("layoutResIdName"), LAYOUT_RES);
-                Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
-                Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
-                Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
-                mPassiveFaceLivenessBuilder.setLayout(layoutId);
-                mPassiveFaceLivenessBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
+                    Integer layoutId = getResourceId((String) customizationAndroid.get("layoutResIdName"), LAYOUT_RES);
+                    Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
+                    Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
+                    Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
+                    mPassiveFaceLivenessBuilder.setLayout(layoutId);
+                    mPassiveFaceLivenessBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
+                }
+
             }
 
-            // Sensor settings
-            HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
-            if (sensorSettings != null) {
-                HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
-                if (sensorStability != null) {
-                    Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
-                    Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
-                    if (stabilityStabledMillis != null && stabilityThreshold != null) {
-                        mPassiveFaceLivenessBuilder.setStabilitySensorSettings(new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
+            if(!androidSettings.get("sensorSettings").equals(null)){
+
+                // Sensor settings
+                HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
+                if (sensorSettings != null) {
+                    HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
+                    if (sensorStability != null) {
+                        Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
+                        Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
+                        if (stabilityStabledMillis != null && stabilityThreshold != null) {
+                            mPassiveFaceLivenessBuilder.setStabilitySensorSettings(new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
+                        }
+                    } else {
+                        mPassiveFaceLivenessBuilder.setStabilitySensorSettings(null);
                     }
-                } else {
-                    mPassiveFaceLivenessBuilder.setStabilitySensorSettings(null);
                 }
             }
 
-            // Capture settings
-            HashMap<String, Object> captureSettings = (HashMap<String, Object>) androidSettings.get("captureSettings");
-            if (captureSettings != null) {
-                Integer beforePictureMillis = (Integer) captureSettings.get("beforePictureMillis");
-                Integer afterPictureMillis = (Integer) captureSettings.get("afterPictureMillis");
-                if (beforePictureMillis != null && afterPictureMillis != null) {
-                    mPassiveFaceLivenessBuilder.setCaptureSettings(new CaptureSettings(beforePictureMillis, afterPictureMillis));
+            if (!androidSettings.get("captureSettings").equals(null)){
+                // Capture settings
+                HashMap<String, Object> captureSettings = (HashMap<String, Object>) androidSettings.get("captureSettings");
+                if (captureSettings != null) {
+                    Integer beforePictureMillis = (Integer) captureSettings.get("beforePictureMillis");
+                    Integer afterPictureMillis = (Integer) captureSettings.get("afterPictureMillis");
+                    if (beforePictureMillis != null && afterPictureMillis != null) {
+                        mPassiveFaceLivenessBuilder.setCaptureSettings(new CaptureSettings(beforePictureMillis, afterPictureMillis));
+                    }
                 }
             }
 
-            if (androidSettings.get("showButtonTime") != null){
+            if (!androidSettings.get("showButtonTime").equals(null)){
                 int showButtonTime = (int) androidSettings.get("showButtonTime");
                 mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
             }
 
-            if (androidSettings.get("enableSwitchCameraButton") != null){
+
+            if (!androidSettings.get("enableSwitchCameraButton").equals(null)){
                 boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                 mPassiveFaceLivenessBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
             }
 
-            if (androidSettings.get("enableGoogleServices") != null){
+            if (!androidSettings.get("enableGoogleServices").equals(null)){
                 boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
                 mPassiveFaceLivenessBuilder.enableGoogleServices(enableGoogleServices);
             }
 
-            if (androidSettings.get("useEmulator") != null){
+            if (!androidSettings.get("useEmulator").equals(null)){
                 boolean useEmulator = (boolean) androidSettings.get("useEmulator");
                 mPassiveFaceLivenessBuilder.setUseEmulator(useEmulator);
             }
 
-            if (androidSettings.get("useRoot") != null){
+            if (!androidSettings.get("useRoot").equals(null)){
                 boolean useRoot = (boolean) androidSettings.get("useRoot");
                 mPassiveFaceLivenessBuilder.setUseRoot(useRoot);
             }
