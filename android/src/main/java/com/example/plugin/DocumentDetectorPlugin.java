@@ -131,76 +131,83 @@ public class DocumentDetectorPlugin extends Plugin {
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
 
-            // Capture stages
-            ArrayList<HashMap<String, Object>> paramStages = (ArrayList<HashMap<String, Object>>) androidSettings.get("captureStages");
-            if (paramStages != null) {
-                CaptureStage[] captureStages = new CaptureStage[paramStages.size()];
-                for (int i = 0; i < paramStages.size(); i++) {
-                    HashMap<String, Object> stage = paramStages.get(i);
+            Object stages = androidSettings.get("captureStages");
+            if (!stages.equals(null)) {
 
-                    Long durationMillis = ((Number) stage.get("durationMillis")).longValue();
+                // Capture stages
+                ArrayList<HashMap<String, Object>> paramStages = (ArrayList<HashMap<String, Object>>) androidSettings.get("captureStages");
+                if (paramStages != null) {
+                    CaptureStage[] captureStages = new CaptureStage[paramStages.size()];
+                    for (int i = 0; i < paramStages.size(); i++) {
+                        HashMap<String, Object> stage = paramStages.get(i);
 
-                    Boolean wantSensorCheck = (Boolean) stage.get("wantSensorCheck");
-                    if (wantSensorCheck == null) wantSensorCheck = false;
+                        Long durationMillis = ((Number) stage.get("durationMillis")).longValue();
 
-                    QualitySettings qualitySettings = null;
-                    HashMap<String, Object> qualitySettingsParam = (HashMap<String, Object>) stage.get("qualitySettings");
-                    if (qualitySettingsParam != null) {
-                        Double threshold = (Double) qualitySettingsParam.get("threshold");
-                        if (threshold == null) threshold = QualitySettings.RECOMMENDED_THRESHOLD;
-                        qualitySettings = new QualitySettings(threshold);
+                        Boolean wantSensorCheck = (Boolean) stage.get("wantSensorCheck");
+                        if (wantSensorCheck == null) wantSensorCheck = false;
+
+                        QualitySettings qualitySettings = null;
+                        HashMap<String, Object> qualitySettingsParam = (HashMap<String, Object>) stage.get("qualitySettings");
+                        if (qualitySettingsParam != null) {
+                            Double threshold = (Double) qualitySettingsParam.get("threshold");
+                            if (threshold == null)
+                                threshold = QualitySettings.RECOMMENDED_THRESHOLD;
+                            qualitySettings = new QualitySettings(threshold);
+                        }
+
+                        DetectionSettings detectionSettings = null;
+                        HashMap<String, Object> detectionSettingsParam = (HashMap<String, Object>) stage.get("detectionSettings");
+                        if (detectionSettingsParam != null) {
+                            Double threshold = (Double) detectionSettingsParam.get("threshold");
+                            if (threshold == null)
+                                threshold = DetectionSettings.RECOMMENDED_THRESHOLD;
+                            Integer consecutiveFrames = (Integer) detectionSettingsParam.get("consecutiveFrames");
+                            if (consecutiveFrames == null) consecutiveFrames = 5;
+                            detectionSettings = new DetectionSettings(threshold, consecutiveFrames);
+                        }
+                        CaptureMode captureMode = CaptureMode.valueOf((String) stage.get("captureMode"));
+
+                        captureStages[i] = new CaptureStage(durationMillis, wantSensorCheck, qualitySettings, detectionSettings, captureMode);
                     }
-
-                    DetectionSettings detectionSettings = null;
-                    HashMap<String, Object> detectionSettingsParam = (HashMap<String, Object>) stage.get("detectionSettings");
-                    if (detectionSettingsParam != null) {
-                        Double threshold = (Double) detectionSettingsParam.get("threshold");
-                        if (threshold == null) threshold = DetectionSettings.RECOMMENDED_THRESHOLD;
-                        Integer consecutiveFrames = (Integer) detectionSettingsParam.get("consecutiveFrames");
-                        if (consecutiveFrames == null) consecutiveFrames = 5;
-                        detectionSettings = new DetectionSettings(threshold, consecutiveFrames);
-                    }
-                    CaptureMode captureMode = CaptureMode.valueOf((String) stage.get("captureMode"));
-
-                    captureStages[i] = new CaptureStage(durationMillis, wantSensorCheck, qualitySettings, detectionSettings, captureMode);
+                    mDocumentDetectorBuilder.setCaptureStages(captureStages);
                 }
-                mDocumentDetectorBuilder.setCaptureStages(captureStages);
-
-                if(androidSettings.get("enableSwitchCameraButton") != null){
-                    boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
-                    mDocumentDetectorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
-                }
-
-                if(androidSettings.get("compressQuality") != null){
-                    int compressQuality = (int) androidSettings.get("compressQuality");
-                    mDocumentDetectorBuilder.setCompressSettings(compressQuality);
-                }
-
-                String resolution = (String) androidSettings.get("resolution");
-                    if(resolution != null){
-                    mDocumentDetectorBuilder.setResolutionSettings(Resolution.valueOf(resolution));
-                }
-
-                if (androidSettings.get("useEmulator") != null){
-                    Boolean useEmulator = (Boolean) androidSettings.get("useEmulator");
-                    mDocumentDetectorBuilder.setUseEmulator(useEmulator);
-                }
-
-                if(androidSettings.get("useRoot") != null){
-                    Boolean useRoot = (Boolean) androidSettings.get("useRoot");
-                    mDocumentDetectorBuilder.setUseRoot(useRoot);
-                }
-
-                if(androidSettings.get("useGoogleServices") != null){
-                    Boolean useGoogleServices = (Boolean) androidSettings.get("useGoogleServices");
-                    mDocumentDetectorBuilder.enableGoogleServices(useGoogleServices);
-                }
-
             }
 
+           if(!androidSettings.get("enableSwitchCameraButton").equals(null)){
+                boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
+                mDocumentDetectorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
+            }
+
+            if(!androidSettings.get("compressQuality").equals(null)){
+                int compressQuality = (int) androidSettings.get("compressQuality");
+                mDocumentDetectorBuilder.setCompressSettings(compressQuality);
+            }
+
+            if (!androidSettings.get("resolution").equals(null)){
+                String resolution = (String) androidSettings.get("resolution");
+                mDocumentDetectorBuilder.setResolutionSettings(Resolution.valueOf(resolution));
+            }
+
+            if (!androidSettings.get("useEmulator").equals(null)){
+                Boolean useEmulator = (Boolean) androidSettings.get("useEmulator");
+                mDocumentDetectorBuilder.setUseEmulator(useEmulator);
+            }
+
+           if(!androidSettings.get("useRoot").equals(null)){
+                Boolean useRoot = (Boolean) androidSettings.get("useRoot");
+                mDocumentDetectorBuilder.setUseRoot(useRoot);
+            }
+
+            if(androidSettings.get("useGoogleServices") != null){
+                Boolean useGoogleServices = (Boolean) androidSettings.get("useGoogleServices");
+                mDocumentDetectorBuilder.enableGoogleServices(useGoogleServices);
+            }
+
+        }
+
             // Layout customization
+        if (!androidSettings.get("customization").equals(null)){
             HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
-            if (customizationAndroid != null) {
                 Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
                 if (styleId != null) mDocumentDetectorBuilder.setStyle(styleId);
 
@@ -213,9 +220,9 @@ public class DocumentDetectorPlugin extends Plugin {
             }
 
 
-            // Sensor settings
+           // Sensor settings
+        if (!androidSettings.get("sensorSettings").equals(null)){
             HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
-            if (sensorSettings != null) {
                 HashMap<String, Object> sensorLuminosity = (HashMap<String, Object>) sensorSettings.get("sensorLuminositySettings");
                 if (sensorLuminosity != null) {
                     Integer luminosityThreshold = (Integer) sensorLuminosity.get("luminosityThreshold");
@@ -247,7 +254,6 @@ public class DocumentDetectorPlugin extends Plugin {
                     mDocumentDetectorBuilder.setStabilitySensorSettings(null);
                 }
             }
-        }
 
         // Popup settings
         Boolean showPopup = (Boolean) argumentsMap.get("popup");
