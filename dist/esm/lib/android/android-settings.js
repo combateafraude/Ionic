@@ -1,13 +1,13 @@
 export class AndroidSettings {
-    constructor(customization, sensorSettings, captureSettings, showButtonTime, enableSwitchCameraButton, enableGoogleServices, useEmulator, useRoot) {
-        this.customization = customization;
-        this.sensorSettings = sensorSettings;
-        this.captureSettings = captureSettings;
-        this.showButtonTime = showButtonTime;
-        this.enableSwitchCameraButton = enableSwitchCameraButton;
-        this.enableGoogleServices = enableGoogleServices;
-        this.useEmulator = useEmulator;
-        this.useRoot = useRoot;
+    constructor(options) {
+        this.customization = options === null || options === void 0 ? void 0 : options.customization;
+        this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
+        this.captureSettings = options === null || options === void 0 ? void 0 : options.captureSettings;
+        this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
+        this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
+        this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
+        this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
+        this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
     }
 }
 //# sourceMappingURL=android-settings.js.map

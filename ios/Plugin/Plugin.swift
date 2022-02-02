@@ -21,22 +21,22 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 
                 let mobileToken = arguments["mobileToken"] as! String
                 
-                var passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
+                let passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
                                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
+                    _ = passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
                 }
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
-                    passiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
+                    _ = passiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
                 }
                 
                 if let hasSound = arguments["sound"] as? Bool ?? nil {
-                    passiveFaceLivenessBuilder.enableSound(enableSound: hasSound)
+                    _ = passiveFaceLivenessBuilder.enableSound(enableSound: hasSound)
                 }
                 
                 if let requestTimeout = arguments["requestTimeout"] as? TimeInterval ?? nil {
-                    passiveFaceLivenessBuilder.setNetworkSettings(requestTimeout: requestTimeout)
+                    _ = passiveFaceLivenessBuilder.setNetworkSettings(requestTimeout: requestTimeout)
                 }
                 
                 if let showPreview = arguments["showPreview"] as? [String: Any] ?? nil {
@@ -45,7 +45,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                     let subtitle = showPreview["subTitle"] as? String ?? nil
                     let confirmLabel = showPreview["confirmLabel"] as? String ?? nil
                     let retryLabel = showPreview["retryLabel"] as? String ?? nil
-                    passiveFaceLivenessBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
+                    _ = passiveFaceLivenessBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
@@ -55,15 +55,15 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                         let layout = PassiveFaceLivenessLayout()
                         
                         if let colorHex = customization["colorHex"] as? String ?? nil {
-                            passiveFaceLivenessBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
+                            _ = passiveFaceLivenessBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
                         }
                         
                         if let showStepLabel = customization["showStepLabel"] as? Bool ?? nil {
-                            passiveFaceLivenessBuilder.showStepLabel(show: showStepLabel)
+                            _ = passiveFaceLivenessBuilder.showStepLabel(show: showStepLabel)
                         }
                         
                         if let showStatusLabel = customization["showStatusLabel"] as? Bool ?? nil {
-                            passiveFaceLivenessBuilder.showStatusLabel(show: showStatusLabel)
+                            _ = passiveFaceLivenessBuilder.showStatusLabel(show: showStatusLabel)
                         }
                         
                         if let closeImageName = customization["closeImageName"] as? String ?? nil {
@@ -91,19 +91,18 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                             redMask: redMask)
                         
                         
-                        passiveFaceLivenessBuilder.setLayout(layout: layout)
+                        _ = passiveFaceLivenessBuilder.setLayout(layout: layout)
                     }
                     
                     if let beforePictureMillis = iosSettings["beforePictureMillis"] as? TimeInterval ?? nil {
-                        passiveFaceLivenessBuilder.setCaptureSettings(beforePictureInterval: beforePictureMillis)
+                        _ = passiveFaceLivenessBuilder.setCaptureSettings(beforePictureInterval: beforePictureMillis)
                     }
                     
                     
                     if let sensorStability = iosSettings["sensorStability"] as? [String: Any] ?? nil {
                         if let sensorStability = sensorStability["sensorStability"] as? [String: Any] ?? nil {
-                            let message = sensorStability["message"] as? String ?? nil
                             let stabilityThreshold = sensorStability["stabilityThreshold"] as? Double ?? nil
-                            passiveFaceLivenessBuilder.setStabilitySensorSettings(message: message, stabilityThreshold: stabilityThreshold)
+                            _ = passiveFaceLivenessBuilder.setStabilitySensorSettings(stabilityThreshold: stabilityThreshold)
                         }
                     }
                     
@@ -113,7 +112,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                     let scannerVC = PassiveFaceLivenessController(passiveFaceLiveness: passiveFaceLivenessBuilder.build())
                     scannerVC.passiveFaceLivenessDelegate = self
                     
-                    self.bridge?.viewController.present(scannerVC, animated: true, completion: nil)
+                    self.bridge?.presentVC(scannerVC, animated: true, completion: nil)
                     
                 }
                 
@@ -136,7 +135,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         response["signedResponse"] = results.signedResponse
         response["trackingId"] = results.trackingId
         
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
     }
     
     public func passiveFaceLivenessControllerDidCancel(_ passiveFacelivenessController: PassiveFaceLivenessController) {
@@ -144,7 +143,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         
         response["success"] = nil
         
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
     }
     
     public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFailWithError error: PassiveFaceLivenessFailure) {
@@ -154,7 +153,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         response["message"] = error.message
         response["type"] = String(describing: type(of: error))
         
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, withName: String) -> String? {

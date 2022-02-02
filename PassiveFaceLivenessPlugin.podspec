@@ -11,10 +11,10 @@ Pod::Spec.new do |s|
   s.author = package['author']
   s.source = { :git => package['repository']['url'], :tag => s.version.to_s }
   s.source_files = 'ios/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}'
-  s.ios.deployment_target  = '11.0'
+  s.ios.deployment_target  = '12.0'
   s.dependency 'Capacitor'
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.swift_version = '5.0'
-  s.dependency 'PassiveFaceLiveness', '~> 3.8.0'
+  s.swift_version = '5.1'
+  s.dependency 'PassiveFaceLiveness', '~> 4.1.0'
 end

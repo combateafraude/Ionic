@@ -32,8 +32,6 @@ export class PassiveFaceLiveness {
 
   constructor() {}
 
-
-
   public set setMobileToken(mobileToken : string){
     this.mobileToken = mobileToken;
   }

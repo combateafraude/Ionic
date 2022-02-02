@@ -17,7 +17,6 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
         maven { url "https://repo.combateafraude.com/android/release"}
     }
 }
@@ -25,10 +24,10 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 29
+    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 30
     defaultConfig {
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 21
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 29
+        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,6 +60,7 @@ repositories {
 
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')

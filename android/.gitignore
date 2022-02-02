@@ -1,32 +1,11 @@
-.idea/
-dist/
-types/
-.sourcemaps
-xcuserdata/
-node_modules/
-Pods/
-*.map
-.DS_Store
-Podfile.lock
-Build/*
-build/
-Index/
-.*.sw*
-android-template.iml
-!/build/.npmkeep
-lerna-debug.log
-local.properties
-contents.xcworkspacedata
-android-template/.gradle/
-android-template/app/app.iml
-.gradle/
-.settings/
-.project
-.env
+# NPM renames .gitignore to .npmignore
+# In order to prevent that, we remove the initial "."
+# And the CLI then renames it
+
+# Using Android gitignore template: https://github.com/github/gitignore/blob/master/Android.gitignore
 
 # Built application files
 *.apk
-*.aar
 *.ap_
 *.aab
 
@@ -40,8 +19,7 @@ android-template/app/app.iml
 bin/
 gen/
 out/
-#  Uncomment the following line in case you need and you don't have the release build type files in your app
-# release/
+release/
 
 # Gradle files
 .gradle/
@@ -64,7 +42,6 @@ captures/
 
 # IntelliJ
 *.iml
-android/.idea
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
@@ -84,10 +61,6 @@ android/.idea
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
-.cxx/
-
-# Google Services (e.g. APIs or Firebase)
-# google-services.json
 
 # Freeline
 freeline.py
@@ -111,5 +84,8 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-# Android Profiling
-*.hprof
+# Cordova plugins for Capacitor
+capacitor-cordova-android-plugins
+
+# Copied web assets
+app/src/main/assets/public

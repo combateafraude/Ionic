@@ -39,9 +39,7 @@ public class MainActivity extends BridgeActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
-      add(PassiveFaceLivenessPlugin.class);
-    }});
+    registerPlugin(PassiveFaceLivenessPlugin.class);
   }
 }
 
@@ -70,7 +68,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v1.2.1.tar.gz"
+    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v2.0.0.tar.gz"
 }
 ```
 
@@ -92,7 +90,7 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
     let passiveFaceLivenessor = new PassiveFaceLiveness();
     passiveFaceLivenessor.setMobileToken = '<your mobile token>';
 
-    const response = passiveFaceLivenessor.start();
+    const response = await passiveFaceLivenessor.start();
 
     if(response.result == "SUCCESS"){
       // Sucesso
@@ -114,8 +112,8 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 | `.enableSound(bool enable)`<br><br>Habilita/desabilita os sons. O padrão é `true` |
 | `.setNetworkSettings(int requestTimeout)`<br><br>Altera as configurações de rede padrão. O padrão é `60` segundos |
 | `.setShowPreview(ShowPreview showPreview)`<br><br> Preview para verificação de qualidade da foto |
-| `.setAndroidSettings(PassiveFaceLivenessAndroidSettings androidSettings)`<br><br>Customizações somente aplicadas em Android |
-| `.setIosSettings(PassiveFaceLivenessIosSettings iosSettings)`<br><br>Customizações somente aplicadas em iOS |
+| `.setAndroidSettings(AndroidSettings androidSettings)`<br><br>Customizações somente aplicadas em Android |
+| `.setIosSettings(IosSettings iosSettings)`<br><br>Customizações somente aplicadas em iOS |
 
 | ShowPreview |
 | --------- |
@@ -127,12 +125,22 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 
 #### Android
 
-| PassiveFaceLivenessAndroidSettings constructor |
+| AndroidSettings constructor |
 | --------- |
 | `PassiveFaceLivenessCustomizationAndroid customization`<br><br>Customização do layout em Android da activity |
 | `CaptureSettings captureSettings`<br><br>Configuraçōes de tempos de estabilização para a captura da selfie |
 | `SensorSettingsAndroid sensorSettings`<br><br>Customização das configurações dos sensores de captura |
 | `int showButtonTime`<br><br>Altera o tempo para a exibição do botão de captura manual. O padrão é `20000` milisegundos |
+| `bool useEmulator`<br><br>Permite habilitar/desabilitar o uso de dispositivos emulados no SDK, recomendamos desabilitar o uso dos emuladores por questões de segurança. O padrão é `false` |
+| `bool useRoot`<br><br>Permite habilitar/desabilitar o uso de dispositivos com root no SDK, recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `false` |
+
+##### Exemplo de uso
+```typescript
+   let passiveFaceLiveness = new PassiveFaceLiveness();
+
+   passiveFaceLiveness.setAndroidSettings = new AndroidSettings({useEmulator: false});
+```
+
 
 | PassiveFaceLivenessCustomizationAndroid constructor |
 | --------- |
@@ -160,7 +168,7 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 
 #### iOS
 
-| PassiveFaceLivenessIosSettings constructor |
+| IosSettings constructor |
 | --------- |
 | `PassiveFaceLivenessCustomizationIos customization`<br><br>Customização visual do SDK |
 | `int beforePictureMillis`<br><br>Duração em milissegundos entre a primeira detecção do rosto e a efetiva captura da foto |

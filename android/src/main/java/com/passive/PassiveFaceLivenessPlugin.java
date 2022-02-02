@@ -5,10 +5,11 @@ import android.content.Intent;
 
 import android.util.Log;
 
+import androidx.activity.result.ActivityResult;
+
 import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.input.PreviewSettings;
 import com.getcapacitor.JSObject;
-import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -18,6 +19,8 @@ import com.combateafraude.passivefaceliveness.input.CaptureSettings;
 import com.combateafraude.passivefaceliveness.input.SensorStabilitySettings;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 import com.combateafraude.passivefaceliveness.output.failure.SDKFailure;
+import com.getcapacitor.annotation.ActivityCallback;
+import com.getcapacitor.annotation.CapacitorPlugin;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -30,7 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@NativePlugin(
+@CapacitorPlugin(
         requestCodes={PassiveFaceLivenessPlugin.REQUEST_CODE}
 )
 public class PassiveFaceLivenessPlugin extends Plugin {
@@ -91,7 +94,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
 
-            if(!androidSettings.get("customization").equals(null)){
+            if(androidSettings.get("customization") != null){
                 // Layout customization
                 HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
                 if (customizationAndroid != null) {
@@ -108,7 +111,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
             }
 
-            if(!androidSettings.get("sensorSettings").equals(null)){
+            if(androidSettings.get("sensorSettings") != null){
 
                 // Sensor settings
                 HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
@@ -126,7 +129,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 }
             }
 
-            if (!androidSettings.get("captureSettings").equals(null)){
+            if (androidSettings.get("captureSettings") != null){
                 // Capture settings
                 HashMap<String, Object> captureSettings = (HashMap<String, Object>) androidSettings.get("captureSettings");
                 if (captureSettings != null) {
@@ -138,28 +141,28 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 }
             }
 
-            if (!androidSettings.get("showButtonTime").equals(null)){
+            if (androidSettings.get("showButtonTime") != null){
                 int showButtonTime = (int) androidSettings.get("showButtonTime");
                 mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
             }
 
 
-            if (!androidSettings.get("enableSwitchCameraButton").equals(null)){
+            if (androidSettings.get("enableSwitchCameraButton") != null){
                 boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                 mPassiveFaceLivenessBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
             }
 
-            if (!androidSettings.get("enableGoogleServices").equals(null)){
+            if (androidSettings.get("enableGoogleServices") != null){
                 boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
                 mPassiveFaceLivenessBuilder.enableGoogleServices(enableGoogleServices);
             }
 
-            if (!androidSettings.get("useEmulator").equals(null)){
+            if (androidSettings.get("useEmulator") != null){
                 boolean useEmulator = (boolean) androidSettings.get("useEmulator");
                 mPassiveFaceLivenessBuilder.setUseEmulator(useEmulator);
             }
 
-            if (!androidSettings.get("useRoot").equals(null)){
+            if (androidSettings.get("useRoot") != null){
                 boolean useRoot = (boolean) androidSettings.get("useRoot");
                 mPassiveFaceLivenessBuilder.setUseRoot(useRoot);
             }
@@ -187,10 +190,33 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
         Intent mIntent = new Intent(this.getContext(), PassiveFaceLivenessActivity.class);
         mIntent.putExtra(PassiveFaceLiveness.PARAMETER_NAME, mPassiveFaceLivenessBuilder.build());
-        startActivityForResult(call, mIntent, REQUEST_CODE);
+        startActivityForResult(call, mIntent, "passiveFaceLivenessResult");
     }
-    
 
+    @ActivityCallback
+    private void passiveFaceLivenessResult(PluginCall call, ActivityResult result) {
+        int resultCode = result.getResultCode();
+
+        // Get the previously saved call
+        PluginCall savedCall = getSavedCall();
+
+        if (savedCall == null) {
+            return;
+        }
+
+        if (resultCode == Activity.RESULT_OK && result.getData() != null) {
+
+            PassiveFaceLivenessResult mPassiveFaceLivenessResult = (PassiveFaceLivenessResult) result.getData().getSerializableExtra(PassiveFaceLivenessResult.PARAMETER_NAME);
+            if (mPassiveFaceLivenessResult.wasSuccessful()) {
+                call.resolve(getSucessResponseMap(mPassiveFaceLivenessResult));
+            } else {
+                call.resolve(getFailureResponseMap(mPassiveFaceLivenessResult.getSdkFailure()));
+            }
+        } else {
+            call.resolve(getClosedResponseMap());
+        }
+
+    }
 
     private Integer getResourceId(@Nullable String resourceName, String resourceType) {
         if (resourceName == null || this.bridge.getActivity() == null) return null;
@@ -243,42 +269,13 @@ public class PassiveFaceLivenessPlugin extends Plugin {
     }
 
 
-    @Override
-    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
-        super.handleOnActivityResult(requestCode, resultCode, data);
-
-    // Get the previously saved call
-        PluginCall savedCall = getSavedCall();
-
-        if (savedCall == null) {
-            return;
-        }
-
-        if (requestCode == REQUEST_CODE) {
-            PluginCall call = getSavedCall();
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                
-                PassiveFaceLivenessResult mPassiveFaceLivenessResult = (PassiveFaceLivenessResult) data.getSerializableExtra(PassiveFaceLivenessResult.PARAMETER_NAME);
-                if (mPassiveFaceLivenessResult.wasSuccessful()) {
-                        call.success(getSucessResponseMap(mPassiveFaceLivenessResult));
-                } else {
-                        call.success(getFailureResponseMap(mPassiveFaceLivenessResult.getSdkFailure()));
-                }
-            } else {
-                    call.success(getClosedResponseMap());
-            }
-        }
-    }
-
     private JSObject getSucessResponseMap(PassiveFaceLivenessResult mPassiveFaceLivenessResult) {
-        Map<String,Object> responseMap =  new HashMap<String, Object>();
+        HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", Boolean.TRUE);
-
         responseMap.put("imagePath", mPassiveFaceLivenessResult.getImagePath());
         responseMap.put("imageUrl", mPassiveFaceLivenessResult.getImageUrl());
         responseMap.put("signedResponse", mPassiveFaceLivenessResult.getSignedResponse());
         responseMap.put("trackingId", mPassiveFaceLivenessResult.getTrackingId());
-
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
         result.put("results", jsonObject);
