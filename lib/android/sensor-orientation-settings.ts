@@ -7,13 +7,4 @@ export class SensorOrientationSettingsAndroid {
     this.messageResourceIdName = messageResourceIdName;
     this.orientationThreshold = orientationThreshold;
   }
-
-  /*Map asMap(){
-    Map<String, dynamic> map = new Map();
-
-    map["messageResourceIdName"] = messageResourceIdName;
-    map["orientationThreshold"] = orientationThreshold;
-
-    return map;
-  }*/
 }

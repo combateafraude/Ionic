@@ -7,13 +7,4 @@ export class SensorLuminositySettingsAndroid {
     this.messageResourceIdName = messageResourceIdName;
     this.luminosityThreshold = luminosityThreshold;
   }
-
- /* Map asMap(){
-    Map<String, dynamic> map = new Map();
-
-    map["messageResourceIdName"] = messageResourceIdName;
-    map["luminosityThreshold"] = luminosityThreshold;
-
-    return map;
-  }*/
 }

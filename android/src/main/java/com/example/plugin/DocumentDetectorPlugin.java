@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResult;
+
 import com.combateafraude.documentdetector.DocumentDetectorActivity;
 import com.combateafraude.documentdetector.input.CaptureMode;
 import com.combateafraude.documentdetector.input.CaptureStage;
@@ -32,6 +34,8 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.getcapacitor.annotation.ActivityCallback;
+import com.getcapacitor.annotation.CapacitorPlugin;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -44,11 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@NativePlugin(
-        requestCodes={DocumentDetectorPlugin.REQUEST_CODE}
-)
+@CapacitorPlugin()
 public class DocumentDetectorPlugin extends Plugin {
-    protected static final int REQUEST_CODE = 1001;
 
     private static final String DRAWABLE_RES = "drawable";
     private static final String STYLE_RES = "style";
@@ -61,7 +62,7 @@ public class DocumentDetectorPlugin extends Plugin {
         saveCall(call);
 
         String value = call.getString("builder");
-        //System.out.println("Parametro:" + value);
+
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(value);
@@ -116,7 +117,7 @@ public class DocumentDetectorPlugin extends Plugin {
             boolean show = (boolean) showPreview.get("show");
 
             PreviewSettings previewSettings = new PreviewSettings(
-                    true,
+                    show,
                     title,
                     subTitle,
                     confirmLabel,
@@ -132,7 +133,7 @@ public class DocumentDetectorPlugin extends Plugin {
         if (androidSettings != null) {
 
             Object stages = androidSettings.get("captureStages");
-            if (!stages.equals(null)) {
+            if (stages != null) {
 
                 // Capture stages
                 ArrayList<HashMap<String, Object>> paramStages = (ArrayList<HashMap<String, Object>>) androidSettings.get("captureStages");
@@ -173,27 +174,27 @@ public class DocumentDetectorPlugin extends Plugin {
                 }
             }
 
-           if(!androidSettings.get("enableSwitchCameraButton").equals(null)){
+           if(androidSettings.get("enableSwitchCameraButton") != null){
                 boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                 mDocumentDetectorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
             }
 
-            if(!androidSettings.get("compressQuality").equals(null)){
+            if(androidSettings.get("compressQuality") != null){
                 int compressQuality = (int) androidSettings.get("compressQuality");
                 mDocumentDetectorBuilder.setCompressSettings(compressQuality);
             }
 
-            if (!androidSettings.get("resolution").equals(null)){
+            if (androidSettings.get("resolution") != null){
                 String resolution = (String) androidSettings.get("resolution");
                 mDocumentDetectorBuilder.setResolutionSettings(Resolution.valueOf(resolution));
             }
 
-            if (!androidSettings.get("useEmulator").equals(null)){
+            if (androidSettings.get("useEmulator") != null){
                 Boolean useEmulator = (Boolean) androidSettings.get("useEmulator");
                 mDocumentDetectorBuilder.setUseEmulator(useEmulator);
             }
 
-           if(!androidSettings.get("useRoot").equals(null)){
+           if(androidSettings.get("useRoot") != null){
                 Boolean useRoot = (Boolean) androidSettings.get("useRoot");
                 mDocumentDetectorBuilder.setUseRoot(useRoot);
             }
@@ -203,11 +204,9 @@ public class DocumentDetectorPlugin extends Plugin {
                 mDocumentDetectorBuilder.enableGoogleServices(useGoogleServices);
             }
 
-        }
-
             // Layout customization
-        if (!androidSettings.get("customization").equals(null)){
-            HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
+            if (androidSettings.get("customization") != null){
+                HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
                 Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
                 if (styleId != null) mDocumentDetectorBuilder.setStyle(styleId);
 
@@ -220,9 +219,9 @@ public class DocumentDetectorPlugin extends Plugin {
             }
 
 
-           // Sensor settings
-        if (!androidSettings.get("sensorSettings").equals(null)){
-            HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
+            // Sensor settings
+            if (androidSettings.get("sensorSettings") != null){
+                HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
                 HashMap<String, Object> sensorLuminosity = (HashMap<String, Object>) sensorSettings.get("sensorLuminositySettings");
                 if (sensorLuminosity != null) {
                     Integer luminosityThreshold = (Integer) sensorLuminosity.get("luminosityThreshold");
@@ -255,6 +254,9 @@ public class DocumentDetectorPlugin extends Plugin {
                 }
             }
 
+        }
+
+
         // Popup settings
         Boolean showPopup = (Boolean) argumentsMap.get("popup");
         if (showPopup != null) mDocumentDetectorBuilder.setPopupSettings(showPopup);
@@ -283,7 +285,27 @@ public class DocumentDetectorPlugin extends Plugin {
 
         Intent mIntent = new Intent(this.getContext(), DocumentDetectorActivity.class);
         mIntent.putExtra(DocumentDetector.PARAMETER_NAME, mDocumentDetectorBuilder.build());
-        startActivityForResult(call, mIntent,REQUEST_CODE);
+        startActivityForResult(call, mIntent, "documentDetectorResult");
+    }
+
+    @ActivityCallback
+    private void documentDetectorResult(PluginCall call, ActivityResult result) {
+
+        if (call == null) {
+            return;
+        }
+
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+
+            DocumentDetectorResult mDocumentDetectorResult = (DocumentDetectorResult) result.getData().getSerializableExtra(DocumentDetectorResult.PARAMETER_NAME);
+            if (mDocumentDetectorResult.wasSuccessful()) {
+                call.resolve(getSucessResponseMap(mDocumentDetectorResult));
+            } else {
+                call.resolve(getFailureResponseMap(mDocumentDetectorResult.getSdkFailure()));
+            }
+        } else {
+            call.resolve(getClosedResponseMap());
+        }
     }
 
 
@@ -294,7 +316,7 @@ public class DocumentDetectorPlugin extends Plugin {
     }
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
-        Map<String, Object> retMap = new HashMap<String, Object>();
+        Map<String, Object> retMap = new HashMap<>();
 
         if(json != JSONObject.NULL) {
             retMap = toMap(json);
@@ -342,27 +364,7 @@ public class DocumentDetectorPlugin extends Plugin {
     protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
         super.handleOnActivityResult(requestCode, resultCode, data);
 
-    // Get the previously saved call
-        PluginCall savedCall = getSavedCall();
 
-        if (savedCall == null) {
-            return;
-        }
-
-        if (requestCode == REQUEST_CODE) {
-            PluginCall call = getSavedCall();
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                
-                DocumentDetectorResult mDocumentDetectorResult = (DocumentDetectorResult) data.getSerializableExtra(DocumentDetectorResult.PARAMETER_NAME);
-                if (mDocumentDetectorResult.wasSuccessful()) {
-                        call.success(getSucessResponseMap(mDocumentDetectorResult));
-                } else {
-                        call.success(getFailureResponseMap(mDocumentDetectorResult.getSdkFailure()));
-                }
-            } else {
-                    call.success(getClosedResponseMap());
-            }
-        }
     }
 
     private JSObject getSucessResponseMap(DocumentDetectorResult mDocumentDetectorResult) {

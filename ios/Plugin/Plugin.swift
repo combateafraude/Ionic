@@ -52,23 +52,23 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                     .setDocumentDetectorFlow(flow: documentDetectorSteps)
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
-                    documentDetectorBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
+                    _ = documentDetectorBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
                 }
                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    documentDetectorBuilder.setPersonId(personId: peopleId)
+                    _ = documentDetectorBuilder.setPersonId(personId: peopleId)
                 }
                 
                 if let showPopup = arguments["popup"] as? Bool ?? nil {
-                    documentDetectorBuilder.setPopupSettings(show: showPopup)
+                    _ = documentDetectorBuilder.setPopupSettings(show: showPopup)
                 }
                 
                 if let hasSound = arguments["sound"] as? Bool ?? nil {
-                    documentDetectorBuilder.enableSound(enableSound: hasSound)
+                    _ = documentDetectorBuilder.enableSound(enableSound: hasSound)
                 }
                 
                 if let requestTimeout = arguments["requestTimeout"] as? TimeInterval ?? nil {
-                    documentDetectorBuilder.setNetworkSettings(requestTimeout: requestTimeout)
+                    _ = documentDetectorBuilder.setNetworkSettings(requestTimeout: requestTimeout)
                 }
                 
                 if let showPreview = arguments["showPreview"] as? [String: Any] ?? nil {
@@ -77,62 +77,59 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                     let subtitle = showPreview["subTitle"] as? String ?? nil
                     let confirmLabel = showPreview["confirmLabel"] as? String ?? nil
                     let retryLabel = showPreview["retryLabel"] as? String ?? nil
-                    documentDetectorBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
+                    _ = documentDetectorBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
 
                 if let manualCaptureEnable = iosSettings["manualCaptureEnable"] as? Bool ?? nil {
                     if let manualCaptureTime = iosSettings["manualCaptureTime"] as? TimeInterval ?? nil {
-                        documentDetectorBuilder.setManualCaptureSettings(enable: manualCaptureEnable, time: manualCaptureTime)
+                        _ = documentDetectorBuilder.setManualCaptureSettings(enable: manualCaptureEnable, time: manualCaptureTime)
                     }
                 }  
 
                     if let detectionThreshold = iosSettings["detectionThreshold"] as? Float ?? nil {
-                        documentDetectorBuilder.setDetectionSettings(detectionThreshold: detectionThreshold)
+                        _ = documentDetectorBuilder.setDetectionSettings(detectionThreshold: detectionThreshold)
                     }
                     
                     if let verifyQuality = iosSettings["verifyQuality"] as? Bool ?? nil {
                         let qualityThreshold = iosSettings["qualityThreshold"] as? Double ?? nil
-                        documentDetectorBuilder.setQualitySettings(verifyQuality: verifyQuality, qualityThreshold: qualityThreshold)
+                        _ = documentDetectorBuilder.setQualitySettings(verifyQuality: verifyQuality, qualityThreshold: qualityThreshold)
                     }
                     
-                    if let sensorStability = iosSettings["sensorStability"] as? [String: Any] ?? nil {
+                    /*if let sensorStability = iosSettings["sensorStability"] as? [String: Any] ?? nil {
                         
                         if let sensorLuminosity = iosSettings["sensorLuminosity"] as? [String: Any] ?? nil {
-                            let message = sensorLuminosity["message"] as? String ?? nil
                             let luminosityThreshold = sensorLuminosity["luminosityThreshold"] as? Float ?? nil
-                            documentDetectorBuilder.setLuminositySensorSettings(message: message, luminosityThreshold: luminosityThreshold)
+                            _ = documentDetectorBuilder.setLuminositySensorSettings(luminosityThreshold: luminosityThreshold)
                         }
                         
                         if let sensorOrientation = iosSettings["sensorOrientation"] as? [String: Any] ?? nil {
-                            let message = sensorOrientation["message"] as? String ?? nil
                             let orientationThreshold = sensorOrientation["orientationThreshold"] as? Double ?? nil
-                            documentDetectorBuilder.setOrientationSensorSettings(message: message, orientationThreshold: orientationThreshold)
+                            _ = documentDetectorBuilder.setOrientationSensorSettings(orientationThreshold: orientationThreshold)
                         }
                         
                         if let sensorStability = iosSettings["sensorStability"] as? [String: Any] {
-                            let message = sensorStability["message"] as? String ?? nil
                             let stabilityThreshold = sensorStability["stabilityThreshold"] as? Double ?? nil
-                            documentDetectorBuilder.setStabilitySensorSettings(message: message, stabilityThreshold: stabilityThreshold)
+                            _ = documentDetectorBuilder.setStabilitySensorSettings(stabilityThreshold: stabilityThreshold)
                         }
                         
-                    }
+                    }*/
                     
                     if let customization = iosSettings["customization"] as? [String: Any] ?? nil {
                         
                         let layout = DocumentDetectorLayout()
                         
                         if let colorHex = customization["colorHex"] as? String ?? nil {
-                            documentDetectorBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
+                            _ = documentDetectorBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
                         }
                         
                         if let showStepLabel = customization["showStepLabel"] as? Bool ?? nil {
-                            documentDetectorBuilder.showStepLabel(show: showStepLabel)
+                            _ = documentDetectorBuilder.showStepLabel(show: showStepLabel)
                         }
                         
                         if let showStatusLabel = customization["showStatusLabel"] as? Bool ?? nil {
-                            documentDetectorBuilder.showStatusLabel(show: showStatusLabel)
+                            _ = documentDetectorBuilder.showStatusLabel(show: showStatusLabel)
                         }
                         
                         if let closeImageName = customization["closeImageName"] as? String ?? nil {
@@ -160,19 +157,19 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                             redMask: redMask)
                         
                         
-                        documentDetectorBuilder.setLayout(layout: layout)
+                        _ = documentDetectorBuilder.setLayout(layout: layout)
                     }
                 }
                 
-                documentDetectorBuilder.enableMultiLanguage(enable: false)
-                documentDetectorBuilder.setManualCaptureSettings(enable: true, time: 15)
+                _ = documentDetectorBuilder.enableMultiLanguage(enable: false)
+                _ = documentDetectorBuilder.setManualCaptureSettings(enable: true, time: 15)
                 
                 
                 DispatchQueue.main.async {
                     let scannerVC = DocumentDetectorController(documentDetector: documentDetectorBuilder.build())
                     scannerVC.documentDetectorDelegate = self
                     
-                    self.bridge?.viewController.present(scannerVC, animated: true, completion: nil)
+                    self.bridge?.presentVC(scannerVC, animated: true, completion: nil)
                 }
             } else {
                 print("bad json")
@@ -229,14 +226,14 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         response["captures"] = captureMap
         response["trackingId"] = results.trackingId
         
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
         
     }
     
     public func documentDetectionControllerDidCancel(_ scanner: DocumentDetectorController) {
         let response : NSMutableDictionary! = [:]
         response["success"] = nil
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
     }
     
     public  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error:  DocumentDetectorFailure) {
@@ -245,7 +242,7 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
         response["message"] = error.message
         response["type"] = String(describing: type(of: error))
         
-        self.call?.success(["results": response])
+        self.call?.resolve(["results": response])
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, withName: String) -> String? {

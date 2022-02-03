@@ -5,8 +5,6 @@ export class DocumentDetectorCustomizationAndroid {
   private redMaskResIdName: String;
   private whiteMaskResIdName: String;
 
-
-
   constructor(
   styleResIdName: String,
     layoutResIdName: String,
@@ -19,18 +17,4 @@ export class DocumentDetectorCustomizationAndroid {
       this.redMaskResIdName = redMaskResIdName;
       this.whiteMaskResIdName = whiteMaskResIdName;
     }
-
 }
-/*
-  Map asMap(){
-    Map<String, dynamic> map = new Map();
-
-    map["styleResIdName"] = styleResIdName;
-    map["layoutResIdName"] = layoutResIdName;
-    map["greenMaskResIdName"] = greenMaskResIdName;
-    map["redMaskResIdName"] = redMaskResIdName;
-    map["whiteMaskResIdName"] = whiteMaskResIdName;
-
-    return map;
-  }
-}*/

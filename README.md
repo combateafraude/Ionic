@@ -43,9 +43,7 @@ public class MainActivity extends BridgeActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
-      add(DocumentDetectorPlugin.class);
-    }});
+    registerPlugin(DocumentDetectorPlugin.class);
   }
 }
 
@@ -74,7 +72,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v2.1.0.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v3.0.0.tar.gz"
 }
 ```
 
@@ -159,6 +157,13 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `SensorSettingsAndroid sensorSettings`<br><br>Customização das configurações dos sensores de captura |
 | `List<CaptureStage> captureStages`<br><br>Array de estágios para cada captura. Esse parâmetro é útil caso você deseje modificar a maneira com qual o DocumentDetector é executado, como configurações de detecção, captura automática ou manual, verificar a qualidade da foto, etc |
 |`bool enableSwitchCameraButton`<br><br>Permite habilitar ou desabilitar o botão de inversão da câmera. O padrão é `True` |
+| `bool useEmulator`<br><br>Permite habilitar/desabilitar o uso de dispositivos emulados no SDK, recomendamos desabilitar o uso dos emuladores por questões de segurança. O padrão é `false` |
+| `bool useRoot`<br><br>Permite habilitar/desabilitar o uso de dispositivos com root no SDK, recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `false` |
+##### Exemplo de uso
+```typescript
+   let documentDetector = new DocumentDetector();
+   documentDetector.setAndroidSettings = new DocumentDetectorAndroidSettings({useEmulator: false});
+```
 
 | CaptureStage constructor |
 | --------- |
