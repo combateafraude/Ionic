@@ -48,7 +48,7 @@ public class DocumentDetectorPlugin: CAPPlugin, DocumentDetectorControllerDelega
                     }
                 }
                 
-                var documentDetectorBuilder = DocumentDetector.Builder(mobileToken: mobileToken)
+                var documentDetectorBuilder = DocumentDetectorSdk.Builder(mobileToken: mobileToken)
                     .setDocumentDetectorFlow(flow: documentDetectorSteps)
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
