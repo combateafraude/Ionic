@@ -21,7 +21,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 
                 let mobileToken = arguments["mobileToken"] as! String
                 
-                let passiveFaceLivenessBuilder = PassiveFaceLiveness.Builder(mobileToken: mobileToken)
+                let passiveFaceLivenessBuilder = PassiveFaceLivenessSdk.Builder(mobileToken: mobileToken)
                                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
                     _ = passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
