@@ -4,8 +4,10 @@ export class DocumentDetectorCustomizationAndroid {
   private greenMaskResIdName: String;
   private redMaskResIdName: String;
   private whiteMaskResIdName: String;
+  private maskType: String;
 
   constructor(
+    maskType: String,
   styleResIdName: String,
     layoutResIdName: String,
     greenMaskResIdName: String,
@@ -16,5 +18,6 @@ export class DocumentDetectorCustomizationAndroid {
       this.greenMaskResIdName = greenMaskResIdName;
       this.redMaskResIdName = redMaskResIdName;
       this.whiteMaskResIdName = whiteMaskResIdName;
+      this.maskType = maskType;
     }
 }

@@ -28,6 +28,8 @@ import com.combateafraude.documentdetector.input.SensorStabilitySettings;
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
 import com.combateafraude.documentdetector.output.failure.SDKFailure;
+import com.combateafraude.documentdetector.input.MaskType;
+
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -216,6 +218,20 @@ public class DocumentDetectorPlugin extends Plugin {
                 Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
                 mDocumentDetectorBuilder.setLayout(layoutId);
                 mDocumentDetectorBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
+
+                String maskType = (String) customizationAndroid.get("maskType");
+                switch (maskType) {
+                    case "DETAILED":
+                        mDocumentDetectorBuilder.setMask(MaskType.DETAILED);
+                        break;
+                    case "NONE":
+                        mDocumentDetectorBuilder.setMask(MaskType.NONE);
+                        break;
+                    default:
+                        mDocumentDetectorBuilder.setMask(MaskType.DEFAULT);
+                        break;
+                }
+
             }
 
 

@@ -20,6 +20,7 @@ export { DocumentDetectorAndroidSettings } from './android/android-settings';
 export { Capture } from './result/capture';
 export { DocumentDetectorStepCustomizationAndroid } from './android/step-customization';
 export { DocumentDetectorIosSettings } from './ios/ios-settings';
+export { DocumentDetectorCustomizationAndroid } from './android/customization';
 const { DocumentDetectorPlugin } = Plugins;
 export class DocumentDetector {
     constructor() { }
