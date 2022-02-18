@@ -114,6 +114,19 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 | `.setShowPreview(ShowPreview showPreview)`<br><br> Preview para verificação de qualidade da foto |
 | `.setAndroidSettings(AndroidSettings androidSettings)`<br><br>Customizações somente aplicadas em Android |
 | `.setIosSettings(IosSettings iosSettings)`<br><br>Customizações somente aplicadas em iOS |
+| `.setCaptureMode(CaptureMode captureMode )`<br><br> Define as configurações de captura |
+
+| CaptureMode |
+| --------- |
+| `videoCapture: VideoCapture(use: boolean, time: number) `<br><br>Configura a captura por vídeo |
+| `imageCapture: ImageCapture(use: boolean, beforePictureMillis: number, afterPictureMillis: number)`<br><br>Configura a captura por foto |
+
+##### Exemplo de uso
+```typescript
+    let imageCapture = new ImageCapture({use: true});
+    let captureMode = new CaptureMode({imageCapture: imageCapture});
+    passiveFaceLiveness.setCaptureMode = captureMode;
+```
 
 | ShowPreview |
 | --------- |
@@ -149,6 +162,7 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 | `String greenMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara verde padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_green_mask.png` e parametrize "my_custom_green_mask" |
 | `String redMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara vermelha padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_red_mask.png` e parametrize "my_custom_red_mask" |
 | `String whiteMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara branca padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_white_mask.png` e parametrize "my_custom_white_mask" |
+| `MaskType maskType`<br><br>Define o tipo de máscara utilizada nas capturas. Existem dois tipos: MaskType.DEFAULT, com o padrão pontilhado e MaskType.NONE, que remove completamente a máscara. O padrão é `MaskType.DEFAULT` |
 
 | CaptureSettings constructor |
 | --------- |
