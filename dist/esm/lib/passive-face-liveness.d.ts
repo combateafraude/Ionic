@@ -4,9 +4,12 @@ import { PassiveFaceLivenessClosed } from './result/passive-face-liveness-closed
 import { IosSettings } from './ios/ios-settings';
 import { ShowPreview } from './show-preview';
 import { AndroidSettings } from "./android/android-settings";
+import { CaptureMode } from './android/capture-mode';
 export { ShowPreview } from './show-preview';
 export { AndroidSettings } from "./android/android-settings";
-export { CaptureAndroidSettings } from './android/capture-settings';
+export { VideoCapture } from './android/video-capture';
+export { ImageCapture } from './android/image-capture';
+export { CaptureMode } from './android/capture-mode';
 export { SensorSettingsAndroid } from './android/sensor-settings';
 export { DocumentDetectorCustomizationAndroid } from './android/customization';
 export { IosSettings } from './ios/ios-settings';
@@ -21,6 +24,7 @@ export declare class PassiveFaceLiveness {
     private iosSettings;
     private showDelay;
     private delay;
+    private captureMode;
     constructor();
     set setMobileToken(mobileToken: string);
     set setPeopleId(peopleId: string);
@@ -33,5 +37,6 @@ export declare class PassiveFaceLiveness {
     set setShowPreview(showPreview: ShowPreview);
     set setAndroidSettings(androidSettings: AndroidSettings);
     setIosSettings(iosSettings: IosSettings): void;
+    set setCaptureMode(captureMode: CaptureMode);
     start(): Promise<PassiveFaceLivenessSuccess | PassiveFaceLivenessFailure | PassiveFaceLivenessClosed>;
 }

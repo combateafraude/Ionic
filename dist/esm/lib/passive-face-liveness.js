@@ -14,7 +14,9 @@ import { Plugins } from '@capacitor/core';
 const { PassiveFaceLivenessPlugin } = Plugins;
 export { ShowPreview } from './show-preview';
 export { AndroidSettings } from "./android/android-settings";
-export { CaptureAndroidSettings } from './android/capture-settings';
+export { VideoCapture } from './android/video-capture';
+export { ImageCapture } from './android/image-capture';
+export { CaptureMode } from './android/capture-mode';
 export { SensorSettingsAndroid } from './android/sensor-settings';
 export { DocumentDetectorCustomizationAndroid } from './android/customization';
 export { IosSettings } from './ios/ios-settings';
@@ -53,6 +55,9 @@ export class PassiveFaceLiveness {
     }
     setIosSettings(iosSettings) {
         this.iosSettings = iosSettings;
+    }
+    set setCaptureMode(captureMode) {
+        this.captureMode = captureMode;
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {

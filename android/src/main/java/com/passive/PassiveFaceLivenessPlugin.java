@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
 
+import com.combateafraude.passivefaceliveness.controller.server.utils.CaptureMode;
 import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.input.PreviewSettings;
 import com.getcapacitor.JSObject;
@@ -21,6 +22,9 @@ import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 import com.combateafraude.passivefaceliveness.output.failure.SDKFailure;
 import com.getcapacitor.annotation.ActivityCallback;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.combateafraude.passivefaceliveness.input.MaskType;
+import com.combateafraude.passivefaceliveness.input.VideoCapture;
+import com.combateafraude.passivefaceliveness.input.ImageCapture;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -90,6 +94,39 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             mPassiveFaceLivenessBuilder.setPreviewSettings(previewSettings);
         }
 
+        HashMap<String, Object> captureMode = (HashMap<String, Object>) argumentsMap.get("captureMode");
+        if (captureMode != null){
+            //VideoCapture
+            HashMap<String, Object> videoCapture = (HashMap<String, Object>) captureMode.get("videoCapture");
+            if(videoCapture != null){
+                boolean use = (Boolean) videoCapture.get("use");
+
+                if(use){
+                    if(videoCapture.get("time") != null){
+                        Integer time = (Integer) videoCapture.get("time");
+                        mPassiveFaceLivenessBuilder.setCaptureSettings(new VideoCapture(time));
+                    }else{
+                        mPassiveFaceLivenessBuilder.setCaptureSettings(new VideoCapture());
+                    }
+                }
+            }
+            //ImageCapture
+            HashMap<String, Object> imageCapture = (HashMap<String, Object>) captureMode.get("imageCapture");
+            if(imageCapture != null){
+                boolean use = (Boolean) imageCapture.get("use");
+                Integer afterPictureMillis = (Integer) imageCapture.get("afterPictureMillis");
+                Integer beforePictureMillis = (Integer) imageCapture.get("beforePictureMillis");
+
+                if(use){
+                    if(afterPictureMillis != null && beforePictureMillis != null){
+                        mPassiveFaceLivenessBuilder.setCaptureSettings(new ImageCapture(afterPictureMillis, beforePictureMillis));
+                    }else{
+                        mPassiveFaceLivenessBuilder.setCaptureSettings(new ImageCapture());
+                    }
+                }
+            }
+        }
+
         // Android specific settings
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
@@ -107,6 +144,16 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                     Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
                     mPassiveFaceLivenessBuilder.setLayout(layoutId);
                     mPassiveFaceLivenessBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
+
+                    String maskType = (String) customizationAndroid.get("maskType");
+                    switch (maskType) {
+                        case "NONE":
+                            mPassiveFaceLivenessBuilder.setMask(MaskType.NONE);
+                            break;                    
+                        default:
+                            mPassiveFaceLivenessBuilder.setMask(MaskType.DEFAULT);
+                            break;
+                    }
                 }
 
             }
@@ -128,19 +175,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                     }
                 }
             }
-
-            if (androidSettings.get("captureSettings") != null){
-                // Capture settings
-                HashMap<String, Object> captureSettings = (HashMap<String, Object>) androidSettings.get("captureSettings");
-                if (captureSettings != null) {
-                    Integer beforePictureMillis = (Integer) captureSettings.get("beforePictureMillis");
-                    Integer afterPictureMillis = (Integer) captureSettings.get("afterPictureMillis");
-                    if (beforePictureMillis != null && afterPictureMillis != null) {
-                        mPassiveFaceLivenessBuilder.setCaptureSettings(new CaptureSettings(beforePictureMillis, afterPictureMillis));
-                    }
-                }
-            }
-
+            
             if (androidSettings.get("showButtonTime") != null){
                 int showButtonTime = (int) androidSettings.get("showButtonTime");
                 mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);

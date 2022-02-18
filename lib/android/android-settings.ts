@@ -1,10 +1,9 @@
-import { CaptureAndroidSettings } from './capture-settings';
+
 import { SensorSettingsAndroid } from './sensor-settings';
 import { DocumentDetectorCustomizationAndroid } from './customization';
 export class AndroidSettings {
    private customization?: DocumentDetectorCustomizationAndroid;
    private sensorSettings?: SensorSettingsAndroid;
-   private captureSettings?: CaptureAndroidSettings;
    private showButtonTime?: number;
    private enableSwitchCameraButton?: boolean;
    private enableGoogleServices?: boolean;
@@ -15,7 +14,6 @@ export class AndroidSettings {
     options: {
       customization?: DocumentDetectorCustomizationAndroid,
       sensorSettings?: SensorSettingsAndroid,
-      captureSettings?: CaptureAndroidSettings,
       showButtonTime?: number,
       enableSwitchCameraButton?: boolean,
       enableGoogleServices?: boolean,
@@ -24,7 +22,6 @@ export class AndroidSettings {
     }){
           this.customization = options?.customization;
           this.sensorSettings = options?.sensorSettings;
-          this.captureSettings = options?.captureSettings;
           this.showButtonTime = options?.showButtonTime;
           this.enableSwitchCameraButton = options?.enableSwitchCameraButton;
           this.enableGoogleServices = options?.enableGoogleServices;
