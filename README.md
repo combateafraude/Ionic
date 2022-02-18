@@ -72,7 +72,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v4.0.0.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v5.0.0.tar.gz"
 }
 ```
 
@@ -180,6 +180,7 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 | `String greenMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara verde padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_green_mask.png` e parametrize "my_custom_green_mask" |
 | `String redMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara vermelha padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_red_mask.png` e parametrize "my_custom_red_mask" |
 | `String whiteMaskResIdName`<br><br>Nome do drawable resource à substituir a máscara branca padrão. **Caso for usar este parâmetro, use uma máscara com a mesma área de corte, é importante para o algoritmo de detecção**. Por exemplo, salve a imagem da máscara em `ROOT_PROJECT/android/app/src/main/res/drawable/my_custom_white_mask.png` e parametrize "my_custom_white_mask" |
+| `MaskType maskType`<br><br>Define o tipo de máscara utilizada nas capturas. Existem três tipos: MaskType.DEFAULT, com o padrão pontilhado, MaskType.DETAILED, que detalha cada documento e MaskType.NONE, que remove completamente a máscara. O padrão é `MaskType.DEFAULT` |
 
 | SensorSettingsAndroid constructor |
 | --------- |
