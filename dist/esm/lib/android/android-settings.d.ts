@@ -1,10 +1,8 @@
-import { CaptureAndroidSettings } from './capture-settings';
 import { SensorSettingsAndroid } from './sensor-settings';
 import { DocumentDetectorCustomizationAndroid } from './customization';
 export declare class AndroidSettings {
     private customization?;
     private sensorSettings?;
-    private captureSettings?;
     private showButtonTime?;
     private enableSwitchCameraButton?;
     private enableGoogleServices?;
@@ -13,7 +11,6 @@ export declare class AndroidSettings {
     constructor(options: {
         customization?: DocumentDetectorCustomizationAndroid;
         sensorSettings?: SensorSettingsAndroid;
-        captureSettings?: CaptureAndroidSettings;
         showButtonTime?: number;
         enableSwitchCameraButton?: boolean;
         enableGoogleServices?: boolean;

@@ -94,11 +94,6 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                         _ = passiveFaceLivenessBuilder.setLayout(layout: layout)
                     }
                     
-                    if let beforePictureMillis = iosSettings["beforePictureMillis"] as? TimeInterval ?? nil {
-                        _ = passiveFaceLivenessBuilder.setCaptureSettings(beforePictureInterval: beforePictureMillis)
-                    }
-                    
-                    
                     if let sensorStability = iosSettings["sensorStability"] as? [String: Any] ?? nil {
                         if let sensorStability = sensorStability["sensorStability"] as? [String: Any] ?? nil {
                             let stabilityThreshold = sensorStability["stabilityThreshold"] as? Double ?? nil
@@ -106,6 +101,20 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                         }
                     }
                     
+                }
+                
+                if let captureMode = arguments["captureMode"] as? [String: Any] ?? nil {
+                    if let videoCapture = captureMode["videoCapture"] as? [String: Any] ?? nil {
+                        if let use = videoCapture["use"] as? Bool ?? nil {
+                            if(use){
+                                if let time = videoCapture["time"] as? TimeInterval ?? nil {
+                                    _ = passiveFaceLivenessBuilder.setVideoCaptureSettings(time: time)
+                                }else{
+                                    _ = passiveFaceLivenessBuilder.setVideoCaptureSettings(time: 3)
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 DispatchQueue.main.async {
@@ -128,14 +137,25 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
     public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFinishWithResults results: PassiveFaceLivenessResult) {
         let response : NSMutableDictionary! = [:]
         
-        let imagePath = saveImageToDocumentsDirectory(image: results.image, withName: "selfie.jpg")
-        response["success"] = NSNumber(value: true)
-        response["imagePath"] = imagePath
-        response["imageUrl"] = results.imageUrl
-        response["signedResponse"] = results.signedResponse
-        response["trackingId"] = results.trackingId
+        if let image = results.image {
+            let imagePath = saveImageToDocumentsDirectory(image: image, withName: "selfie.jpg")
+            response["success"] = NSNumber(value: true)
+            response["imagePath"] = imagePath
+            response["imageUrl"] = results.imageUrl
+            response["signedResponse"] = results.signedResponse
+            response["trackingId"] = results.trackingId
+            
+            self.call?.resolve(["results": response])
+        }else{
+            response["success"] = NSNumber(value: true)
+            response["imagePath"] = "undefined"
+            response["imageUrl"] = results.imageUrl
+            response["signedResponse"] = results.signedResponse
+            response["trackingId"] = results.trackingId
+            
+            self.call?.resolve(["results": response])
+        }
         
-        self.call?.resolve(["results": response])
     }
     
     public func passiveFaceLivenessControllerDidCancel(_ passiveFacelivenessController: PassiveFaceLivenessController) {

@@ -350,7 +350,6 @@ class AndroidSettings {
     constructor(options) {
         this.customization = options === null || options === void 0 ? void 0 : options.customization;
         this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
-        this.captureSettings = options === null || options === void 0 ? void 0 : options.captureSettings;
         this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
         this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
         this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
@@ -359,10 +358,25 @@ class AndroidSettings {
     }
 }
 
-class CaptureAndroidSettings {
-    constructor(beforePictureMillis, afterPictureMillis) {
-        this.beforePictureMillis = beforePictureMillis;
-        this.afterPictureMillis = afterPictureMillis;
+class VideoCapture {
+    constructor(options) {
+        this.use = options.use;
+        this.time = options.time;
+    }
+}
+
+class ImageCapture {
+    constructor(options) {
+        this.use = options.use;
+        this.beforePictureMillis = options.beforePictureMillis;
+        this.afterPictureMillis = options.afterPictureMillis;
+    }
+}
+
+class CaptureMode {
+    constructor(options) {
+        this.videoCapture = options.videoCapture;
+        this.imageCapture = options.imageCapture;
     }
 }
 
@@ -373,12 +387,13 @@ class SensorSettingsAndroid {
 }
 
 class DocumentDetectorCustomizationAndroid {
-    constructor(styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
+    constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
         this.styleResIdName = styleResIdName;
         this.layoutResIdName = layoutResIdName;
         this.greenMaskResIdName = greenMaskResIdName;
         this.redMaskResIdName = redMaskResIdName;
         this.whiteMaskResIdName = whiteMaskResIdName;
+        this.maskType = maskType;
     }
 }
 
@@ -427,6 +442,9 @@ class PassiveFaceLiveness {
     setIosSettings(iosSettings) {
         this.iosSettings = iosSettings;
     }
+    set setCaptureMode(captureMode) {
+        this.captureMode = captureMode;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
@@ -445,10 +463,12 @@ class PassiveFaceLiveness {
 }
 
 exports.AndroidSettings = AndroidSettings;
-exports.CaptureAndroidSettings = CaptureAndroidSettings;
+exports.CaptureMode = CaptureMode;
 exports.DocumentDetectorCustomizationAndroid = DocumentDetectorCustomizationAndroid;
+exports.ImageCapture = ImageCapture;
 exports.IosSettings = IosSettings;
 exports.PassiveFaceLiveness = PassiveFaceLiveness;
 exports.SensorSettingsAndroid = SensorSettingsAndroid;
 exports.ShowPreview = ShowPreview;
+exports.VideoCapture = VideoCapture;
 //# sourceMappingURL=plugin.js.map

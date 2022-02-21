@@ -2,7 +2,6 @@ export class AndroidSettings {
     constructor(options) {
         this.customization = options === null || options === void 0 ? void 0 : options.customization;
         this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
-        this.captureSettings = options === null || options === void 0 ? void 0 : options.captureSettings;
         this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
         this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
         this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
