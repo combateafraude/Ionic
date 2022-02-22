@@ -27,23 +27,22 @@ function __awaiter(thisArg, _arguments, P, generator) {
     });
 }
 
-class PassiveFaceLivenessResult {
+class FaceAuthenticatorResult {
     constructor(result) {
         this.result = result;
     }
 }
 
-class PassiveFaceLivenessSuccess extends PassiveFaceLivenessResult {
-    constructor(imagePath, imageUrl, signedResponse, trackingId) {
+class FaceAuthenticatorSuccess extends FaceAuthenticatorResult {
+    constructor(isAuthenticated, signedResponse, trackingId) {
         super("SUCCESS");
-        this.imagePath = imagePath;
-        this.imageUrl = imageUrl;
+        this.isAuthenticated = isAuthenticated;
         this.signedResponse = signedResponse;
         this.trackingId = trackingId;
     }
 }
 
-class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
+class FaceAuthenticatorFailure extends FaceAuthenticatorResult {
     constructor(message, type) {
         super("FAILURE");
         this.message = message;
@@ -51,7 +50,7 @@ class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
     }
 }
 
-class PassiveFaceLivenessClosed extends PassiveFaceLivenessResult {
+class FaceAuthenticatorClosed extends FaceAuthenticatorResult {
     constructor() {
         super("CLOSED");
     }
@@ -336,25 +335,15 @@ Capacitor.registerPlugin;
  */
 const Plugins = Capacitor.Plugins;
 
-class ShowPreview {
-    constructor(show, title, subTitle, confirmLabel, retryLabel) {
-        this.title = title;
-        this.subTitle = subTitle;
-        this.confirmLabel = confirmLabel;
-        this.retryLabel = retryLabel;
-        this.show = show;
-    }
-}
-
 class AndroidSettings {
     constructor(options) {
-        this.customization = options === null || options === void 0 ? void 0 : options.customization;
         this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
         this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
         this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
         this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
         this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
         this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
+        this.customization = options === null || options === void 0 ? void 0 : options.customization;
     }
 }
 
@@ -383,17 +372,6 @@ class CaptureMode {
 class SensorSettingsAndroid {
     constructor(sensorStabilitySettings) {
         this.sensorStabilitySettings = sensorStabilitySettings;
-    }
-}
-
-class DocumentDetectorCustomizationAndroid {
-    constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
-        this.styleResIdName = styleResIdName;
-        this.layoutResIdName = layoutResIdName;
-        this.greenMaskResIdName = greenMaskResIdName;
-        this.redMaskResIdName = redMaskResIdName;
-        this.whiteMaskResIdName = whiteMaskResIdName;
-        this.maskType = maskType;
     }
 }
 
@@ -433,9 +411,6 @@ class PassiveFaceLiveness {
         this.showDelay = showDelay;
         this.delay = delay;
     }
-    set setShowPreview(showPreview) {
-        this.showPreview = showPreview;
-    }
     set setAndroidSettings(androidSettings) {
         this.androidSettings = androidSettings;
     }
@@ -450,13 +425,13 @@ class PassiveFaceLiveness {
             var param = JSON.stringify(this);
             const result = (yield PassiveFaceLivenessPlugin.start({ builder: param })).results;
             if (result.success == null) {
-                return new PassiveFaceLivenessClosed();
+                return new FaceAuthenticatorClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId);
+                return new FaceAuthenticatorSuccess(result.isAuthenticated, result.signedResponse, result.trackingId);
             }
             else {
-                return new PassiveFaceLivenessFailure(result.message, result.type);
+                return new FaceAuthenticatorFailure(result.message, result.type);
             }
         });
     }
@@ -464,11 +439,9 @@ class PassiveFaceLiveness {
 
 exports.AndroidSettings = AndroidSettings;
 exports.CaptureMode = CaptureMode;
-exports.DocumentDetectorCustomizationAndroid = DocumentDetectorCustomizationAndroid;
 exports.ImageCapture = ImageCapture;
 exports.IosSettings = IosSettings;
 exports.PassiveFaceLiveness = PassiveFaceLiveness;
 exports.SensorSettingsAndroid = SensorSettingsAndroid;
-exports.ShowPreview = ShowPreview;
 exports.VideoCapture = VideoCapture;
 //# sourceMappingURL=plugin.js.map

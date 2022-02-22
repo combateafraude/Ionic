@@ -1,7 +1,7 @@
 {
-  "name": "passive-face-liveness-plugin",
+  "name": "face-authenticator-plugin",
   "version": "4.5.0",
-  "description": "PassiveFaceLiveness",
+  "description": "FaceAuthenticator",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

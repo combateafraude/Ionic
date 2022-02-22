@@ -1,2 +1,2 @@
-export * from '../lib/passive-face-liveness';
+export * from '../lib/face-authenticator';
 //# sourceMappingURL=web.js.map

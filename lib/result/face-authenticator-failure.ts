@@ -1,6 +1,6 @@
-import { PassiveFaceLivenessResult } from './passive-face-liveness-result';
+import { FaceAuthenticatorResult } from './face-authenticator-result';
 
-export class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
+export class FaceAuthenticatorFailure extends FaceAuthenticatorResult {
   private message: string;
   private type: string;
 

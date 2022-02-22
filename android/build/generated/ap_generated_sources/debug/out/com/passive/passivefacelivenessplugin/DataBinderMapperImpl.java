@@ -66,7 +66,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   public List<DataBinderMapper> collectDependencies() {
     ArrayList<DataBinderMapper> result = new ArrayList<DataBinderMapper>(2);
     result.add(new androidx.databinding.library.baseAdapters.DataBinderMapperImpl());
-    result.add(new com.combateafraude.passivefaceliveness.DataBinderMapperImpl());
+    result.add(new com.combateafraude.faceauthenticator.DataBinderMapperImpl());
     return result;
   }
 

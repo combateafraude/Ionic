@@ -1,1 +1,1 @@
-export * from './passive-face-liveness';
+export * from './face-authenticator';

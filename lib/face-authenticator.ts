@@ -1,15 +1,11 @@
-import { PassiveFaceLivenessSuccess } from './result/passive-face-liveness-success';
-import { PassiveFaceLivenessFailure } from './result/passive-face-liveness-failure';
-import { PassiveFaceLivenessClosed } from './result/passive-face-liveness-closed';
+import { FaceAuthenticatorSuccess } from './result/face-authenticator-success';
+import { FaceAuthenticatorFailure } from './result/face-authenticator-failure';
+import { FaceAuthenticatorClosed } from './result/face-authenticator-closed';
 import { IosSettings } from './ios/ios-settings';
-import  {ShowPreview}  from './show-preview';
 import  {AndroidSettings}  from "./android/android-settings";
 import { Plugins } from '@capacitor/core';
 const { PassiveFaceLivenessPlugin } = Plugins;
 import { CaptureMode } from './android/capture-mode';
-import { DocumentDetectorCustomizationAndroid } from './android/customization';
-
-export {ShowPreview} from './show-preview';
 
 export {AndroidSettings} from "./android/android-settings" ;
 export { VideoCapture } from './android/video-capture';
@@ -17,8 +13,6 @@ export { ImageCapture } from './android/image-capture';
 export {CaptureMode} from './android/capture-mode';
 
 export { SensorSettingsAndroid } from './android/sensor-settings';
-export { DocumentDetectorCustomizationAndroid } from './android/customization';
-
 export { IosSettings } from './ios/ios-settings';
 import { PassiveFaceLivenessCustomizationIos } from './ios/customization';
 import { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
@@ -29,7 +23,6 @@ export class PassiveFaceLiveness {
   private useAnalytics: boolean;
   private sound: boolean;
   private requestTimeout: number;
-  private showPreview: ShowPreview;
   private androidSettings: AndroidSettings;
   private iosSettings: IosSettings;
   private showDelay: boolean;
@@ -71,10 +64,6 @@ export class PassiveFaceLiveness {
     this.delay = delay;
   }
 
-  set setShowPreview(showPreview: ShowPreview){
-    this.showPreview = showPreview;
-  }
-
   set setAndroidSettings(androidSettings: AndroidSettings){
     this.androidSettings = androidSettings;
   }
@@ -94,11 +83,11 @@ export class PassiveFaceLiveness {
     const result = (await PassiveFaceLivenessPlugin.start({builder: param})).results;
   
     if(result.success == null){
-      return new PassiveFaceLivenessClosed();
+      return new FaceAuthenticatorClosed();
     }else if(result.success){
-      return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId)
+      return new FaceAuthenticatorSuccess(result.isAuthenticated, result.signedResponse, result.trackingId)
     }else{
-      return new PassiveFaceLivenessFailure(result.message, result.type)
+      return new FaceAuthenticatorFailure(result.message, result.type)
     }
     
   }
