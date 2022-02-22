@@ -46,8 +46,6 @@ public class FaceAuthenticatorPlugin extends Plugin {
     private static final String RAW_RES = "raw";
     private static final String LAYOUT_RES = "layout";
 
-    private Activity activity;
-
     @PluginMethod()
     public void start(PluginCall call) throws JSONException {
         saveCall(call);
@@ -180,11 +178,11 @@ public class FaceAuthenticatorPlugin extends Plugin {
 
         Intent mIntent = new Intent(this.getContext(), FaceAuthenticatorActivity.class);
         mIntent.putExtra(FaceAuthenticator.PARAMETER_NAME, mFaceAuthenticatorBuilder.build());
-        startActivityForResult(call, mIntent, REQUEST_CODE);
+        startActivityForResult(call, mIntent, "faceAuthenticatorResult");
     }
 
     @ActivityCallback
-    private void passiveFaceLivenessResult(PluginCall call, ActivityResult result) {
+    private void faceAuthenticatorResult(PluginCall call, ActivityResult result) {
         int resultCode = result.getResultCode();
 
         // Get the previously saved call

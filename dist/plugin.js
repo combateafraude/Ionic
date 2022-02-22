@@ -383,8 +383,8 @@ class IosSettings {
     }
 }
 
-const { PassiveFaceLivenessPlugin } = Plugins;
-class PassiveFaceLiveness {
+const { FaceAuthenticatorPlugin } = Plugins;
+class FaceAuthenticator {
     constructor() { }
     set setMobileToken(mobileToken) {
         this.mobileToken = mobileToken;
@@ -423,7 +423,7 @@ class PassiveFaceLiveness {
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
-            const result = (yield PassiveFaceLivenessPlugin.start({ builder: param })).results;
+            const result = (yield FaceAuthenticatorPlugin.start({ builder: param })).results;
             if (result.success == null) {
                 return new FaceAuthenticatorClosed();
             }
@@ -439,9 +439,9 @@ class PassiveFaceLiveness {
 
 exports.AndroidSettings = AndroidSettings;
 exports.CaptureMode = CaptureMode;
+exports.FaceAuthenticator = FaceAuthenticator;
 exports.ImageCapture = ImageCapture;
 exports.IosSettings = IosSettings;
-exports.PassiveFaceLiveness = PassiveFaceLiveness;
 exports.SensorSettingsAndroid = SensorSettingsAndroid;
 exports.VideoCapture = VideoCapture;
 //# sourceMappingURL=plugin.js.map

@@ -4,20 +4,17 @@ import { FaceAuthenticatorClosed } from './result/face-authenticator-closed';
 import { IosSettings } from './ios/ios-settings';
 import  {AndroidSettings}  from "./android/android-settings";
 import { Plugins } from '@capacitor/core';
-const { PassiveFaceLivenessPlugin } = Plugins;
+const { FaceAuthenticatorPlugin } = Plugins;
 import { CaptureMode } from './android/capture-mode';
 
 export {AndroidSettings} from "./android/android-settings" ;
 export { VideoCapture } from './android/video-capture';
 export { ImageCapture } from './android/image-capture';
 export {CaptureMode} from './android/capture-mode';
-
 export { SensorSettingsAndroid } from './android/sensor-settings';
 export { IosSettings } from './ios/ios-settings';
-import { PassiveFaceLivenessCustomizationIos } from './ios/customization';
-import { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
 
-export class PassiveFaceLiveness {
+export class FaceAuthenticator {
   private mobileToken: string;
   private peopleId: string;
   private useAnalytics: boolean;
@@ -80,7 +77,7 @@ export class PassiveFaceLiveness {
 
     var param = JSON.stringify(this);
 
-    const result = (await PassiveFaceLivenessPlugin.start({builder: param})).results;
+    const result = (await FaceAuthenticatorPlugin.start({builder: param})).results;
   
     if(result.success == null){
       return new FaceAuthenticatorClosed();
