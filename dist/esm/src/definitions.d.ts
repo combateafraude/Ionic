@@ -1,9 +1,9 @@
 declare module '@capacitor/core' {
     interface PluginRegistry {
-        PassiveFaceLivenessPlugin: PassiveFaceLivenessPlugin;
+        FaceAuthenticatorPlugin: FaceAuthenticatorPlugin;
     }
 }
-export interface PassiveFaceLivenessPlugin {
+export interface FaceAuthenticatorPlugin {
     start(options: {
         builder: string;
     }): Promise<{

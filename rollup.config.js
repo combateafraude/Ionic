@@ -9,7 +9,7 @@ export default {
   output: {
     file: 'dist/plugin.js',
     format: 'cjs',
-    name: 'PassiveFaceLivenessPlugin', // TODO: change this
+    name: 'FaceAuthenticatorPlugin', // TODO: change this
     globals: {
       '@capacitor/core': 'capacitorExports',
     },

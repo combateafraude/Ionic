@@ -1,4 +1,4 @@
-export class PassiveFaceLivenessCustomizationIos {
+export class FaceAuthenticatorCustomizationIos {
     private colorHex: string;
     private greenMaskImageName: string;
     private whiteMaskImageName: string;

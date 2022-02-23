@@ -1,13 +1,13 @@
 import Foundation
 import Capacitor
-import PassiveFaceLiveness
+import FaceAuthenticator
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(PassiveFaceLivenessPlugin)
-public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessControllerDelegate {
+@objc(FaceAuthenticatorPlugin)
+public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDelegate {
     
     var call: CAPPluginCall?
     
@@ -21,49 +21,40 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 
                 let mobileToken = arguments["mobileToken"] as! String
                 
-                let passiveFaceLivenessBuilder = PassiveFaceLivenessSdk.Builder(mobileToken: mobileToken)
+                let faceAuthenticatorBuilder = FaceAuthenticatorSdk.Builder(mobileToken: mobileToken)
                                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    _ = passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
+                    _ = faceAuthenticatorBuilder.setPersonId(peopleId)
                 }
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
-                    _ = passiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
+                    _ = faceAuthenticatorBuilder.setAnalyticsSettings(useAnalytics: useAnalytics)
                 }
                 
                 if let hasSound = arguments["sound"] as? Bool ?? nil {
-                    _ = passiveFaceLivenessBuilder.enableSound(enableSound: hasSound)
+                    _ = faceAuthenticatorBuilder.enableSound(hasSound: hasSound)
                 }
                 
                 if let requestTimeout = arguments["requestTimeout"] as? TimeInterval ?? nil {
-                    _ = passiveFaceLivenessBuilder.setNetworkSettings(requestTimeout: requestTimeout)
-                }
-                
-                if let showPreview = arguments["showPreview"] as? [String: Any] ?? nil {
-                    let show = showPreview["show"] as? Bool ?? false
-                    let title = showPreview["title"] as? String ?? nil
-                    let subtitle = showPreview["subTitle"] as? String ?? nil
-                    let confirmLabel = showPreview["confirmLabel"] as? String ?? nil
-                    let retryLabel = showPreview["retryLabel"] as? String ?? nil
-                    _ = passiveFaceLivenessBuilder.showPreview(show, title: title, subtitle: subtitle, confirmLabel: confirmLabel, retryLabel: retryLabel)
+                    _ = faceAuthenticatorBuilder.setNetworkSettings(requestTimeout: requestTimeout)
                 }
                 
                 if let iosSettings = arguments["iosSettings"] as? [String: Any] ?? nil {
                     
                     if let customization = iosSettings["customization"] as? [String: Any] ?? nil {
                         
-                        let layout = PassiveFaceLivenessLayout()
+                        let layout = FaceAuthenticatorLayout()
                         
                         if let colorHex = customization["colorHex"] as? String ?? nil {
-                            _ = passiveFaceLivenessBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
+                            _ = faceAuthenticatorBuilder.setColorTheme(color: UIColor.init(hexString: colorHex))
                         }
                         
                         if let showStepLabel = customization["showStepLabel"] as? Bool ?? nil {
-                            _ = passiveFaceLivenessBuilder.showStepLabel(show: showStepLabel)
+                            _ = faceAuthenticatorBuilder.showStepLabel(show: showStepLabel)
                         }
                         
                         if let showStatusLabel = customization["showStatusLabel"] as? Bool ?? nil {
-                            _ = passiveFaceLivenessBuilder.showStatusLabel(show: showStatusLabel)
+                            _ = faceAuthenticatorBuilder.showStatusLabel(show: showStatusLabel)
                         }
                         
                         if let closeImageName = customization["closeImageName"] as? String ?? nil {
@@ -91,13 +82,13 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                             redMask: redMask)
                         
                         
-                        _ = passiveFaceLivenessBuilder.setLayout(layout: layout)
+                        _ = faceAuthenticatorBuilder.setLayout(layout: layout)
                     }
                     
                     if let sensorStability = iosSettings["sensorStability"] as? [String: Any] ?? nil {
                         if let sensorStability = sensorStability["sensorStability"] as? [String: Any] ?? nil {
                             let stabilityThreshold = sensorStability["stabilityThreshold"] as? Double ?? nil
-                            _ = passiveFaceLivenessBuilder.setStabilitySensorSettings(stabilityThreshold: stabilityThreshold)
+                            _ = faceAuthenticatorBuilder.setStabilitySensorSettings(message: nil, stabilityThreshold: stabilityThreshold)
                         }
                     }
                     
@@ -108,9 +99,9 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                         if let use = videoCapture["use"] as? Bool ?? nil {
                             if(use){
                                 if let time = videoCapture["time"] as? TimeInterval ?? nil {
-                                    _ = passiveFaceLivenessBuilder.setVideoCaptureSettings(time: time)
+                                    _ = faceAuthenticatorBuilder.setVideoCaptureSettings(time: time)
                                 }else{
-                                    _ = passiveFaceLivenessBuilder.setVideoCaptureSettings(time: 3)
+                                    _ = faceAuthenticatorBuilder.setVideoCaptureSettings(time: 3)
                                 }
                             }
                         }
@@ -118,8 +109,8 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 }
                 
                 DispatchQueue.main.async {
-                    let scannerVC = PassiveFaceLivenessController(passiveFaceLiveness: passiveFaceLivenessBuilder.build())
-                    scannerVC.passiveFaceLivenessDelegate = self
+                    let scannerVC = FaceAuthenticatorController(faceAuthenticator: faceAuthenticatorBuilder.build())
+                    scannerVC.faceAuthenticatorDelegate = self
                     
                     self.bridge?.presentVC(scannerVC, animated: true, completion: nil)
                     
@@ -134,31 +125,18 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         
     }
     
-    public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFinishWithResults results: PassiveFaceLivenessResult) {
+    public func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFinishWithResults results: FaceAuthenticatorResult) {
         let response : NSMutableDictionary! = [:]
         
-        if let image = results.image {
-            let imagePath = saveImageToDocumentsDirectory(image: image, withName: "selfie.jpg")
-            response["success"] = NSNumber(value: true)
-            response["imagePath"] = imagePath
-            response["imageUrl"] = results.imageUrl
-            response["signedResponse"] = results.signedResponse
-            response["trackingId"] = results.trackingId
-            
-            self.call?.resolve(["results": response])
-        }else{
-            response["success"] = NSNumber(value: true)
-            response["imagePath"] = "undefined"
-            response["imageUrl"] = results.imageUrl
-            response["signedResponse"] = results.signedResponse
-            response["trackingId"] = results.trackingId
-            
-            self.call?.resolve(["results": response])
-        }
+        response["success"] = NSNumber(value: true)
+        response["isAuthenticated"] = results.authenticated
+        response["signedResponse"] = results.signedResponse
+        response["trackingId"] = results.trackingId
         
+        self.call?.resolve(["results": response])
     }
     
-    public func passiveFaceLivenessControllerDidCancel(_ passiveFacelivenessController: PassiveFaceLivenessController) {
+    public func faceAuthenticatorControllerDidCancel(_ faceAuthenticatorController: FaceAuthenticatorController) {
         let response : NSMutableDictionary! = [:]
         
         response["success"] = nil
@@ -166,7 +144,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         self.call?.resolve(["results": response])
     }
     
-    public func passiveFaceLivenessController(_ passiveFacelivenessController: PassiveFaceLivenessController, didFailWithError error: PassiveFaceLivenessFailure) {
+    public func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFailWithError error: FaceAuthenticatorFailure) {
         let response : NSMutableDictionary! = [:]
         
         response["success"] = NSNumber(value: false)

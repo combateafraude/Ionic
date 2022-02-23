@@ -1,4 +1,4 @@
-package com.passive;
+package com.authenticator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,21 +7,21 @@ import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
 
+import com.authenticator.faceauthenticatorplugin.R;
 import com.combateafraude.faceauthenticator.input.FaceAuthenticator;
-import com.getcapacitor.JSObject;
-import com.getcapacitor.Plugin;
-import com.getcapacitor.PluginCall;
-import com.getcapacitor.PluginMethod;
 
 import com.combateafraude.faceauthenticator.FaceAuthenticatorActivity;
 import com.combateafraude.faceauthenticator.input.SensorStabilitySettings;
 import com.combateafraude.faceauthenticator.output.FaceAuthenticatorResult;
 import com.combateafraude.faceauthenticator.output.failure.SDKFailure;
-import com.getcapacitor.annotation.ActivityCallback;
-import com.getcapacitor.annotation.CapacitorPlugin;
 import com.combateafraude.faceauthenticator.input.VideoCapture;
 import com.combateafraude.faceauthenticator.input.ImageCapture;
-import com.passive.passivefacelivenessplugin.R;
+import com.getcapacitor.JSObject;
+import com.getcapacitor.Plugin;
+import com.getcapacitor.PluginCall;
+import com.getcapacitor.PluginMethod;
+import com.getcapacitor.annotation.ActivityCallback;
+import com.getcapacitor.annotation.CapacitorPlugin;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -34,11 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@CapacitorPlugin(
-        requestCodes={FaceAuthenticatorPlugin.REQUEST_CODE}
-)
+@CapacitorPlugin()
 public class FaceAuthenticatorPlugin extends Plugin {
-    protected static final int REQUEST_CODE = 1002;
 
     private static final String DRAWABLE_RES = "drawable";
     private static final String STYLE_RES = "style";
@@ -163,7 +160,6 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 boolean useRoot = (boolean) androidSettings.get("useRoot");
                 mFaceAuthenticatorBuilder.setUseRoot(useRoot);
             }
-
         }
 
         // Sound settings

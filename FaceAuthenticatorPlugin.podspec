@@ -3,7 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
-  s.name = 'PassiveFaceLivenessPlugin'
+  s.name = 'FaceAuthenticatorPlugin'
   s.version = package['version']
   s.summary = package['description']
   s.license = package['license']
@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.1'
-  s.dependency 'PassiveFaceLiveness', '~> 5.5.3'
+  s.dependency 'FaceAuthenticator', '~> 5.0.1'
 end
