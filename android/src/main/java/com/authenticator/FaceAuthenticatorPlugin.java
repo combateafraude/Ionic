@@ -61,6 +61,8 @@ public class FaceAuthenticatorPlugin extends Plugin {
 
         FaceAuthenticator.Builder mFaceAuthenticatorBuilder = new FaceAuthenticator.Builder(mobileToken);
 
+        mFaceAuthenticatorBuilder.enableSwitchCameraButton(false);
+
         // People ID
         String peopleId = (String) argumentsMap.get("peopleId");
         mFaceAuthenticatorBuilder.setPeopleId(peopleId);
@@ -142,8 +144,8 @@ public class FaceAuthenticatorPlugin extends Plugin {
             }
 
             if (androidSettings.get("enableSwitchCameraButton") != null){
-                boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
-                mFaceAuthenticatorBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
+               boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
+               mFaceAuthenticatorBuilder.enableSwitchCameraButton(false);
             }
 
             if (androidSettings.get("enableGoogleServices") != null){
