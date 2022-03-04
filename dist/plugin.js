@@ -423,6 +423,17 @@ class DocumentDetectorIosSettings {
     }
 }
 
+class DocumentDetectorCustomizationAndroid {
+    constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
+        this.styleResIdName = styleResIdName;
+        this.layoutResIdName = layoutResIdName;
+        this.greenMaskResIdName = greenMaskResIdName;
+        this.redMaskResIdName = redMaskResIdName;
+        this.whiteMaskResIdName = whiteMaskResIdName;
+        this.maskType = maskType;
+    }
+}
+
 const { DocumentDetectorPlugin } = Plugins;
 class DocumentDetector {
     constructor() { }
@@ -493,6 +504,7 @@ class DocumentDetector {
 exports.Capture = Capture;
 exports.DocumentDetector = DocumentDetector;
 exports.DocumentDetectorAndroidSettings = DocumentDetectorAndroidSettings;
+exports.DocumentDetectorCustomizationAndroid = DocumentDetectorCustomizationAndroid;
 exports.DocumentDetectorIosSettings = DocumentDetectorIosSettings;
 exports.DocumentDetectorStep = DocumentDetectorStep;
 exports.DocumentDetectorStepCustomizationAndroid = DocumentDetectorStepCustomizationAndroid;

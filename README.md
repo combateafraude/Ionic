@@ -72,7 +72,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v5.0.0.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v5.6.0.tar.gz"
 }
 ```
 

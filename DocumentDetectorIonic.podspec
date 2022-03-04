@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.static_framework = true # Necessary by TFLite
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.swift_version = '5.0'
-  s.dependency 'DocumentDetector', '~> 6.0.0'
+  s.swift_version = '5.3.2'
+  s.dependency 'DocumentDetector', '6.2.0'
 end
