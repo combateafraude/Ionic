@@ -148,7 +148,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
             self.call?.resolve(["results": response])
         }else{
             response["success"] = NSNumber(value: true)
-            response["imagePath"] = "undefined"
+            response["imagePath"] = results.capturePath
             response["imageUrl"] = results.imageUrl
             response["signedResponse"] = results.signedResponse
             response["trackingId"] = results.trackingId
