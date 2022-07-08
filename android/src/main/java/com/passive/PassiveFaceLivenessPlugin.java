@@ -18,6 +18,7 @@ import com.getcapacitor.PluginMethod;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.input.CaptureSettings;
 import com.combateafraude.passivefaceliveness.input.SensorStabilitySettings;
+import com.combateafraude.passivefaceliveness.input.SensorOrientationSettings;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 import com.combateafraude.passivefaceliveness.output.failure.SDKFailure;
 import com.getcapacitor.annotation.ActivityCallback;
@@ -37,9 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@CapacitorPlugin(
-        requestCodes={PassiveFaceLivenessPlugin.REQUEST_CODE}
-)
+@CapacitorPlugin(requestCodes = { PassiveFaceLivenessPlugin.REQUEST_CODE })
 public class PassiveFaceLivenessPlugin extends Plugin {
     protected static final int REQUEST_CODE = 1002;
 
@@ -58,9 +57,9 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(value);
-       }catch (JSONException err){
+        } catch (JSONException err) {
             Log.d("Error", err.toString());
-       }
+        }
         Map<String, Object> argumentsMap = jsonToMap(jsonObject);
         // Mobile token
         String mobileToken = (String) argumentsMap.get("mobileToken");
@@ -73,7 +72,14 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
         // Use Analytics
         Boolean useAnalytics = (Boolean) argumentsMap.get("useAnalytics");
-        if (useAnalytics != null) mPassiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics);
+        if (useAnalytics != null)
+            mPassiveFaceLivenessBuilder.setAnalyticsSettings(useAnalytics);
+
+        // Image URL expire time
+        String expireTime = (String) argumentsMap.get("expireTime");
+        if (expireTime != null) {
+            mPassiveFaceLivenessBuilder.setGetImageUrlExpireTime(expireTime);
+        }
 
         HashMap<String, Object> showPreview = (HashMap<String, Object>) argumentsMap.get("showPreview");
         if (showPreview != null) {
@@ -88,39 +94,39 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                     title,
                     subTitle,
                     confirmLabel,
-                    retryLabel
-            );
+                    retryLabel);
 
             mPassiveFaceLivenessBuilder.setPreviewSettings(previewSettings);
         }
 
         HashMap<String, Object> captureMode = (HashMap<String, Object>) argumentsMap.get("captureMode");
-        if (captureMode != null){
-            //VideoCapture
+        if (captureMode != null) {
+            // VideoCapture
             HashMap<String, Object> videoCapture = (HashMap<String, Object>) captureMode.get("videoCapture");
-            if(videoCapture != null){
+            if (videoCapture != null) {
                 boolean use = (Boolean) videoCapture.get("use");
 
-                if(use){
-                    if(videoCapture.get("time") != null){
+                if (use) {
+                    if (videoCapture.get("time") != null) {
                         Integer time = (Integer) videoCapture.get("time");
                         mPassiveFaceLivenessBuilder.setCaptureSettings(new VideoCapture(time));
-                    }else{
+                    } else {
                         mPassiveFaceLivenessBuilder.setCaptureSettings(new VideoCapture());
                     }
                 }
             }
-            //ImageCapture
+            // ImageCapture
             HashMap<String, Object> imageCapture = (HashMap<String, Object>) captureMode.get("imageCapture");
-            if(imageCapture != null){
+            if (imageCapture != null) {
                 boolean use = (Boolean) imageCapture.get("use");
                 Integer afterPictureMillis = (Integer) imageCapture.get("afterPictureMillis");
                 Integer beforePictureMillis = (Integer) imageCapture.get("beforePictureMillis");
 
-                if(use){
-                    if(afterPictureMillis != null && beforePictureMillis != null){
-                        mPassiveFaceLivenessBuilder.setCaptureSettings(new ImageCapture(afterPictureMillis, beforePictureMillis));
-                    }else{
+                if (use) {
+                    if (afterPictureMillis != null && beforePictureMillis != null) {
+                        mPassiveFaceLivenessBuilder
+                                .setCaptureSettings(new ImageCapture(afterPictureMillis, beforePictureMillis));
+                    } else {
                         mPassiveFaceLivenessBuilder.setCaptureSettings(new ImageCapture());
                     }
                 }
@@ -131,17 +137,22 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
 
-            if(androidSettings.get("customization") != null){
+            if (androidSettings.get("customization") != null) {
                 // Layout customization
-                HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
+                HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings
+                        .get("customization");
                 if (customizationAndroid != null) {
                     Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
-                    if (styleId != null) mPassiveFaceLivenessBuilder.setStyle(styleId);
+                    if (styleId != null)
+                        mPassiveFaceLivenessBuilder.setStyle(styleId);
 
                     Integer layoutId = getResourceId((String) customizationAndroid.get("layoutResIdName"), LAYOUT_RES);
-                    Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
-                    Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
-                    Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
+                    Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"),
+                            DRAWABLE_RES);
+                    Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"),
+                            DRAWABLE_RES);
+                    Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"),
+                            DRAWABLE_RES);
                     mPassiveFaceLivenessBuilder.setLayout(layoutId);
                     mPassiveFaceLivenessBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
 
@@ -149,7 +160,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                     switch (maskType) {
                         case "NONE":
                             mPassiveFaceLivenessBuilder.setMask(MaskType.NONE);
-                            break;                    
+                            break;
                         default:
                             mPassiveFaceLivenessBuilder.setMask(MaskType.DEFAULT);
                             break;
@@ -158,60 +169,86 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
             }
 
-            if(androidSettings.get("sensorSettings") != null){
+            if (androidSettings.get("sensorSettings") != null) {
 
                 // Sensor settings
-                HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
+                HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings
+                        .get("sensorSettings");
                 if (sensorSettings != null) {
-                    HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
+                    HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings
+                            .get("sensorStabilitySettings");
                     if (sensorStability != null) {
                         Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
                         Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
                         if (stabilityStabledMillis != null && stabilityThreshold != null) {
-                            mPassiveFaceLivenessBuilder.setStabilitySensorSettings(new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
+                            mPassiveFaceLivenessBuilder.setStabilitySensorSettings(
+                                    new SensorStabilitySettings(stabilityStabledMillis, stabilityThreshold));
                         }
                     } else {
                         mPassiveFaceLivenessBuilder.setStabilitySensorSettings(null);
                     }
+
+                    HashMap<String, Object> sensorOrientation = (HashMap<String, Object>) androidSettings
+                            .get("sensorOrientationAndroid");
+                    if (sensorOrientation != null) {
+                        Integer messageResourceIdName = (Integer) sensorOrientation.get("messageResourceIdName");
+                        Double stabilityThreshold = (Double) sensorOrientation.get("stabilityThreshold");
+                        if (messageResourceIdName != null && stabilityThreshold != null) {
+                            SensorOrientationSettings sensorOrientationSettings = new SensorOrientationSettings(
+                                    stabilityThreshold);
+                            mPassiveFaceLivenessBuilder.setOrientationSensorSettings(sensorOrientationSettings);
+                        }
+                    } else {
+                        mPassiveFaceLivenessBuilder.setOrientationSensorSettings(null);
+                    }
+
                 }
             }
-            
-            if (androidSettings.get("showButtonTime") != null){
+
+            if (androidSettings.get("showButtonTime") != null) {
                 int showButtonTime = (int) androidSettings.get("showButtonTime");
                 mPassiveFaceLivenessBuilder.setShowButtonTime(showButtonTime);
             }
 
-
-            if (androidSettings.get("enableSwitchCameraButton") != null){
+            if (androidSettings.get("enableSwitchCameraButton") != null) {
                 boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                 mPassiveFaceLivenessBuilder.enableSwitchCameraButton(enableSwitchCameraButton);
             }
 
-            if (androidSettings.get("enableGoogleServices") != null){
+            if (androidSettings.get("enableGoogleServices") != null) {
                 boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
                 mPassiveFaceLivenessBuilder.enableGoogleServices(enableGoogleServices);
             }
 
-            if (androidSettings.get("useEmulator") != null){
+            if (androidSettings.get("useEmulator") != null) {
                 boolean useEmulator = (boolean) androidSettings.get("useEmulator");
                 mPassiveFaceLivenessBuilder.setUseEmulator(useEmulator);
             }
 
-            if (androidSettings.get("useRoot") != null){
+            if (androidSettings.get("useRoot") != null) {
                 boolean useRoot = (boolean) androidSettings.get("useRoot");
                 mPassiveFaceLivenessBuilder.setUseRoot(useRoot);
             }
 
+            if (androidSettings.get("enableBrightnessIncrease") != null) {
+                boolean enableBrightnessIncrease = (boolean) androidSettings.get("enableBrightnessIncrease");
+                mPassiveFaceLivenessBuilder.enableBrightnessIncrease(enableBrightnessIncrease);
+            }
         }
 
         // Sound settings
-        Boolean enableSound = (Boolean) argumentsMap.get("sound");
-        if (enableSound != null) mPassiveFaceLivenessBuilder.enableSound(enableSound);
+        Boolean enableSound = (Boolean) argumentsMap.get("enableSound");
+        if (enableSound != null)
+            mPassiveFaceLivenessBuilder.setAudioSettings(enableSound);
 
-        //CurrentStepDoneDelay
+        Integer soundResId = getResourceId((String) argumentsMap.get("sound"), RAW_RES);
+        if (soundResId != null)
+            mPassiveFaceLivenessBuilder.setAudioSettings(soundResId);
+
+        // CurrentStepDoneDelay
         Boolean showDelay = (Boolean) argumentsMap.get("showDelay");
-        if(showDelay != null){
-            if(argumentsMap.get("delay") != null) {
+        if (showDelay != null) {
+            if (argumentsMap.get("delay") != null) {
                 int delay = (int) argumentsMap.get("delay");
                 mPassiveFaceLivenessBuilder.setCurrentStepDoneDelay(showDelay, delay);
             }
@@ -219,7 +256,8 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
         // Network settings
         Integer requestTimeout = (Integer) argumentsMap.get("requestTimeout");
-        if (requestTimeout != null) mPassiveFaceLivenessBuilder.setNetworkSettings(requestTimeout);
+        if (requestTimeout != null)
+            mPassiveFaceLivenessBuilder.setNetworkSettings(requestTimeout);
 
         saveCall(call);
 
@@ -241,7 +279,8 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
         if (resultCode == Activity.RESULT_OK && result.getData() != null) {
 
-            PassiveFaceLivenessResult mPassiveFaceLivenessResult = (PassiveFaceLivenessResult) result.getData().getSerializableExtra(PassiveFaceLivenessResult.PARAMETER_NAME);
+            PassiveFaceLivenessResult mPassiveFaceLivenessResult = (PassiveFaceLivenessResult) result.getData()
+                    .getSerializableExtra(PassiveFaceLivenessResult.PARAMETER_NAME);
             if (mPassiveFaceLivenessResult.wasSuccessful()) {
                 call.resolve(getSucessResponseMap(mPassiveFaceLivenessResult));
             } else {
@@ -254,32 +293,35 @@ public class PassiveFaceLivenessPlugin extends Plugin {
     }
 
     private Integer getResourceId(@Nullable String resourceName, String resourceType) {
-        if (resourceName == null || this.bridge.getActivity() == null) return null;
-        int resId = this.bridge.getActivity().getResources().getIdentifier(resourceName, resourceType, this.bridge.getActivity().getPackageName());
+        if (resourceName == null || this.bridge.getActivity() == null)
+            return null;
+        int resId = this.bridge.getActivity().getResources().getIdentifier(resourceName, resourceType,
+                this.bridge.getActivity().getPackageName());
         return resId == 0 ? null : resId;
     }
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
         Map<String, Object> retMap = new HashMap<String, Object>();
 
-        if(json != JSONObject.NULL) {
+        if (json != JSONObject.NULL) {
             retMap = toMap(json);
         }
         return retMap;
     }
+
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
 
         Iterator<String> keysItr = object.keys();
-        while(keysItr.hasNext()) {
+        while (keysItr.hasNext()) {
             String key = keysItr.next();
             Object value = object.get(key);
 
-            if(value instanceof JSONArray) {
+            if (value instanceof JSONArray) {
                 value = toList((JSONArray) value);
             }
 
-            else if(value instanceof JSONObject) {
+            else if (value instanceof JSONObject) {
                 value = toMap((JSONObject) value);
             }
             map.put(key, value);
@@ -289,20 +331,19 @@ public class PassiveFaceLivenessPlugin extends Plugin {
 
     public static List<Object> toList(JSONArray array) throws JSONException {
         List<Object> list = new ArrayList<Object>();
-        for(int i = 0; i < array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
             Object value = array.get(i);
-            if(value instanceof JSONArray) {
+            if (value instanceof JSONArray) {
                 value = toList((JSONArray) value);
             }
 
-            else if(value instanceof JSONObject) {
+            else if (value instanceof JSONObject) {
                 value = toMap((JSONObject) value);
             }
             list.add(value);
         }
         return list;
     }
-
 
     private JSObject getSucessResponseMap(PassiveFaceLivenessResult mPassiveFaceLivenessResult) {
         HashMap<String, Object> responseMap = new HashMap<>();

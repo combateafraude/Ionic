@@ -1,5 +1,5 @@
 import { SensorSettingsAndroid } from './sensor-settings';
-import { DocumentDetectorCustomizationAndroid } from './customization';
+import { PassiveFaceLivenessCustomizationAndroid } from './customization';
 export declare class AndroidSettings {
     private customization?;
     private sensorSettings?;
@@ -8,13 +8,15 @@ export declare class AndroidSettings {
     private enableGoogleServices?;
     private useEmulator?;
     private useRoot?;
+    private enableBrightnessIncrease?;
     constructor(options: {
-        customization?: DocumentDetectorCustomizationAndroid;
+        customization?: PassiveFaceLivenessCustomizationAndroid;
         sensorSettings?: SensorSettingsAndroid;
         showButtonTime?: number;
         enableSwitchCameraButton?: boolean;
         enableGoogleServices?: boolean;
         useEmulator?: boolean;
         useRoot?: boolean;
+        enableBrightnessIncrease?: boolean;
     });
 }

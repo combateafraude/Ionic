@@ -1,4 +1,4 @@
-export class DocumentDetectorCustomizationAndroid {
+export class PassiveFaceLivenessCustomizationAndroid {
     constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
         this.styleResIdName = styleResIdName;
         this.layoutResIdName = layoutResIdName;

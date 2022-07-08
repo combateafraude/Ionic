@@ -1,4 +1,4 @@
-export declare class DocumentDetectorCustomizationAndroid {
+export declare class PassiveFaceLivenessCustomizationAndroid {
     private styleResIdName;
     private layoutResIdName;
     private greenMaskResIdName;

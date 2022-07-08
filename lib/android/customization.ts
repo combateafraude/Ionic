@@ -1,4 +1,4 @@
-export class DocumentDetectorCustomizationAndroid {
+export class PassiveFaceLivenessCustomizationAndroid {
   private styleResIdName: String;
   private layoutResIdName: String;
   private greenMaskResIdName: String;
@@ -14,14 +14,14 @@ export class DocumentDetectorCustomizationAndroid {
     layoutResIdName: String,
     greenMaskResIdName: String,
     redMaskResIdName: String,
-    whiteMaskResIdName: String){
-      this.styleResIdName = styleResIdName;
-      this.layoutResIdName = layoutResIdName;
-      this.greenMaskResIdName = greenMaskResIdName;
-      this.redMaskResIdName = redMaskResIdName;
-      this.whiteMaskResIdName = whiteMaskResIdName;
-      this.maskType = maskType;
-    }
+    whiteMaskResIdName: String) {
+    this.styleResIdName = styleResIdName;
+    this.layoutResIdName = layoutResIdName;
+    this.greenMaskResIdName = greenMaskResIdName;
+    this.redMaskResIdName = redMaskResIdName;
+    this.whiteMaskResIdName = whiteMaskResIdName;
+    this.maskType = maskType;
+  }
 
 }
 

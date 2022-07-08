@@ -27,12 +27,19 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+anim fragment_fast_out_extra_slow_in
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
+animator fragment_close_enter
+animator fragment_close_exit
+animator fragment_fade_enter
+animator fragment_fade_exit
+animator fragment_open_enter
+animator fragment_open_exit
 animator mtrl_btn_state_list_anim
 animator mtrl_btn_unelevated_state_list_anim
 animator mtrl_card_state_list_anim
@@ -164,7 +171,6 @@ attr buttonStyle
 attr buttonStyleSmall
 attr buttonTint
 attr buttonTintMode
-attr captureMode
 attr cardBackgroundColor
 attr cardCornerRadius
 attr cardElevation
@@ -373,7 +379,6 @@ attr fastScrollHorizontalTrackDrawable
 attr fastScrollVerticalThumbDrawable
 attr fastScrollVerticalTrackDrawable
 attr firstBaselineToTopHeight
-attr flash
 attr floatingActionButtonStyle
 attr flow_firstHorizontalBias
 attr flow_firstHorizontalStyle
@@ -542,7 +547,6 @@ attr layout_keyline
 attr layout_optimizationLevel
 attr layout_scrollFlags
 attr layout_scrollInterpolator
-attr lensFacing
 attr liftOnScroll
 attr liftOnScrollTargetViewId
 attr limitBoundsTo
@@ -652,7 +656,6 @@ attr percentWidth
 attr percentX
 attr percentY
 attr perpendicularPath_percent
-attr pinchToZoomEnabled
 attr pivotAnchor
 attr placeholderText
 attr placeholderTextAppearance
@@ -941,10 +944,6 @@ color bright_foreground_inverse_material_dark
 color bright_foreground_inverse_material_light
 color bright_foreground_material_dark
 color bright_foreground_material_light
-color browser_actions_bg_grey
-color browser_actions_divider_color
-color browser_actions_text_color
-color browser_actions_title_color
 color button_material_dark
 color button_material_light
 color cardview_dark_background
@@ -1067,9 +1066,6 @@ color mtrl_choice_chip_background_color
 color mtrl_choice_chip_ripple_color
 color mtrl_choice_chip_text_color
 color mtrl_error
-color mtrl_extended_fab_bg_color_selector
-color mtrl_extended_fab_ripple_color
-color mtrl_extended_fab_text_color_selector
 color mtrl_fab_bg_color_selector
 color mtrl_fab_icon_text_color_selector
 color mtrl_fab_ripple_color
@@ -1203,8 +1199,6 @@ dimen abc_text_size_title_material
 dimen abc_text_size_title_material_toolbar
 dimen action_bar_size
 dimen appcompat_dialog_background_inset
-dimen browser_actions_context_menu_max_width
-dimen browser_actions_context_menu_min_padding
 dimen cardview_compat_inset_shadow
 dimen cardview_default_elevation
 dimen cardview_default_radius
@@ -1594,19 +1588,12 @@ drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_back_caf
-drawable ic_calendar_black_24dp
 drawable ic_camera_caf
 drawable ic_camera_switch
 drawable ic_check_caf
-drawable ic_clear_black_24dp
-drawable ic_edit_black_24dp
-drawable ic_keyboard_arrow_left_black_24dp
-drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_mask_face_green
 drawable ic_mask_face_red
 drawable ic_mask_face_white
-drawable ic_menu_arrow_down_black_24dp
-drawable ic_menu_arrow_up_black_24dp
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
@@ -1720,16 +1707,10 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
-id back
 id baseline
 id blocking
 id bottom
 id bounce
-id browser_actions_header_text
-id browser_actions_menu_item_icon
-id browser_actions_menu_item_text
-id browser_actions_menu_items
-id browser_actions_menu_view
 id buttonPanel
 id cameraImageView
 id cancel_button
@@ -1788,7 +1769,6 @@ id fillCenter
 id fillEnd
 id fillStart
 id filled
-id filter_chip
 id fitCenter
 id fitEnd
 id fitStart
@@ -1796,16 +1776,19 @@ id fixed
 id flip
 id floating
 id forever
-id front
+id fragment_container_view_tag
 id ghost_view
 id ghost_view_holder
 id gone
 id group_divider
 id guidelineBottom
 id guidelineEnd
+id guidelineEnd2
 id guidelineStart
+id guidelineStart2
 id guidelineStatus
 id guidelineTop
+id guidelineTop2
 id home
 id honorRequest
 id icon
@@ -1834,7 +1817,6 @@ id masked
 id message
 id middle
 id mini
-id mixed
 id month_grid
 id month_navigation_bar
 id month_navigation_fragment_toggle
@@ -1929,6 +1911,7 @@ id smallLabel
 id snackbar_action
 id snackbar_text
 id spacer
+id special_effects_controller_view_tag
 id spline
 id split_action_bar
 id spread
@@ -1996,9 +1979,12 @@ id unchecked
 id uniform
 id unlabeled
 id up
-id video
 id view_offset_helper
+id view_tree_lifecycle_owner
+id view_tree_saved_state_registry_owner
+id view_tree_view_model_store_owner
 id visible
+id visible_removing_fragment_view_tag
 id webview
 id wide
 id withinBounds
@@ -2069,8 +2055,6 @@ layout abc_tooltip
 layout activity_passive_face_liveness
 layout activity_preview_passive_face_liveness
 layout bridge_layout_main
-layout browser_actions_context_menu_page
-layout browser_actions_context_menu_row
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -2181,7 +2165,6 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
-string androidx_camera_default_config_provider
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -2214,19 +2197,18 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
-string copy_toast_msg
+string error_100_message
+string error_200_message
+string error_700
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
+string eyes_closed
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string face_not_found_caf
 string face_register_caf
 string face_too_close_caf
 string face_too_far_caf
-string fallback_menu_item_copy_link
-string fallback_menu_item_open_in_browser
-string fallback_menu_item_share_link
-string fcm_fallback_notification_channel_label
 string fit_your_face_caf
 string google_security_provider_error_caf
 string hide_bottom_view_on_scroll_behavior
@@ -2274,22 +2256,28 @@ string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
 string my_string
+string no_camera_permission
+string not_center_x
+string not_center_y
+string not_center_z
 string nothing_caf
 string ok
+string orientation_sensor_caf
 string passive_face_liveness_file_caf
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string pfl_preview_subtitle
 string photo_mask_caf
 string picture
 string preview_accept
-string preview_subtitle
 string preview_title
 string preview_try_again
 string request_permission
 string search_menu_title
+string sensor_light_caf
 string sensor_still_starting
 string sensor_unstable_caf
 string status_bar_notification_info_overflow
@@ -3017,7 +3005,6 @@ styleable BottomAppBar backgroundTint elevation fabAlignmentMode fabAnimationMod
 styleable BottomNavigationView backgroundTint elevation itemBackground itemHorizontalTranslationEnabled itemIconSize itemIconTint itemRippleColor itemTextAppearanceActive itemTextAppearanceInactive itemTextColor labelVisibilityMode menu
 styleable BottomSheetBehavior_Layout android_elevation backgroundTint behavior_draggable behavior_expandedOffset behavior_fitToContents behavior_halfExpandedRatio behavior_hideable behavior_peekHeight behavior_saveFlags behavior_skipCollapsed gestureInsetBottomIgnored shapeAppearance shapeAppearanceOverlay
 styleable ButtonBarLayout allowStacking
-styleable CameraView captureMode flash lensFacing pinchToZoomEnabled scaleType
 styleable CardView android_minHeight android_minWidth cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_checkable android_ellipsize android_maxWidth android_text android_textAppearance android_textColor checkedIcon checkedIconEnabled checkedIconTint checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipMinTouchTargetSize chipStartPadding chipStrokeColor chipStrokeWidth chipSurfaceColor closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible ensureMinTouchTargetSize hideMotionSpec iconEndPadding iconStartPadding rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical selectionRequired singleLine singleSelection
@@ -3041,6 +3028,8 @@ styleable FlowLayout itemSpacing lineSpacing
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery
 styleable FontFamilyFont android_font android_fontStyle android_fontVariationSettings android_fontWeight android_ttcIndex font fontStyle fontVariationSettings fontWeight ttcIndex
 styleable ForegroundLinearLayout android_foreground android_foregroundGravity foregroundInsidePadding
+styleable Fragment android_id android_name android_tag
+styleable FragmentContainerView android_name android_tag
 styleable GradientColor android_centerColor android_centerX android_centerY android_endColor android_endX android_endY android_gradientRadius android_startColor android_startX android_startY android_tileMode android_type
 styleable GradientColorItem android_color android_offset
 styleable ImageFilterView altSrc brightness contrast crossfade overlay round roundPercent saturation warmth
@@ -3119,7 +3108,6 @@ styleable ViewBackgroundHelper android_background backgroundTint backgroundTintM
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_inflatedId android_layout
 styleable bridge_fragment start_dir
-xml image_share_filepaths
 xml standalone_badge
 xml standalone_badge_gravity_bottom_end
 xml standalone_badge_gravity_bottom_start

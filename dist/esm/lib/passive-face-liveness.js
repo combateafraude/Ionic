@@ -18,7 +18,7 @@ export { VideoCapture } from './android/video-capture';
 export { ImageCapture } from './android/image-capture';
 export { CaptureMode } from './android/capture-mode';
 export { SensorSettingsAndroid } from './android/sensor-settings';
-export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { PassiveFaceLivenessCustomizationAndroid } from './android/customization';
 export { IosSettings } from './ios/ios-settings';
 export class PassiveFaceLiveness {
     constructor() { }
@@ -31,8 +31,9 @@ export class PassiveFaceLiveness {
     set setUseAnalytics(useAnalytics) {
         this.useAnalytics = useAnalytics;
     }
-    set setSound(sound) {
-        this.sound = sound;
+    setAudioSettings(enable, soundResId) {
+        this.enableSound = enable;
+        this.sound = soundResId;
     }
     set setRequestTimeout(requestTimeout) {
         this.requestTimeout = requestTimeout;
@@ -58,6 +59,9 @@ export class PassiveFaceLiveness {
     }
     set setCaptureMode(captureMode) {
         this.captureMode = captureMode;
+    }
+    set setGetImageUrlExpireTime(expireTime) {
+        this.expireTime = expireTime;
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {

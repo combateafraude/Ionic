@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="21"
-6-->C:\Users\Miguel Cruz\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+6-->C:\Projetos\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="30" />
-7-->C:\Users\Miguel Cruz\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+7-->C:\Projetos\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
 8
 9</manifest>

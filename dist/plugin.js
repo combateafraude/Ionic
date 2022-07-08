@@ -355,6 +355,7 @@ class AndroidSettings {
         this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
         this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
         this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
+        this.enableBrightnessIncrease = options === null || options === void 0 ? void 0 : options.enableBrightnessIncrease;
     }
 }
 
@@ -381,12 +382,13 @@ class CaptureMode {
 }
 
 class SensorSettingsAndroid {
-    constructor(sensorStabilitySettings) {
+    constructor(sensorStabilitySettings, sensorOrientationSettings) {
         this.sensorStabilitySettings = sensorStabilitySettings;
+        this.sensorOrientationSettings = sensorOrientationSettings;
     }
 }
 
-class DocumentDetectorCustomizationAndroid {
+class PassiveFaceLivenessCustomizationAndroid {
     constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
         this.styleResIdName = styleResIdName;
         this.layoutResIdName = layoutResIdName;
@@ -417,8 +419,9 @@ class PassiveFaceLiveness {
     set setUseAnalytics(useAnalytics) {
         this.useAnalytics = useAnalytics;
     }
-    set setSound(sound) {
-        this.sound = sound;
+    setAudioSettings(enable, soundResId) {
+        this.enableSound = enable;
+        this.sound = soundResId;
     }
     set setRequestTimeout(requestTimeout) {
         this.requestTimeout = requestTimeout;
@@ -445,6 +448,9 @@ class PassiveFaceLiveness {
     set setCaptureMode(captureMode) {
         this.captureMode = captureMode;
     }
+    set setGetImageUrlExpireTime(expireTime) {
+        this.expireTime = expireTime;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
@@ -464,10 +470,10 @@ class PassiveFaceLiveness {
 
 exports.AndroidSettings = AndroidSettings;
 exports.CaptureMode = CaptureMode;
-exports.DocumentDetectorCustomizationAndroid = DocumentDetectorCustomizationAndroid;
 exports.ImageCapture = ImageCapture;
 exports.IosSettings = IosSettings;
 exports.PassiveFaceLiveness = PassiveFaceLiveness;
+exports.PassiveFaceLivenessCustomizationAndroid = PassiveFaceLivenessCustomizationAndroid;
 exports.SensorSettingsAndroid = SensorSettingsAndroid;
 exports.ShowPreview = ShowPreview;
 exports.VideoCapture = VideoCapture;

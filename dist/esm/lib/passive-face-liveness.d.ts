@@ -11,13 +11,14 @@ export { VideoCapture } from './android/video-capture';
 export { ImageCapture } from './android/image-capture';
 export { CaptureMode } from './android/capture-mode';
 export { SensorSettingsAndroid } from './android/sensor-settings';
-export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { PassiveFaceLivenessCustomizationAndroid } from './android/customization';
 export { IosSettings } from './ios/ios-settings';
 export declare class PassiveFaceLiveness {
     private mobileToken;
     private peopleId;
     private useAnalytics;
-    private sound;
+    private sound?;
+    private enableSound;
     private requestTimeout;
     private showPreview;
     private androidSettings;
@@ -25,11 +26,12 @@ export declare class PassiveFaceLiveness {
     private showDelay;
     private delay;
     private captureMode;
+    private expireTime;
     constructor();
     set setMobileToken(mobileToken: string);
     set setPeopleId(peopleId: string);
     set setUseAnalytics(useAnalytics: boolean);
-    set setSound(sound: boolean);
+    setAudioSettings(enable: boolean, soundResId?: string): void;
     set setRequestTimeout(requestTimeout: number);
     set setShowDelay(showDelay: boolean);
     set setDelay(delay: number);
@@ -38,5 +40,6 @@ export declare class PassiveFaceLiveness {
     set setAndroidSettings(androidSettings: AndroidSettings);
     setIosSettings(iosSettings: IosSettings): void;
     set setCaptureMode(captureMode: CaptureMode);
+    set setGetImageUrlExpireTime(expireTime: string);
     start(): Promise<PassiveFaceLivenessSuccess | PassiveFaceLivenessFailure | PassiveFaceLivenessClosed>;
 }

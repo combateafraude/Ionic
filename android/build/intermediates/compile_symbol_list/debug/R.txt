@@ -26,12 +26,19 @@ int anim design_bottom_sheet_slide_in 0x0
 int anim design_bottom_sheet_slide_out 0x0
 int anim design_snackbar_in 0x0
 int anim design_snackbar_out 0x0
+int anim fragment_fast_out_extra_slow_in 0x0
 int anim mtrl_bottom_sheet_slide_in 0x0
 int anim mtrl_bottom_sheet_slide_out 0x0
 int anim mtrl_card_lowers_interpolator 0x0
 int animator design_appbar_state_list_animator 0x0
 int animator design_fab_hide_motion_spec 0x0
 int animator design_fab_show_motion_spec 0x0
+int animator fragment_close_enter 0x0
+int animator fragment_close_exit 0x0
+int animator fragment_fade_enter 0x0
+int animator fragment_fade_exit 0x0
+int animator fragment_open_enter 0x0
+int animator fragment_open_exit 0x0
 int animator mtrl_btn_state_list_anim 0x0
 int animator mtrl_btn_unelevated_state_list_anim 0x0
 int animator mtrl_card_state_list_anim 0x0
@@ -163,7 +170,6 @@ int attr buttonStyle 0x0
 int attr buttonStyleSmall 0x0
 int attr buttonTint 0x0
 int attr buttonTintMode 0x0
-int attr captureMode 0x0
 int attr cardBackgroundColor 0x0
 int attr cardCornerRadius 0x0
 int attr cardElevation 0x0
@@ -372,7 +378,6 @@ int attr fastScrollHorizontalTrackDrawable 0x0
 int attr fastScrollVerticalThumbDrawable 0x0
 int attr fastScrollVerticalTrackDrawable 0x0
 int attr firstBaselineToTopHeight 0x0
-int attr flash 0x0
 int attr floatingActionButtonStyle 0x0
 int attr flow_firstHorizontalBias 0x0
 int attr flow_firstHorizontalStyle 0x0
@@ -541,7 +546,6 @@ int attr layout_keyline 0x0
 int attr layout_optimizationLevel 0x0
 int attr layout_scrollFlags 0x0
 int attr layout_scrollInterpolator 0x0
-int attr lensFacing 0x0
 int attr liftOnScroll 0x0
 int attr liftOnScrollTargetViewId 0x0
 int attr limitBoundsTo 0x0
@@ -651,7 +655,6 @@ int attr percentWidth 0x0
 int attr percentX 0x0
 int attr percentY 0x0
 int attr perpendicularPath_percent 0x0
-int attr pinchToZoomEnabled 0x0
 int attr pivotAnchor 0x0
 int attr placeholderText 0x0
 int attr placeholderTextAppearance 0x0
@@ -940,10 +943,6 @@ int color bright_foreground_inverse_material_dark 0x0
 int color bright_foreground_inverse_material_light 0x0
 int color bright_foreground_material_dark 0x0
 int color bright_foreground_material_light 0x0
-int color browser_actions_bg_grey 0x0
-int color browser_actions_divider_color 0x0
-int color browser_actions_text_color 0x0
-int color browser_actions_title_color 0x0
 int color button_material_dark 0x0
 int color button_material_light 0x0
 int color cardview_dark_background 0x0
@@ -1066,9 +1065,6 @@ int color mtrl_choice_chip_background_color 0x0
 int color mtrl_choice_chip_ripple_color 0x0
 int color mtrl_choice_chip_text_color 0x0
 int color mtrl_error 0x0
-int color mtrl_extended_fab_bg_color_selector 0x0
-int color mtrl_extended_fab_ripple_color 0x0
-int color mtrl_extended_fab_text_color_selector 0x0
 int color mtrl_fab_bg_color_selector 0x0
 int color mtrl_fab_icon_text_color_selector 0x0
 int color mtrl_fab_ripple_color 0x0
@@ -1202,8 +1198,6 @@ int dimen abc_text_size_title_material 0x0
 int dimen abc_text_size_title_material_toolbar 0x0
 int dimen action_bar_size 0x0
 int dimen appcompat_dialog_background_inset 0x0
-int dimen browser_actions_context_menu_max_width 0x0
-int dimen browser_actions_context_menu_min_padding 0x0
 int dimen cardview_compat_inset_shadow 0x0
 int dimen cardview_default_elevation 0x0
 int dimen cardview_default_radius 0x0
@@ -1593,19 +1587,12 @@ int drawable design_snackbar_background 0x0
 int drawable googleg_disabled_color_18 0x0
 int drawable googleg_standard_color_18 0x0
 int drawable ic_back_caf 0x0
-int drawable ic_calendar_black_24dp 0x0
 int drawable ic_camera_caf 0x0
 int drawable ic_camera_switch 0x0
 int drawable ic_check_caf 0x0
-int drawable ic_clear_black_24dp 0x0
-int drawable ic_edit_black_24dp 0x0
-int drawable ic_keyboard_arrow_left_black_24dp 0x0
-int drawable ic_keyboard_arrow_right_black_24dp 0x0
 int drawable ic_mask_face_green 0x0
 int drawable ic_mask_face_red 0x0
 int drawable ic_mask_face_white 0x0
-int drawable ic_menu_arrow_down_black_24dp 0x0
-int drawable ic_menu_arrow_up_black_24dp 0x0
 int drawable ic_mtrl_checked_circle 0x0
 int drawable ic_mtrl_chip_checked_black 0x0
 int drawable ic_mtrl_chip_checked_circle 0x0
@@ -1719,16 +1706,10 @@ int id auto 0x0
 int id autoComplete 0x0
 int id autoCompleteToEnd 0x0
 int id autoCompleteToStart 0x0
-int id back 0x0
 int id baseline 0x0
 int id blocking 0x0
 int id bottom 0x0
 int id bounce 0x0
-int id browser_actions_header_text 0x0
-int id browser_actions_menu_item_icon 0x0
-int id browser_actions_menu_item_text 0x0
-int id browser_actions_menu_items 0x0
-int id browser_actions_menu_view 0x0
 int id buttonPanel 0x0
 int id cameraImageView 0x0
 int id cancel_button 0x0
@@ -1787,7 +1768,6 @@ int id fillCenter 0x0
 int id fillEnd 0x0
 int id fillStart 0x0
 int id filled 0x0
-int id filter_chip 0x0
 int id fitCenter 0x0
 int id fitEnd 0x0
 int id fitStart 0x0
@@ -1795,16 +1775,19 @@ int id fixed 0x0
 int id flip 0x0
 int id floating 0x0
 int id forever 0x0
-int id front 0x0
+int id fragment_container_view_tag 0x0
 int id ghost_view 0x0
 int id ghost_view_holder 0x0
 int id gone 0x0
 int id group_divider 0x0
 int id guidelineBottom 0x0
 int id guidelineEnd 0x0
+int id guidelineEnd2 0x0
 int id guidelineStart 0x0
+int id guidelineStart2 0x0
 int id guidelineStatus 0x0
 int id guidelineTop 0x0
+int id guidelineTop2 0x0
 int id home 0x0
 int id honorRequest 0x0
 int id icon 0x0
@@ -1833,7 +1816,6 @@ int id masked 0x0
 int id message 0x0
 int id middle 0x0
 int id mini 0x0
-int id mixed 0x0
 int id month_grid 0x0
 int id month_navigation_bar 0x0
 int id month_navigation_fragment_toggle 0x0
@@ -1928,6 +1910,7 @@ int id smallLabel 0x0
 int id snackbar_action 0x0
 int id snackbar_text 0x0
 int id spacer 0x0
+int id special_effects_controller_view_tag 0x0
 int id spline 0x0
 int id split_action_bar 0x0
 int id spread 0x0
@@ -1995,9 +1978,12 @@ int id unchecked 0x0
 int id uniform 0x0
 int id unlabeled 0x0
 int id up 0x0
-int id video 0x0
 int id view_offset_helper 0x0
+int id view_tree_lifecycle_owner 0x0
+int id view_tree_saved_state_registry_owner 0x0
+int id view_tree_view_model_store_owner 0x0
 int id visible 0x0
+int id visible_removing_fragment_view_tag 0x0
 int id webview 0x0
 int id wide 0x0
 int id withinBounds 0x0
@@ -2068,8 +2054,6 @@ int layout abc_tooltip 0x0
 int layout activity_passive_face_liveness 0x0
 int layout activity_preview_passive_face_liveness 0x0
 int layout bridge_layout_main 0x0
-int layout browser_actions_context_menu_page 0x0
-int layout browser_actions_context_menu_row 0x0
 int layout custom_dialog 0x0
 int layout design_bottom_navigation_item 0x0
 int layout design_bottom_sheet_dialog 0x0
@@ -2180,7 +2164,6 @@ int string abc_searchview_description_voice 0x0
 int string abc_shareactionprovider_share_with 0x0
 int string abc_shareactionprovider_share_with_application 0x0
 int string abc_toolbar_collapse_description 0x0
-int string androidx_camera_default_config_provider 0x0
 int string app_name 0x0
 int string appbar_scrolling_view_behavior 0x0
 int string bottom_sheet_behavior 0x0
@@ -2213,19 +2196,18 @@ int string common_google_play_services_wear_update_text 0x0
 int string common_open_on_phone 0x0
 int string common_signin_button_text 0x0
 int string common_signin_button_text_long 0x0
-int string copy_toast_msg 0x0
+int string error_100_message 0x0
+int string error_200_message 0x0
+int string error_700 0x0
 int string error_icon_content_description 0x0
 int string exposed_dropdown_menu_content_description 0x0
+int string eyes_closed 0x0
 int string fab_transformation_scrim_behavior 0x0
 int string fab_transformation_sheet_behavior 0x0
 int string face_not_found_caf 0x0
 int string face_register_caf 0x0
 int string face_too_close_caf 0x0
 int string face_too_far_caf 0x0
-int string fallback_menu_item_copy_link 0x0
-int string fallback_menu_item_open_in_browser 0x0
-int string fallback_menu_item_share_link 0x0
-int string fcm_fallback_notification_channel_label 0x0
 int string fit_your_face_caf 0x0
 int string google_security_provider_error_caf 0x0
 int string hide_bottom_view_on_scroll_behavior 0x0
@@ -2273,22 +2255,28 @@ int string mtrl_picker_toggle_to_day_selection 0x0
 int string mtrl_picker_toggle_to_text_input_mode 0x0
 int string mtrl_picker_toggle_to_year_selection 0x0
 int string my_string 0x0
+int string no_camera_permission 0x0
+int string not_center_x 0x0
+int string not_center_y 0x0
+int string not_center_z 0x0
 int string nothing_caf 0x0
 int string ok 0x0
+int string orientation_sensor_caf 0x0
 int string passive_face_liveness_file_caf 0x0
 int string password_toggle_content_description 0x0
 int string path_password_eye 0x0
 int string path_password_eye_mask_strike_through 0x0
 int string path_password_eye_mask_visible 0x0
 int string path_password_strike_through 0x0
+int string pfl_preview_subtitle 0x0
 int string photo_mask_caf 0x0
 int string picture 0x0
 int string preview_accept 0x0
-int string preview_subtitle 0x0
 int string preview_title 0x0
 int string preview_try_again 0x0
 int string request_permission 0x0
 int string search_menu_title 0x0
+int string sensor_light_caf 0x0
 int string sensor_still_starting 0x0
 int string sensor_unstable_caf 0x0
 int string status_bar_notification_info_overflow 0x0
@@ -3294,12 +3282,6 @@ int styleable BottomSheetBehavior_Layout_shapeAppearance 11
 int styleable BottomSheetBehavior_Layout_shapeAppearanceOverlay 12
 int[] styleable ButtonBarLayout { 0x0 }
 int styleable ButtonBarLayout_allowStacking 0
-int[] styleable CameraView { 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable CameraView_captureMode 0
-int styleable CameraView_flash 1
-int styleable CameraView_lensFacing 2
-int styleable CameraView_pinchToZoomEnabled 3
-int styleable CameraView_scaleType 4
 int[] styleable CardView { 0x1010140, 0x101013f, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
 int styleable CardView_android_minHeight 0
 int styleable CardView_android_minWidth 1
@@ -3794,6 +3776,13 @@ int[] styleable ForegroundLinearLayout { 0x1010109, 0x1010200, 0x0 }
 int styleable ForegroundLinearLayout_android_foreground 0
 int styleable ForegroundLinearLayout_android_foregroundGravity 1
 int styleable ForegroundLinearLayout_foregroundInsidePadding 2
+int[] styleable Fragment { 0x10100d0, 0x1010003, 0x10100d1 }
+int styleable Fragment_android_id 0
+int styleable Fragment_android_name 1
+int styleable Fragment_android_tag 2
+int[] styleable FragmentContainerView { 0x1010003, 0x10100d1 }
+int styleable FragmentContainerView_android_name 0
+int styleable FragmentContainerView_android_tag 1
 int[] styleable GradientColor { 0x101020b, 0x10101a2, 0x10101a3, 0x101019e, 0x1010512, 0x1010513, 0x10101a4, 0x101019d, 0x1010510, 0x1010511, 0x1010201, 0x10101a1 }
 int styleable GradientColor_android_centerColor 0
 int styleable GradientColor_android_centerX 1
@@ -4544,7 +4533,6 @@ int styleable ViewStubCompat_android_inflatedId 1
 int styleable ViewStubCompat_android_layout 2
 int[] styleable bridge_fragment { 0x0 }
 int styleable bridge_fragment_start_dir 0
-int xml image_share_filepaths 0x0
 int xml standalone_badge 0x0
 int xml standalone_badge_gravity_bottom_end 0x0
 int xml standalone_badge_gravity_bottom_start 0x0

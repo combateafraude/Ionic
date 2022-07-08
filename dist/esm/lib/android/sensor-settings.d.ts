@@ -1,5 +1,7 @@
 import { SensorStabilitySettingsAndroid } from './sensor-stability-settings';
+import { SensorOrientationSettingsAndroid } from './sensor-orientation-settings';
 export declare class SensorSettingsAndroid {
     private sensorStabilitySettings;
-    constructor(sensorStabilitySettings: SensorStabilitySettingsAndroid);
+    private sensorOrientationSettings;
+    constructor(sensorStabilitySettings: SensorStabilitySettingsAndroid, sensorOrientationSettings: SensorOrientationSettingsAndroid);
 }

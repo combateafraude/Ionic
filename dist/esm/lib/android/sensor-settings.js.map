@@ -1,1 +1,1 @@
-{"version":3,"file":"sensor-settings.js","sourceRoot":"","sources":["../../../../lib/android/sensor-settings.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,qBAAqB;IAGhC,YACE,uBAAuD;QACrD,IAAI,CAAC,uBAAuB,GAAG,uBAAuB,CAAC;IACzD,CAAC;CACJ"}
+{"version":3,"file":"sensor-settings.js","sourceRoot":"","sources":["../../../../lib/android/sensor-settings.ts"],"names":[],"mappings":"AAGA,MAAM,OAAO,qBAAqB;IAIhC,YACE,uBAAuD,EACvD,yBAA2D;QAC3D,IAAI,CAAC,uBAAuB,GAAG,uBAAuB,CAAC;QACvD,IAAI,CAAC,yBAAyB,GAAG,yBAAyB,CAAC;IAC7D,CAAC;CACF"}
