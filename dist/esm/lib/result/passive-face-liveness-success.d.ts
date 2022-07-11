@@ -4,5 +4,6 @@ export declare class PassiveFaceLivenessSuccess extends PassiveFaceLivenessResul
     private imageUrl;
     private signedResponse;
     private trackingId;
-    constructor(imagePath: string, imageUrl: string, signedResponse: string, trackingId: string);
+    private capturePath;
+    constructor(imagePath: string, imageUrl: string, signedResponse: string, trackingId: string, capturePath: string);
 }

@@ -352,6 +352,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         responseMap.put("imageUrl", mPassiveFaceLivenessResult.getImageUrl());
         responseMap.put("signedResponse", mPassiveFaceLivenessResult.getSignedResponse());
         responseMap.put("trackingId", mPassiveFaceLivenessResult.getTrackingId());
+        if(mPassiveFaceLivenessResult.getCapturePath() != null) responseMap.put("capturePath", mPassiveFaceLivenessResult.getCapturePath());
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
         result.put("results", jsonObject);

@@ -34,12 +34,13 @@ class PassiveFaceLivenessResult {
 }
 
 class PassiveFaceLivenessSuccess extends PassiveFaceLivenessResult {
-    constructor(imagePath, imageUrl, signedResponse, trackingId) {
+    constructor(imagePath, imageUrl, signedResponse, trackingId, capturePath) {
         super("SUCCESS");
         this.imagePath = imagePath;
         this.imageUrl = imageUrl;
         this.signedResponse = signedResponse;
         this.trackingId = trackingId;
+        this.capturePath = capturePath;
     }
 }
 
@@ -459,7 +460,7 @@ class PassiveFaceLiveness {
                 return new PassiveFaceLivenessClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId);
+                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath);
             }
             else {
                 return new PassiveFaceLivenessFailure(result.message, result.type);

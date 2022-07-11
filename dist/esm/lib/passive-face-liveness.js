@@ -71,7 +71,7 @@ export class PassiveFaceLiveness {
                 return new PassiveFaceLivenessClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId);
+                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath);
             }
             else {
                 return new PassiveFaceLivenessFailure(result.message, result.type);
