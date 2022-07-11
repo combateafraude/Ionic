@@ -58,6 +58,12 @@ export class DocumentDetector {
         this.showDelay = showDelay;
         this.delay = delay;
     }
+    setUploadSettings(settings) {
+        this.uploadSettings = settings;
+    }
+    setGetImageUrlExpireTime(expireTime) {
+        this.expireTime = expireTime;
+    }
     set setShowPreview(showPreview) {
         this.showPreview = showPreview;
     }

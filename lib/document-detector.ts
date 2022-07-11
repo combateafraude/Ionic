@@ -8,6 +8,7 @@ import { DocumentDetectorSuccess } from './result/document-detector-success';
 import { DocumentDetectorFailure } from './result/document-detector-failure';
 import { DocumentDetectorClosed } from './result/document-detector-closed';
 import { Plugins } from '@capacitor/core';
+import { UploadSettings } from './upload_settings';
 
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
@@ -34,6 +35,8 @@ export class DocumentDetector {
   private showDelay: boolean;
   private delay: number;
   private autoDetection: boolean;
+  private expireTime: string;
+  private uploadSettings: UploadSettings;
 
   constructor() {}
 
@@ -84,6 +87,14 @@ export class DocumentDetector {
     this.delay = delay;
   }
 
+  setUploadSettings(settings: UploadSettings) {
+    this.uploadSettings = settings;
+  }
+
+  setGetImageUrlExpireTime(expireTime:string) {
+    this.expireTime = expireTime;
+  }
+  
   set setShowPreview(showPreview: ShowPreview) {
     this.showPreview = showPreview;
   }

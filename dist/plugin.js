@@ -367,6 +367,10 @@ exports.DocumentType = void 0;
     DocumentType["CRLV"] = "CRLV";
     DocumentType["RNE_FRONT"] = "RNE_FRONT";
     DocumentType["RNE_BACK"] = "RNE_BACK";
+    DocumentType["PASSPORT"] = "PASSPORT";
+    DocumentType["CTPS_FRONT"] = "CTPS_FRONT";
+    DocumentType["CTPS_BACK"] = "CTPS_BACK";
+    DocumentType["ANY"] = "ANY";
     DocumentType["OTHERS"] = "OTHERS";
 })(exports.DocumentType || (exports.DocumentType = {}));
 
@@ -470,6 +474,12 @@ class DocumentDetector {
     setCurrentStepDoneDelay(showDelay, delay) {
         this.showDelay = showDelay;
         this.delay = delay;
+    }
+    setUploadSettings(settings) {
+        this.uploadSettings = settings;
+    }
+    setGetImageUrlExpireTime(expireTime) {
+        this.expireTime = expireTime;
     }
     set setShowPreview(showPreview) {
         this.showPreview = showPreview;

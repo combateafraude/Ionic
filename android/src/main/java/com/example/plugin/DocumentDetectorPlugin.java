@@ -130,6 +130,46 @@ public class DocumentDetectorPlugin extends Plugin {
         }
 
 
+        HashMap<String, Object> uploadSettingsParam = (HashMap<String, Object>) argumentsMap.get("uploadSettings");
+        if(uploadSettingsParam != null){
+            UploadSettings uploadSettings = new UploadSettings();
+
+            Integer activityLayout = getResourceId((String) uploadSettingsParam.get("activityLayout"), LAYOUT_RES);
+            Integer popUpLayout = getResourceId((String) uploadSettingsParam.get("popUpLayout"), LAYOUT_RES);
+            Boolean compress = (Boolean) uploadSettingsParam.get("compress");
+            ArrayList<String> fileFormatsParam = (ArrayList<String>) uploadSettingsParam.get("fileFormats");
+            Integer maxFileSize = (Integer) uploadSettingsParam.get("maxFileSize");
+            String intent = (String) uploadSettingsParam.get("intent");
+
+            if(compress != null){
+                uploadSettings.setCompress(compress);
+            }    
+            if(intent != null){
+                uploadSettings.setIntent(intent);
+            }
+            if(maxFileSize != null){
+                uploadSettings.setMaxFileSize(maxFileSize);
+            }
+            if(popUpLayout != null){
+                uploadSettings.setPopUpLayout(popUpLayout);
+            }
+            if(activityLayout != null){
+                uploadSettings.setActivityLayout(activityLayout);
+            }
+            if (fileFormatsParam != null){
+                FileFormat[] fileFormats = new FileFormat[fileFormatsParam.size()];
+                for (int i = 0; i < fileFormats.length; i++ ) {
+                    FileFormat fileFormat = FileFormat.valueOf(fileFormatsParam.get(i));
+                    if (fileFormat != null) fileFormats[i] = fileFormat;
+                }
+                uploadSettings.setFileFormats(fileFormats);
+            }
+        
+            
+            mDocumentDetectorBuilder.setUploadSettings(uploadSettings);
+        }
+
+
         // Android specific settings
         HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
         if (androidSettings != null) {
@@ -279,7 +319,8 @@ public class DocumentDetectorPlugin extends Plugin {
 
         // Sound settings
         Boolean enableSound = (Boolean) argumentsMap.get("sound");
-        if (enableSound != null) mDocumentDetectorBuilder.enableSound(enableSound);
+        if (enableSound != null)
+            mDocumentDetectorBuilder.setAudioSettings(enableSound);
 
         // Network settings
         Integer requestTimeout = (Integer) argumentsMap.get("requestTimeout");

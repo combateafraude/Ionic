@@ -9,6 +9,10 @@ export var DocumentType;
     DocumentType["CRLV"] = "CRLV";
     DocumentType["RNE_FRONT"] = "RNE_FRONT";
     DocumentType["RNE_BACK"] = "RNE_BACK";
+    DocumentType["PASSPORT"] = "PASSPORT";
+    DocumentType["CTPS_FRONT"] = "CTPS_FRONT";
+    DocumentType["CTPS_BACK"] = "CTPS_BACK";
+    DocumentType["ANY"] = "ANY";
     DocumentType["OTHERS"] = "OTHERS";
 })(DocumentType || (DocumentType = {}));
 //# sourceMappingURL=document-type.js.map

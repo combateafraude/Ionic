@@ -8,5 +8,9 @@ export enum DocumentType {
   CRLV = "CRLV",
   RNE_FRONT = "RNE_FRONT",
   RNE_BACK = "RNE_BACK",
-  OTHERS = "OTHERS"
+  PASSPORT = "PASSPORT",
+  CTPS_FRONT = "CTPS_FRONT",
+  CTPS_BACK = "CTPS_BACK",
+  ANY = "ANY",
+  OTHERS = "OTHERS",
 }

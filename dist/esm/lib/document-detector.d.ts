@@ -3,6 +3,7 @@ import { DocumentDetectorStep } from './document-detector-step';
 import { DocumentDetectorIosSettings } from './ios/ios-settings';
 import { DocumentDetectorAndroidSettings } from './android/android-settings';
 import { DocumentDetectorResult } from './result/document-detector-result';
+import { UploadSettings } from './upload_settings';
 export { DocumentDetectorStep };
 export { DocumentType } from './document-type';
 export { ShowPreview } from './android/show-preview';
@@ -25,6 +26,8 @@ export declare class DocumentDetector {
     private showDelay;
     private delay;
     private autoDetection;
+    private expireTime;
+    private uploadSettings;
     constructor();
     set setMobileToken(mobileToken: string);
     set setPeopleId(peopleId: string);
@@ -37,6 +40,8 @@ export declare class DocumentDetector {
     set setAutoDetection(autoDetection: boolean);
     set setDocumentDetectorSteps(documentDetectorSteps: Array<DocumentDetectorStep>);
     setCurrentStepDoneDelay(showDelay: boolean, delay: number): void;
+    setUploadSettings(settings: UploadSettings): void;
+    setGetImageUrlExpireTime(expireTime: string): void;
     set setShowPreview(showPreview: ShowPreview);
     set setAndroidSettings(androidSettings: DocumentDetectorAndroidSettings);
     set setIosSettings(iosSettings: DocumentDetectorIosSettings);
