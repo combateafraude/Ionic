@@ -72,7 +72,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v5.6.0.tar.gz"
+    "document-detector-ionic": "https://github.com/combateafraude/Ionic/archive/refs/tags/document-detector-v5.7.0.tar.gz"
 }
 ```
 
@@ -159,10 +159,14 @@ import {DocumentDetector, DocumentDetectorStep, DocumentType} from 'document-det
 |`bool enableSwitchCameraButton`<br><br>Permite habilitar ou desabilitar o botão de inversão da câmera. O padrão é `True` |
 | `bool useEmulator`<br><br>Permite habilitar/desabilitar o uso de dispositivos emulados no SDK, recomendamos desabilitar o uso dos emuladores por questões de segurança. O padrão é `false` |
 | `bool useRoot`<br><br>Permite habilitar/desabilitar o uso de dispositivos com root no SDK, recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `false` |
+|`bool useDebug`<br><br>Habilita/desabilita o uso do app em modo depuração. O padrão é `false` |
+| `bool useDeveloperMode`<br><br>Permite habilitar/desabilitar o uso de dispositivos com o modo de desenvolvedor Android ativado. Recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `False` |
+| `bool useAdb`<br><br>Permite habilitar/desabilitar o uso do modo de depuração Android Debug Bridge (ADB). Recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `False` |
+
 ##### Exemplo de uso
 ```typescript
    let documentDetector = new DocumentDetector();
-   documentDetector.setAndroidSettings = new DocumentDetectorAndroidSettings({useEmulator: false});
+   documentDetector.setAndroidSettings = new DocumentDetectorAndroidSettings({useEmulator: false, useDebug: true});
 ```
 
 | CaptureStage constructor |

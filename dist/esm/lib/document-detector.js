@@ -83,7 +83,7 @@ export class DocumentDetector {
             else if (result.success) {
                 var captures = new Array();
                 result.captures.forEach((capture) => {
-                    captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality));
+                    captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality, capture.lensFacing));
                 });
                 return new DocumentDetectorSuccess(captures, result.type, result.trackingId);
             }

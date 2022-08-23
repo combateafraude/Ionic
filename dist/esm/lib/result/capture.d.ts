@@ -3,5 +3,6 @@ export declare class Capture {
     private imageUrl;
     private label;
     private quality;
-    constructor(imagePath: string, imageUrl: string, label: string, quality: number);
+    private lensFacing;
+    constructor(imagePath: string, imageUrl: string, label: string, quality: number, lensFacing: number);
 }

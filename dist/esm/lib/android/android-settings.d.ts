@@ -11,6 +11,9 @@ export declare class DocumentDetectorAndroidSettings {
     private enableGoogleServices?;
     private useRoot?;
     private useEmulator?;
+    private useDeveloperMode?;
+    private useAdb?;
+    private useDebug?;
     constructor(options: {
         customization?: DocumentDetectorCustomizationAndroid;
         sensorSettings?: SensorSettingsAndroid;
@@ -21,5 +24,8 @@ export declare class DocumentDetectorAndroidSettings {
         enableGoogleServices?: boolean;
         useRoot?: boolean;
         useEmulator?: boolean;
+        useDeveloperMode?: boolean;
+        useAdb?: boolean;
+        useDebug?: boolean;
     });
 }

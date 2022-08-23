@@ -12,6 +12,9 @@ export class DocumentDetectorAndroidSettings {
    private enableGoogleServices?: boolean;
    private useRoot?: boolean;
    private useEmulator?: boolean;
+   private useDeveloperMode?: boolean;
+   private useAdb?: boolean;
+   private useDebug?: boolean;
 
   constructor(
     options: {
@@ -23,7 +26,10 @@ export class DocumentDetectorAndroidSettings {
         resolution?: String,
         enableGoogleServices?: boolean,
         useRoot?: boolean,
-        useEmulator?: boolean
+        useEmulator?: boolean,
+        useDeveloperMode?: boolean,
+        useAdb?: boolean,
+        useDebug?: boolean,
         }){
 
           this.customization = options.customization;
@@ -35,5 +41,8 @@ export class DocumentDetectorAndroidSettings {
           this.enableGoogleServices = options.enableGoogleServices;
           this.useRoot = options.useRoot;
           this.useEmulator = options.useEmulator;
+          this.useDeveloperMode = options.useDeveloperMode;
+          this.useAdb = options.useAdb;
+          this.useDebug = options.useDebug;
   }
 }

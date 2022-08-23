@@ -118,8 +118,8 @@ export class DocumentDetector {
       
       var captures = new Array<Capture>();
 
-      result.captures.forEach((capture: { imagePath: string; imageUrl: string; label: string; quality: number; }) => {
-        captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality))
+      result.captures.forEach((capture: { imagePath: string; imageUrl: string; label: string; quality: number; lensFacing: number; }) => {
+        captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality, capture.lensFacing))
       });
       
       return new DocumentDetectorSuccess(captures, result.type, result.trackingId)

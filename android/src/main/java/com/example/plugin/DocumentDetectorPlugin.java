@@ -19,12 +19,14 @@ import com.combateafraude.documentdetector.input.DetectionSettings;
 import com.combateafraude.documentdetector.input.Document;
 import com.combateafraude.documentdetector.input.DocumentDetector;
 import com.combateafraude.documentdetector.input.DocumentDetectorStep;
+import com.combateafraude.documentdetector.input.FileFormat;
 import com.combateafraude.documentdetector.input.PreviewSettings;
 import com.combateafraude.documentdetector.input.QualitySettings;
 import com.combateafraude.documentdetector.input.Resolution;
 import com.combateafraude.documentdetector.input.SensorLuminositySettings;
 import com.combateafraude.documentdetector.input.SensorOrientationSettings;
 import com.combateafraude.documentdetector.input.SensorStabilitySettings;
+import com.combateafraude.documentdetector.input.UploadSettings;
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
 import com.combateafraude.documentdetector.output.failure.SDKFailure;
@@ -241,6 +243,21 @@ public class DocumentDetectorPlugin extends Plugin {
                 mDocumentDetectorBuilder.setUseRoot(useRoot);
             }
 
+            if(androidSettings.get("useDeveloperMode") != null){
+                Boolean useDeveloperMode = (Boolean) androidSettings.get("useDeveloperMode");
+                mDocumentDetectorBuilder.setUseDeveloperMode(useDeveloperMode);
+            }
+
+            if(androidSettings.get("useAdb") != null){
+                Boolean useAdb = (Boolean) androidSettings.get("useAdb");
+                mDocumentDetectorBuilder.setUseAdb(useAdb);
+            }
+    
+            if(androidSettings.get("useDebug") != null){
+                Boolean useDebug = (Boolean) androidSettings.get("useDebug");
+                mDocumentDetectorBuilder.setUseDebug(useDebug);
+            }
+
             if(androidSettings.get("useGoogleServices") != null){
                 Boolean useGoogleServices = (Boolean) androidSettings.get("useGoogleServices");
                 mDocumentDetectorBuilder.enableGoogleServices(useGoogleServices);
@@ -434,6 +451,7 @@ public class DocumentDetectorPlugin extends Plugin {
             captureResponse.put("imagePath", capture.getImagePath());
             captureResponse.put("imageUrl", capture.getImageUrl());
             captureResponse.put("label", capture.getLabel());
+            captureResponse.put("lensFacing", capture.getLensFacing());
             if(capture.getQuality() != null)
                 captureResponse.put("quality", capture.getQuality().toString());
             captures.add(captureResponse);

@@ -9,6 +9,9 @@ export class DocumentDetectorAndroidSettings {
         this.enableGoogleServices = options.enableGoogleServices;
         this.useRoot = options.useRoot;
         this.useEmulator = options.useEmulator;
+        this.useDeveloperMode = options.useDeveloperMode;
+        this.useAdb = options.useAdb;
+        this.useDebug = options.useDebug;
     }
 }
 //# sourceMappingURL=android-settings.js.map

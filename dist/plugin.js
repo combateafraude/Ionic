@@ -40,11 +40,12 @@ class DocumentDetectorStep {
 }
 
 class Capture {
-    constructor(imagePath, imageUrl, label, quality) {
+    constructor(imagePath, imageUrl, label, quality, lensFacing) {
         this.imagePath = imagePath;
         this.imageUrl = imageUrl;
         this.label = label;
         this.quality = quality;
+        this.lensFacing = lensFacing;
     }
 }
 
@@ -395,6 +396,9 @@ class DocumentDetectorAndroidSettings {
         this.enableGoogleServices = options.enableGoogleServices;
         this.useRoot = options.useRoot;
         this.useEmulator = options.useEmulator;
+        this.useDeveloperMode = options.useDeveloperMode;
+        this.useAdb = options.useAdb;
+        this.useDebug = options.useDebug;
     }
 }
 
@@ -500,7 +504,7 @@ class DocumentDetector {
             else if (result.success) {
                 var captures = new Array();
                 result.captures.forEach((capture) => {
-                    captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality));
+                    captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality, capture.lensFacing));
                 });
                 return new DocumentDetectorSuccess(captures, result.type, result.trackingId);
             }
