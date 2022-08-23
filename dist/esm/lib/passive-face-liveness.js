@@ -63,6 +63,10 @@ export class PassiveFaceLiveness {
     set setGetImageUrlExpireTime(expireTime) {
         this.expireTime = expireTime;
     }
+    setEyesClosedSettings(enable, threshold) {
+        this.useOpenEyeValidation = enable;
+        this.openEyesThreshold = threshold;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
@@ -71,7 +75,7 @@ export class PassiveFaceLiveness {
                 return new PassiveFaceLivenessClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath);
+                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath, result.lensFacing);
             }
             else {
                 return new PassiveFaceLivenessFailure(result.message, result.type);

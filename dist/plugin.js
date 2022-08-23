@@ -34,15 +34,18 @@ class PassiveFaceLivenessResult {
 }
 
 class PassiveFaceLivenessSuccess extends PassiveFaceLivenessResult {
-    constructor(imagePath, imageUrl, signedResponse, trackingId, capturePath) {
+    constructor(imagePath, imageUrl, signedResponse, trackingId, capturePath, lensFacing) {
         super("SUCCESS");
         this.imagePath = imagePath;
         this.imageUrl = imageUrl;
         this.signedResponse = signedResponse;
         this.trackingId = trackingId;
         this.capturePath = capturePath;
+        this.lensFacing = lensFacing;
     }
 }
+PassiveFaceLivenessSuccess.LENS_FACING_FRONT = 0;
+PassiveFaceLivenessSuccess.LENS_FACING_BACK = 1;
 
 class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
     constructor(message, type) {
@@ -357,6 +360,9 @@ class AndroidSettings {
         this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
         this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
         this.enableBrightnessIncrease = options === null || options === void 0 ? void 0 : options.enableBrightnessIncrease;
+        this.useDeveloperMode = options === null || options === void 0 ? void 0 : options.useDeveloperMode;
+        this.useAdb = options === null || options === void 0 ? void 0 : options.useAdb;
+        this.useDebug = options === null || options === void 0 ? void 0 : options.useDebug;
     }
 }
 
@@ -452,6 +458,10 @@ class PassiveFaceLiveness {
     set setGetImageUrlExpireTime(expireTime) {
         this.expireTime = expireTime;
     }
+    setEyesClosedSettings(enable, threshold) {
+        this.useOpenEyeValidation = enable;
+        this.openEyesThreshold = threshold;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
@@ -460,7 +470,7 @@ class PassiveFaceLiveness {
                 return new PassiveFaceLivenessClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath);
+                return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath, result.lensFacing);
             }
             else {
                 return new PassiveFaceLivenessFailure(result.message, result.type);

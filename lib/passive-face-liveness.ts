@@ -37,6 +37,8 @@ export class PassiveFaceLiveness {
   private delay: number;
   private captureMode: CaptureMode;
   private expireTime: string;
+  private useOpenEyeValidation?: boolean;
+  private openEyesThreshold?: number;
 
   constructor() { }
 
@@ -94,6 +96,11 @@ export class PassiveFaceLiveness {
     this.expireTime = expireTime;
   }
 
+  setEyesClosedSettings (enable: boolean, threshold?:number): void{
+    this.useOpenEyeValidation = enable;
+    this.openEyesThreshold = threshold;
+  }
+
   async start() {
 
     var param = JSON.stringify(this);
@@ -103,7 +110,7 @@ export class PassiveFaceLiveness {
     if (result.success == null) {
       return new PassiveFaceLivenessClosed();
     } else if (result.success) {
-      return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath)
+      return new PassiveFaceLivenessSuccess(result.imagePath, result.imageUrl, result.signedResponse, result.trackingId, result.capturePath, result.lensFacing)
     } else {
       return new PassiveFaceLivenessFailure(result.message, result.type)
     }

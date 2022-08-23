@@ -9,6 +9,9 @@ export declare class AndroidSettings {
     private useEmulator?;
     private useRoot?;
     private enableBrightnessIncrease?;
+    private useDeveloperMode?;
+    private useAdb?;
+    private useDebug?;
     constructor(options: {
         customization?: PassiveFaceLivenessCustomizationAndroid;
         sensorSettings?: SensorSettingsAndroid;
@@ -18,5 +21,8 @@ export declare class AndroidSettings {
         useEmulator?: boolean;
         useRoot?: boolean;
         enableBrightnessIncrease?: boolean;
+        useDeveloperMode?: boolean;
+        useAdb?: boolean;
+        useDebug?: boolean;
     });
 }

@@ -10,6 +10,9 @@ export class AndroidSettings {
   private useEmulator?: boolean;
   private useRoot?: boolean;
   private enableBrightnessIncrease?: boolean;
+  private useDeveloperMode?: boolean;
+  private useAdb?: boolean;
+  private useDebug?: boolean;
 
   constructor(
     options: {
@@ -20,7 +23,10 @@ export class AndroidSettings {
       enableGoogleServices?: boolean,
       useEmulator?: boolean,
       useRoot?: boolean,
-      enableBrightnessIncrease?: boolean
+      enableBrightnessIncrease?: boolean,
+      useDeveloperMode?: boolean,
+      useAdb?: boolean,
+      useDebug?: boolean
     }) {
     this.customization = options?.customization;
     this.sensorSettings = options?.sensorSettings;
@@ -30,6 +36,10 @@ export class AndroidSettings {
     this.useEmulator = options?.useEmulator;
     this.useRoot = options?.useRoot;
     this.enableBrightnessIncrease = options?.enableBrightnessIncrease;
+    this.useDeveloperMode = options?.useDeveloperMode;
+    this.useAdb = options?.useAdb;
+    this.useDebug = options?.useDebug;
+
   }
 }
 

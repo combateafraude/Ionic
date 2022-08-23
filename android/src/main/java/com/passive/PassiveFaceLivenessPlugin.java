@@ -81,6 +81,12 @@ public class PassiveFaceLivenessPlugin extends Plugin {
             mPassiveFaceLivenessBuilder.setGetImageUrlExpireTime(expireTime);
         }
 
+        Boolean useOpenEyeValidation = (Boolean) argumentsMap.get("useOpenEyeValidation");
+        if(useOpenEyeValidation != null){
+            Double openEyesThreshold = (Double) argumentsMap.get("openEyesThreshold");
+            mPassiveFaceLivenessBuilder.setEyesClosedSettings(useOpenEyeValidation, openEyesThreshold);
+        }
+
         HashMap<String, Object> showPreview = (HashMap<String, Object>) argumentsMap.get("showPreview");
         if (showPreview != null) {
             String title = (String) showPreview.get("title");
@@ -234,6 +240,21 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 boolean enableBrightnessIncrease = (boolean) androidSettings.get("enableBrightnessIncrease");
                 mPassiveFaceLivenessBuilder.enableBrightnessIncrease(enableBrightnessIncrease);
             }
+
+            if(androidSettings.get("useDeveloperMode") != null){
+                Boolean useDeveloperMode = (Boolean) androidSettings.get("useDeveloperMode");
+                mPassiveFaceLivenessBuilder.setUseDeveloperMode(useDeveloperMode);
+            }
+
+            if(androidSettings.get("useAdb") != null){
+                Boolean useAdb = (Boolean) androidSettings.get("useAdb");
+                mPassiveFaceLivenessBuilder.setUseAdb(useAdb);
+            }
+
+            if(androidSettings.get("useDebug") != null){
+                Boolean useDebug = (Boolean) androidSettings.get("useDebug");
+                mPassiveFaceLivenessBuilder.setUseDebug(useDebug);
+            }
         }
 
         // Sound settings
@@ -352,6 +373,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         responseMap.put("imageUrl", mPassiveFaceLivenessResult.getImageUrl());
         responseMap.put("signedResponse", mPassiveFaceLivenessResult.getSignedResponse());
         responseMap.put("trackingId", mPassiveFaceLivenessResult.getTrackingId());
+        responseMap.put("lensFacing", mPassiveFaceLivenessResult.getLensFacing());
         if(mPassiveFaceLivenessResult.getCapturePath() != null) responseMap.put("capturePath", mPassiveFaceLivenessResult.getCapturePath());
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();

@@ -27,6 +27,8 @@ export declare class PassiveFaceLiveness {
     private delay;
     private captureMode;
     private expireTime;
+    private useOpenEyeValidation?;
+    private openEyesThreshold?;
     constructor();
     set setMobileToken(mobileToken: string);
     set setPeopleId(peopleId: string);
@@ -41,5 +43,6 @@ export declare class PassiveFaceLiveness {
     setIosSettings(iosSettings: IosSettings): void;
     set setCaptureMode(captureMode: CaptureMode);
     set setGetImageUrlExpireTime(expireTime: string);
+    setEyesClosedSettings(enable: boolean, threshold?: number): void;
     start(): Promise<PassiveFaceLivenessSuccess | PassiveFaceLivenessFailure | PassiveFaceLivenessClosed>;
 }
