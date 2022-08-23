@@ -68,7 +68,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v4.6.0.tar.gz"
+    "passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/passive-face-liveness-v5.0.0.tar.gz"
 }
 ```
 
@@ -115,6 +115,8 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 | `.setAndroidSettings(AndroidSettings androidSettings)`<br><br>Customizações somente aplicadas em Android |
 | `.setIosSettings(IosSettings iosSettings)`<br><br>Customizações somente aplicadas em iOS |
 | `.setCaptureMode(CaptureMode captureMode )`<br><br> Define as configurações de captura |
+| `.setEyesClosedSettings(enable: boolean, threshold?:number )`<br><br> Permite customizar as configurações de validação de olhos abertos do SDK. O método espera como parâmetro `enable` para habilitar ou não a validação, e `threshold`, valor entre 0.0 e 1.0 |
+
 
 | CaptureMode |
 | --------- |
@@ -146,6 +148,10 @@ import {PassiveFaceLiveness} from 'passive-face-liveness-plugin';
 | `int showButtonTime`<br><br>Altera o tempo para a exibição do botão de captura manual. O padrão é `20000` milisegundos |
 | `bool useEmulator`<br><br>Permite habilitar/desabilitar o uso de dispositivos emulados no SDK, recomendamos desabilitar o uso dos emuladores por questões de segurança. O padrão é `false` |
 | `bool useRoot`<br><br>Permite habilitar/desabilitar o uso de dispositivos com root no SDK, recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `false` |
+| `bool useDeveloperMode`<br><br>Permite habilitar/desabilitar o uso de dispositivos com o modo de desenvolvedor Android ativado. Recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `False` |
+| `bool useAdb`<br><br>Permite habilitar/desabilitar o uso do modo de depuração Android Debug Bridge (ADB). Recomendamos desabilitar o uso desses dispositivos por questões de segurança. O padrão é `False` |
+| `bool useDebug`<br><br>Permite o uso do app em modo debug quando true. Não é recomendado ativar esta opção, utilize apenas para fins de testes.	 O padrão é `False` |
+| `bool enableBrightnessIncrease`<br><br>Habilita/desabilita o incremento de brilho do dispositivo do dispositivo na abertura do SDK |
 
 ##### Exemplo de uso
 ```typescript
