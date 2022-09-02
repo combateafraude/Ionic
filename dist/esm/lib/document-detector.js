@@ -7,20 +7,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { DocumentDetectorStep } from './document-detector-step';
 import { Capture } from './result/capture';
 import { DocumentDetectorSuccess } from './result/document-detector-success';
 import { DocumentDetectorFailure } from './result/document-detector-failure';
 import { DocumentDetectorClosed } from './result/document-detector-closed';
 import { Plugins } from '@capacitor/core';
-export { DocumentDetectorStep };
-export { DocumentType } from './document-type';
-export { ShowPreview } from './android/show-preview';
-export { DocumentDetectorAndroidSettings } from './android/android-settings';
-export { Capture } from './result/capture';
+export { DocumentDetectorStep } from './document-detector-step';
 export { DocumentDetectorStepCustomizationAndroid } from './android/step-customization';
-export { DocumentDetectorIosSettings } from './ios/ios-settings';
+export { DocumentType } from './document-type';
+export { Capture } from './result/capture';
+export { ShowPreview } from './android/show-preview';
 export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { DocumentDetectorAndroidSettings } from './android/android-settings';
+export { DocumentDetectorIosSettings } from './ios/ios-settings';
+export { DocumentDetectorCustomizationIos } from './ios/customization';
+export { IosResolution } from './ios/ios-resolution';
+export { DocumentDetectorStepCustomizationIos } from './ios/step-customization';
 const { DocumentDetectorPlugin } = Plugins;
 export class DocumentDetector {
     constructor() { }

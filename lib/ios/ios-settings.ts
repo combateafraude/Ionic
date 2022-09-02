@@ -7,16 +7,30 @@ export class DocumentDetectorIosSettings {
   private qualityThreshold: number;
   private customization: DocumentDetectorCustomizationIos;
   private sensorSettings: SensorSettingsIos;
-  private manualCaptureEnable: boolean;
-  private manualCaptureTime: number; 
+  private enableManualCapture: boolean;
+  private timeEnableManualCapture: number;
+  private resolution: string;
+  private compressQuality: number;
 
-  constructor(detectionThreshold: number, verifyQuality: boolean, qualityThreshold: number, customization: DocumentDetectorCustomizationIos, sensorSettings: SensorSettingsIos, manualCaptureEnable: boolean, manualCaptureTime: number){
-        this.detectionThreshold = detectionThreshold;
-        this.verifyQuality = verifyQuality;
-        this.qualityThreshold = qualityThreshold;
-        this.customization = customization;
-        this.sensorSettings = sensorSettings;
-        this.manualCaptureEnable = manualCaptureEnable;
-        this.manualCaptureTime = manualCaptureTime;
+  constructor(
+    detectionThreshold: number,
+    verifyQuality: boolean,
+    qualityThreshold: number,
+    customization: DocumentDetectorCustomizationIos,
+    sensorSettings: SensorSettingsIos,
+    enableManualCapture: boolean,
+    timeEnableManualCapture: number,
+    resolution: string,
+    compressQuality: number
+  ) {
+    this.detectionThreshold = detectionThreshold;
+    this.verifyQuality = verifyQuality;
+    this.qualityThreshold = qualityThreshold;
+    this.customization = customization;
+    this.sensorSettings = sensorSettings;
+    this.enableManualCapture = enableManualCapture;
+    this.timeEnableManualCapture = timeEnableManualCapture;
+    this.resolution = resolution;
+    this.compressQuality = compressQuality;
   }
 }

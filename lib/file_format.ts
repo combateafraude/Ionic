@@ -1,4 +1,4 @@
-enum FileFormats{
+enum FileFormats {
     PNG,
     JPG,
     JPEG,

@@ -1,4 +1,4 @@
-enum Resolution{
+enum Resolution {
     HD,
     FULL_HD,
     QUAD_HD,

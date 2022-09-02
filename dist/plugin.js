@@ -27,18 +27,6 @@ function __awaiter(thisArg, _arguments, P, generator) {
     });
 }
 
-class DocumentDetectorStep {
-    constructor(documentType, android, ios) {
-        if (android != null) {
-            this.android = android;
-        }
-        if (ios != null) {
-            this.ios = ios;
-        }
-        this.documentType = documentType;
-    }
-}
-
 class Capture {
     constructor(imagePath, imageUrl, label, quality, lensFacing) {
         this.imagePath = imagePath;
@@ -357,6 +345,26 @@ Capacitor.registerPlugin;
  */
 const Plugins = Capacitor.Plugins;
 
+class DocumentDetectorStep {
+    constructor(documentType, android, ios) {
+        if (android != null) {
+            this.android = android;
+        }
+        if (ios != null) {
+            this.ios = ios;
+        }
+        this.documentType = documentType;
+    }
+}
+
+class DocumentDetectorStepCustomizationAndroid {
+    constructor(stepLabelStringResName, illustrationDrawableResName, audioRawResName) {
+        this.stepLabelStringResName = stepLabelStringResName;
+        this.illustrationDrawableResName = illustrationDrawableResName;
+        this.audioRawResName = audioRawResName;
+    }
+}
+
 exports.DocumentType = void 0;
 (function (DocumentType) {
     DocumentType["RG_FRONT"] = "RG_FRONT";
@@ -385,6 +393,17 @@ class ShowPreview {
     }
 }
 
+class DocumentDetectorCustomizationAndroid {
+    constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
+        this.styleResIdName = styleResIdName;
+        this.layoutResIdName = layoutResIdName;
+        this.greenMaskResIdName = greenMaskResIdName;
+        this.redMaskResIdName = redMaskResIdName;
+        this.whiteMaskResIdName = whiteMaskResIdName;
+        this.maskType = maskType;
+    }
+}
+
 class DocumentDetectorAndroidSettings {
     constructor(options) {
         this.customization = options.customization;
@@ -402,43 +421,54 @@ class DocumentDetectorAndroidSettings {
     }
 }
 
-class DocumentDetectorStepCustomizationAndroid {
-    constructor(stepLabelStringResName, illustrationDrawableResName, audioRawResName) {
-        this.stepLabelStringResName = stepLabelStringResName;
-        this.illustrationDrawableResName = illustrationDrawableResName;
-        this.audioRawResName = audioRawResName;
-    }
-}
-/*Map asMap(){
-  Map<String, dynamic> map = new Map();
-
-  map["stepLabelStringResName"] = stepLabelStringResName;
-  map["illustrationDrawableResName"] = illustrationDrawableResName;
-  map["audioRawResName"] = audioRawResName;
-
-  return map;
-}*/
-
 class DocumentDetectorIosSettings {
-    constructor(detectionThreshold, verifyQuality, qualityThreshold, customization, sensorSettings, manualCaptureEnable, manualCaptureTime) {
+    constructor(detectionThreshold, verifyQuality, qualityThreshold, customization, sensorSettings, enableManualCapture, timeEnableManualCapture, resolution, compressQuality) {
         this.detectionThreshold = detectionThreshold;
         this.verifyQuality = verifyQuality;
         this.qualityThreshold = qualityThreshold;
         this.customization = customization;
         this.sensorSettings = sensorSettings;
-        this.manualCaptureEnable = manualCaptureEnable;
-        this.manualCaptureTime = manualCaptureTime;
+        this.enableManualCapture = enableManualCapture;
+        this.timeEnableManualCapture = timeEnableManualCapture;
+        this.resolution = resolution;
+        this.compressQuality = compressQuality;
     }
 }
 
-class DocumentDetectorCustomizationAndroid {
-    constructor(maskType, styleResIdName, layoutResIdName, greenMaskResIdName, redMaskResIdName, whiteMaskResIdName) {
-        this.styleResIdName = styleResIdName;
-        this.layoutResIdName = layoutResIdName;
-        this.greenMaskResIdName = greenMaskResIdName;
-        this.redMaskResIdName = redMaskResIdName;
-        this.whiteMaskResIdName = whiteMaskResIdName;
-        this.maskType = maskType;
+class DocumentDetectorCustomizationIos {
+    constructor(colorHex, greenMaskImageName, whiteMaskImageNam, redMaskImageName, closeImageName, showStepLabel, showStatusLabel, buttonSize, buttonContentMode) {
+        this.colorHex = colorHex;
+        this.greenMaskImageName = greenMaskImageName;
+        this.whiteMaskImageName = whiteMaskImageNam;
+        this.redMaskImageName = redMaskImageName;
+        this.closeImageName = closeImageName;
+        this.showStepLabel = showStepLabel;
+        this.showStatusLabel = showStatusLabel;
+        this.buttonSize = buttonSize;
+        this.buttonContentMode = buttonContentMode;
+    }
+}
+
+class IosResolution {
+}
+IosResolution.LOW = "LOW";
+IosResolution.MEDIUM = "MEDIUM";
+IosResolution.HIGH = "HIGH";
+IosResolution.PHOTO = "PHOTO";
+IosResolution.INPUT_PRIORITY = "INPUT_PRIORITY";
+IosResolution.HD1280x720 = "hd1280x720";
+IosResolution.HD1920x1080 = "hd1920x1080";
+IosResolution.hd4K3840x2160 = "hd4K3840x2160";
+IosResolution.iFrame960x540 = "iFrame960x540";
+IosResolution.iFrame1280x720 = "iFrame1280x720";
+IosResolution.VGA640x480 = "VGA640x480";
+IosResolution.CIF352x288 = "CIF352x288";
+
+class DocumentDetectorStepCustomizationIos {
+    constructor(stepLabel, illustration, audioName) {
+        this.stepLabel = stepLabel;
+        this.illustration = illustration;
+        this.audioName = audioName;
     }
 }
 
@@ -519,8 +549,11 @@ exports.Capture = Capture;
 exports.DocumentDetector = DocumentDetector;
 exports.DocumentDetectorAndroidSettings = DocumentDetectorAndroidSettings;
 exports.DocumentDetectorCustomizationAndroid = DocumentDetectorCustomizationAndroid;
+exports.DocumentDetectorCustomizationIos = DocumentDetectorCustomizationIos;
 exports.DocumentDetectorIosSettings = DocumentDetectorIosSettings;
 exports.DocumentDetectorStep = DocumentDetectorStep;
 exports.DocumentDetectorStepCustomizationAndroid = DocumentDetectorStepCustomizationAndroid;
+exports.DocumentDetectorStepCustomizationIos = DocumentDetectorStepCustomizationIos;
+exports.IosResolution = IosResolution;
 exports.ShowPreview = ShowPreview;
 //# sourceMappingURL=plugin.js.map

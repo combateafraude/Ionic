@@ -6,22 +6,9 @@ export class DocumentDetectorStepCustomizationAndroid {
   constructor(
     stepLabelStringResName: string,
     illustrationDrawableResName: string,
-    audioRawResName: string){
-      this.stepLabelStringResName = stepLabelStringResName;
-      this.illustrationDrawableResName = illustrationDrawableResName;
-      this.audioRawResName = audioRawResName;
-    }
+    audioRawResName: string) {
+    this.stepLabelStringResName = stepLabelStringResName;
+    this.illustrationDrawableResName = illustrationDrawableResName;
+    this.audioRawResName = audioRawResName;
+  }
 }
-
-
-
-
-  /*Map asMap(){
-    Map<String, dynamic> map = new Map();
-
-    map["stepLabelStringResName"] = stepLabelStringResName;
-    map["illustrationDrawableResName"] = illustrationDrawableResName;
-    map["audioRawResName"] = audioRawResName;
-
-    return map;
-  }*/

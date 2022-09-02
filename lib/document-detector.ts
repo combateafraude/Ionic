@@ -10,14 +10,19 @@ import { DocumentDetectorClosed } from './result/document-detector-closed';
 import { Plugins } from '@capacitor/core';
 import { UploadSettings } from './upload_settings';
 
-export { DocumentDetectorStep };
+export { DocumentDetectorStep } from './document-detector-step';
+export { DocumentDetectorStepCustomizationAndroid } from './android/step-customization';
 export { DocumentType } from './document-type';
-export { ShowPreview } from './android/show-preview';
-export { DocumentDetectorAndroidSettings } from './android/android-settings';
 export { Capture } from './result/capture';
-export {DocumentDetectorStepCustomizationAndroid} from './android/step-customization';
+export { ShowPreview } from './android/show-preview';
+export { DocumentDetectorCustomizationAndroid } from './android/customization';
+export { DocumentDetectorAndroidSettings } from './android/android-settings';
+
 export { DocumentDetectorIosSettings } from './ios/ios-settings'
-export {DocumentDetectorCustomizationAndroid} from './android/customization';
+export { DocumentDetectorCustomizationIos } from './ios/customization';
+export { IosResolution } from './ios/ios-resolution';
+export { DocumentDetectorStepCustomizationIos } from './ios/step-customization';
+
 
 const { DocumentDetectorPlugin } = Plugins;
 
@@ -38,7 +43,7 @@ export class DocumentDetector {
   private expireTime: string;
   private uploadSettings: UploadSettings;
 
-  constructor() {}
+  constructor() { }
 
   public set setMobileToken(mobileToken: string) {
     this.mobileToken = mobileToken;
@@ -91,10 +96,10 @@ export class DocumentDetector {
     this.uploadSettings = settings;
   }
 
-  setGetImageUrlExpireTime(expireTime:string) {
+  setGetImageUrlExpireTime(expireTime: string) {
     this.expireTime = expireTime;
   }
-  
+
   set setShowPreview(showPreview: ShowPreview) {
     this.showPreview = showPreview;
   }
@@ -107,23 +112,23 @@ export class DocumentDetector {
     this.iosSettings = iosSettings;
   }
 
-  async start() : Promise<DocumentDetectorResult>{
+  async start(): Promise<DocumentDetectorResult> {
     var builder = JSON.stringify(this);
 
     var result = (await DocumentDetectorPlugin.start({ builder })).results;
 
-    if(result.success == null){
+    if (result.success == null) {
       return new DocumentDetectorClosed();
-    }else if(result.success){
-      
+    } else if (result.success) {
+
       var captures = new Array<Capture>();
 
       result.captures.forEach((capture: { imagePath: string; imageUrl: string; label: string; quality: number; lensFacing: number; }) => {
         captures.push(new Capture(capture.imagePath, capture.imageUrl, capture.label, capture.quality, capture.lensFacing))
       });
-      
+
       return new DocumentDetectorSuccess(captures, result.type, result.trackingId)
-    }else{
+    } else {
       return new DocumentDetectorFailure(result.message, result.type)
     }
   }

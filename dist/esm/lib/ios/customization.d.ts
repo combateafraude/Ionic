@@ -6,5 +6,7 @@ export declare class DocumentDetectorCustomizationIos {
     private closeImageName;
     private showStepLabel;
     private showStatusLabel;
-    constructor(colorHex: string, greenMaskImageName: string, whiteMaskImageNam: string, redMaskImageName: string, closeImageName: string, showStepLabel: boolean, showStatusLabel: boolean);
+    private buttonSize;
+    private buttonContentMode;
+    constructor(colorHex: string, greenMaskImageName: string, whiteMaskImageNam: string, redMaskImageName: string, closeImageName: string, showStepLabel: boolean, showStatusLabel: boolean, buttonSize: number, buttonContentMode: string);
 }
