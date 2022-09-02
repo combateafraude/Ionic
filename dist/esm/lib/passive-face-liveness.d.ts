@@ -13,6 +13,9 @@ export { CaptureMode } from './android/capture-mode';
 export { SensorSettingsAndroid } from './android/sensor-settings';
 export { PassiveFaceLivenessCustomizationAndroid } from './android/customization';
 export { IosSettings } from './ios/ios-settings';
+export { IosResolution } from './ios/ios-resolution';
+export { PassiveFaceLivenessCustomizationIos } from './ios/customization';
+export { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
 export declare class PassiveFaceLiveness {
     private mobileToken;
     private peopleId;

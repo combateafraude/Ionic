@@ -8,6 +8,9 @@ export class AndroidSettings {
         this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
         this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
         this.enableBrightnessIncrease = options === null || options === void 0 ? void 0 : options.enableBrightnessIncrease;
+        this.useDeveloperMode = options === null || options === void 0 ? void 0 : options.useDeveloperMode;
+        this.useAdb = options === null || options === void 0 ? void 0 : options.useAdb;
+        this.useDebug = options === null || options === void 0 ? void 0 : options.useDebug;
     }
 }
 //# sourceMappingURL=android-settings.js.map

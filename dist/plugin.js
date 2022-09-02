@@ -407,10 +407,50 @@ class PassiveFaceLivenessCustomizationAndroid {
 }
 
 class IosSettings {
-    constructor(customization, beforePictureMillis, sensorStability) {
-        this.customization = customization;
-        this.beforePictureMillis = beforePictureMillis;
-        this.sensorStability = sensorStability;
+    constructor(options) {
+        this.customization = options === null || options === void 0 ? void 0 : options.customization;
+        this.beforePictureMillis = options === null || options === void 0 ? void 0 : options.beforePictureMillis;
+        this.sensorStability = options === null || options === void 0 ? void 0 : options.sensorStability;
+        this.enableManualCapture = options === null || options === void 0 ? void 0 : options.enableManualCapture;
+        this.timeEnableManualCapture = options === null || options === void 0 ? void 0 : options.timeEnableManualCapture;
+        this.resolution = options === null || options === void 0 ? void 0 : options.resolution;
+        this.compressQuality = options === null || options === void 0 ? void 0 : options.compressQuality;
+    }
+}
+
+class IosResolution {
+}
+IosResolution.LOW = "LOW";
+IosResolution.MEDIUM = "MEDIUM";
+IosResolution.HIGH = "HIGH";
+IosResolution.PHOTO = "PHOTO";
+IosResolution.INPUT_PRIORITY = "INPUT_PRIORITY";
+IosResolution.HD1280x720 = "hd1280x720";
+IosResolution.HD1920x1080 = "hd1920x1080";
+IosResolution.hd4K3840x2160 = "hd4K3840x2160";
+IosResolution.iFrame960x540 = "iFrame960x540";
+IosResolution.iFrame1280x720 = "iFrame1280x720";
+IosResolution.VGA640x480 = "VGA640x480";
+IosResolution.CIF352x288 = "CIF352x288";
+
+class PassiveFaceLivenessCustomizationIos {
+    constructor(options) {
+        this.colorHex = options === null || options === void 0 ? void 0 : options.colorHex;
+        this.greenMaskImageName = options === null || options === void 0 ? void 0 : options.greenMaskImageName;
+        this.whiteMaskImageName = options === null || options === void 0 ? void 0 : options.whiteMaskImageNam;
+        this.redMaskImageName = options === null || options === void 0 ? void 0 : options.redMaskImageName;
+        this.closeImageName = options === null || options === void 0 ? void 0 : options.closeImageName;
+        this.showStepLabel = options === null || options === void 0 ? void 0 : options.showStepLabel;
+        this.showStatusLabel = options === null || options === void 0 ? void 0 : options.showStatusLabel;
+        this.buttonSize = options === null || options === void 0 ? void 0 : options.buttonSize;
+        this.buttonContentMode = options === null || options === void 0 ? void 0 : options.buttonContentMode;
+    }
+}
+
+class SensorStabilitySettingsIos {
+    constructor(options) {
+        this.message = options === null || options === void 0 ? void 0 : options.message;
+        this.stabilityThreshold = options === null || options === void 0 ? void 0 : options.stabilityThreshold;
     }
 }
 
@@ -482,10 +522,13 @@ class PassiveFaceLiveness {
 exports.AndroidSettings = AndroidSettings;
 exports.CaptureMode = CaptureMode;
 exports.ImageCapture = ImageCapture;
+exports.IosResolution = IosResolution;
 exports.IosSettings = IosSettings;
 exports.PassiveFaceLiveness = PassiveFaceLiveness;
 exports.PassiveFaceLivenessCustomizationAndroid = PassiveFaceLivenessCustomizationAndroid;
+exports.PassiveFaceLivenessCustomizationIos = PassiveFaceLivenessCustomizationIos;
 exports.SensorSettingsAndroid = SensorSettingsAndroid;
+exports.SensorStabilitySettingsIos = SensorStabilitySettingsIos;
 exports.ShowPreview = ShowPreview;
 exports.VideoCapture = VideoCapture;
 //# sourceMappingURL=plugin.js.map

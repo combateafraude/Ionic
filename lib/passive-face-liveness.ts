@@ -4,24 +4,25 @@ import { PassiveFaceLivenessClosed } from './result/passive-face-liveness-closed
 import { IosSettings } from './ios/ios-settings';
 import { ShowPreview } from './show-preview';
 import { AndroidSettings } from "./android/android-settings";
-import { Plugins } from '@capacitor/core';
-const { PassiveFaceLivenessPlugin } = Plugins;
 import { CaptureMode } from './android/capture-mode';
 import { PassiveFaceLivenessCustomizationAndroid } from './android/customization';
+import { PassiveFaceLivenessCustomizationIos } from './ios/customization';
+import { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
+
+import { Plugins } from '@capacitor/core';
+const { PassiveFaceLivenessPlugin } = Plugins;
 
 export { ShowPreview } from './show-preview';
-
 export { AndroidSettings } from "./android/android-settings";
 export { VideoCapture } from './android/video-capture';
 export { ImageCapture } from './android/image-capture';
 export { CaptureMode } from './android/capture-mode';
-
 export { SensorSettingsAndroid } from './android/sensor-settings';
 export { PassiveFaceLivenessCustomizationAndroid } from './android/customization';
-
 export { IosSettings } from './ios/ios-settings';
-import { PassiveFaceLivenessCustomizationIos } from './ios/customization';
-import { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
+export { IosResolution } from './ios/ios-resolution';
+export { PassiveFaceLivenessCustomizationIos } from './ios/customization';
+export { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
 
 export class PassiveFaceLiveness {
   private mobileToken: string;
@@ -96,7 +97,7 @@ export class PassiveFaceLiveness {
     this.expireTime = expireTime;
   }
 
-  setEyesClosedSettings (enable: boolean, threshold?:number): void{
+  setEyesClosedSettings(enable: boolean, threshold?: number): void {
     this.useOpenEyeValidation = enable;
     this.openEyesThreshold = threshold;
   }
