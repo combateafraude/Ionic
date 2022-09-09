@@ -17,6 +17,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
+        jcenter()
         maven { url "https://repo.combateafraude.com/android/release"}
     }
 }
@@ -24,7 +25,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
@@ -41,7 +42,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
     dataBinding {
         enabled = true
     }
