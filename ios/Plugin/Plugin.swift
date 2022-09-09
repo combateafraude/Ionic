@@ -107,6 +107,10 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
                         }
                     }
                 }
+
+                if let useOpenEyeValidation = arguments["useOpenEyeValidation"] as? Bool ?? nil {
+                    faceAuthenticatorBuilder.setEyesClosedSettings(threshold: arguments["openEyesThreshold"] as? Double ?? 0.5, isEnable: useOpenEyeValidation)
+                }
                 
                 DispatchQueue.main.async {
                     let scannerVC = FaceAuthenticatorController(faceAuthenticator: faceAuthenticatorBuilder.build())
@@ -132,6 +136,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
         response["isAuthenticated"] = results.authenticated
         response["signedResponse"] = results.signedResponse
         response["trackingId"] = results.trackingId
+        response["lensFacing"] = results.lensFacing
         
         self.call?.resolve(["results": response])
     }

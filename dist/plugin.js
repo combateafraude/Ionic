@@ -34,13 +34,16 @@ class FaceAuthenticatorResult {
 }
 
 class FaceAuthenticatorSuccess extends FaceAuthenticatorResult {
-    constructor(isAuthenticated, signedResponse, trackingId) {
+    constructor(isAuthenticated, signedResponse, trackingId, lensFacing) {
         super("SUCCESS");
         this.isAuthenticated = isAuthenticated;
         this.signedResponse = signedResponse;
         this.trackingId = trackingId;
+        this.lensFacing = lensFacing;
     }
 }
+FaceAuthenticatorSuccess.LENS_FACING_FRONT = 0;
+FaceAuthenticatorSuccess.LENS_FACING_BACK = 1;
 
 class FaceAuthenticatorFailure extends FaceAuthenticatorResult {
     constructor(message, type) {
@@ -337,13 +340,17 @@ const Plugins = Capacitor.Plugins;
 
 class AndroidSettings {
     constructor(options) {
+        this.customization = options === null || options === void 0 ? void 0 : options.customization;
         this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
         this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
         this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
         this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
         this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
         this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
-        this.customization = options === null || options === void 0 ? void 0 : options.customization;
+        this.enableBrightnessIncrease = options === null || options === void 0 ? void 0 : options.enableBrightnessIncrease;
+        this.useDeveloperMode = options === null || options === void 0 ? void 0 : options.useDeveloperMode;
+        this.useAdb = options === null || options === void 0 ? void 0 : options.useAdb;
+        this.useDebug = options === null || options === void 0 ? void 0 : options.useDebug;
     }
 }
 
@@ -395,8 +402,9 @@ class FaceAuthenticator {
     set setUseAnalytics(useAnalytics) {
         this.useAnalytics = useAnalytics;
     }
-    set setSound(sound) {
-        this.sound = sound;
+    setAudioSettings(enable, soundResId) {
+        this.enableSound = enable;
+        this.sound = soundResId;
     }
     set setRequestTimeout(requestTimeout) {
         this.requestTimeout = requestTimeout;
@@ -420,6 +428,10 @@ class FaceAuthenticator {
     set setCaptureMode(captureMode) {
         this.captureMode = captureMode;
     }
+    setEyesClosedSettings(enable, threshold) {
+        this.useOpenEyeValidation = enable;
+        this.openEyesThreshold = threshold;
+    }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             var param = JSON.stringify(this);
@@ -428,7 +440,7 @@ class FaceAuthenticator {
                 return new FaceAuthenticatorClosed();
             }
             else if (result.success) {
-                return new FaceAuthenticatorSuccess(result.isAuthenticated, result.signedResponse, result.trackingId);
+                return new FaceAuthenticatorSuccess(result.isAuthenticated, result.signedResponse, result.trackingId, result.lensFacing);
             }
             else {
                 return new FaceAuthenticatorFailure(result.message, result.type);

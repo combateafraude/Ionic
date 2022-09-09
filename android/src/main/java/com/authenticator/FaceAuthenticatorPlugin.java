@@ -147,6 +147,11 @@ public class FaceAuthenticatorPlugin extends Plugin {
                boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
                mFaceAuthenticatorBuilder.enableSwitchCameraButton(false);
             }
+            
+            if(androidSettings.get("enableBrightnessIncrease") != null){
+                boolean enableBrightnessIncrease = (boolean) androidSettings.get("enableBrightnessIncrease");
+                mFaceAuthenticatorBuilder.enableBrightnessIncrease(enableBrightnessIncrease);
+            }
 
             if (androidSettings.get("enableGoogleServices") != null){
                 boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
@@ -162,15 +167,43 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 boolean useRoot = (boolean) androidSettings.get("useRoot");
                 mFaceAuthenticatorBuilder.setUseRoot(useRoot);
             }
+
+            if(androidSettings.get("useDeveloperMode") != null){
+                Boolean useDeveloperMode = (Boolean) androidSettings.get("useDeveloperMode");
+                mFaceAuthenticatorBuilder.setUseDeveloperMode(useDeveloperMode);
+            }
+
+            if(androidSettings.get("useAdb") != null){
+                Boolean useAdb = (Boolean) androidSettings.get("useAdb");
+                mFaceAuthenticatorBuilder.setUseAdb(useAdb);
+            }
+
+            if(androidSettings.get("useDebug") != null){
+                Boolean useDebug = (Boolean) androidSettings.get("useDebug");
+                mFaceAuthenticatorBuilder.setUseDebug(useDebug);
+            }
         }
 
         // Sound settings
-        Boolean enableSound = (Boolean) argumentsMap.get("sound");
-        if (enableSound != null) mFaceAuthenticatorBuilder.enableSound(enableSound);
+        Boolean enableSound = (Boolean) argumentsMap.get("EnableSound");
+        if (enableSound != null) mFaceAuthenticatorBuilder.setAudioSettings(enableSound);
+
+        Integer soundResId = getResourceId((String) argumentsMap.get("sound"), RAW_RES);
+        if (soundResId != null) mFaceAuthenticatorBuilder.setAudioSettings(soundResId);
 
         // Network settings
         Integer requestTimeout = (Integer) argumentsMap.get("requestTimeout");
         if (requestTimeout != null) mFaceAuthenticatorBuilder.setNetworkSettings(requestTimeout);
+
+        Boolean useOpenEyeValidation = (Boolean) argumentsMap.get("useOpenEyeValidation");
+        if(useOpenEyeValidation != null){
+            Double openEyesThreshold = (Double) argumentsMap.get("openEyesThreshold");
+            if(openEyesThreshold != null){
+                mFaceAuthenticatorBuilder.setEyesClosedSettings(useOpenEyeValidation, openEyesThreshold);
+            }else{
+                mFaceAuthenticatorBuilder.setEyesClosedSettings(useOpenEyeValidation);
+            }
+        } 
 
         saveCall(call);
 
@@ -261,6 +294,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
         responseMap.put("isAuthenticated", mFaceAuthenticatorResult.isAuthenticated());
         responseMap.put("signedResponse", mFaceAuthenticatorResult.getSignedResponse());
         responseMap.put("trackingId", mFaceAuthenticatorResult.getTrackingId());
+        responseMap.put("lensFacing", mFaceAuthenticatorResult.getLensFacing());
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
         result.put("results", jsonObject);
