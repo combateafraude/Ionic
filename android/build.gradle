@@ -66,7 +66,7 @@ repositories {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.combateafraude.sdk:document-detector:6.37.0'
+    implementation 'com.combateafraude.sdk:document-detector:6.37.6'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation 'org.jetbrains:annotations:15.0'
