@@ -1,4 +1,4 @@
-com.passive.passivefacelivenessplugin
+com.authenticator.faceauthenticatorplugin
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -2190,6 +2190,11 @@ string common_signin_button_text_long
 string doing_facematch_caf
 string error_100_message
 string error_200_message
+string error_300_message
+string error_400_message
+string error_500_message
+string error_600_message
+string error_700_message
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string eyes_closed_caf
@@ -2255,7 +2260,7 @@ string photo_mask_caf
 string picture
 string request_permission
 string search_menu_title
-string sensor_still_starting
+string sensor_still_starting_caf
 string sensor_unstable_caf
 string status_bar_notification_info_overflow
 string status_caf

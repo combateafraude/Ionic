@@ -2189,6 +2189,11 @@ int string common_signin_button_text_long 0x0
 int string doing_facematch_caf 0x0
 int string error_100_message 0x0
 int string error_200_message 0x0
+int string error_300_message 0x0
+int string error_400_message 0x0
+int string error_500_message 0x0
+int string error_600_message 0x0
+int string error_700_message 0x0
 int string error_icon_content_description 0x0
 int string exposed_dropdown_menu_content_description 0x0
 int string eyes_closed_caf 0x0
@@ -2254,7 +2259,7 @@ int string photo_mask_caf 0x0
 int string picture 0x0
 int string request_permission 0x0
 int string search_menu_title 0x0
-int string sensor_still_starting 0x0
+int string sensor_still_starting_caf 0x0
 int string sensor_unstable_caf 0x0
 int string status_bar_notification_info_overflow 0x0
 int string status_caf 0x0

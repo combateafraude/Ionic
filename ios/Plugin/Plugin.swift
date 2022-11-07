@@ -24,7 +24,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
                 let faceAuthenticatorBuilder = FaceAuthenticatorSdk.Builder(mobileToken: mobileToken)
                                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    _ = faceAuthenticatorBuilder.setPersonId(peopleId)
+                    _ = faceAuthenticatorBuilder.setPeopleId(peopleId)
                 }
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {
