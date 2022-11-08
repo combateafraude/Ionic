@@ -28,7 +28,7 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
                 _ = passiveFaceLivenessBuilder.enableMultiLanguage(false)
                                 
                 if let peopleId = arguments["peopleId"] as? String ?? nil {
-                    _ = passiveFaceLivenessBuilder.setPersonId(personId: peopleId)
+                    _ = passiveFaceLivenessBuilder.setPersonId(peopleId)
                 }
                 
                 if let useAnalytics = arguments["useAnalytics"] as? Bool ?? nil {

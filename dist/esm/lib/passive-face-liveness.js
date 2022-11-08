@@ -31,6 +31,12 @@ export class PassiveFaceLiveness {
     set setPeopleId(peopleId) {
         this.peopleId = peopleId;
     }
+    set setPersonName(personName) {
+        this.personName = personName;
+    }
+    set setPersonCpf(personCpf) {
+        this.personCpf = personCpf;
+    }
     set setUseAnalytics(useAnalytics) {
         this.useAnalytics = useAnalytics;
     }

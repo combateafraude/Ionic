@@ -2170,6 +2170,7 @@ int string bottom_sheet_behavior 0x0
 int string camera_error 0x0
 int string camera_helper_error_caf 0x0
 int string camera_helper_no_camera_exception 0x0
+int string capture_processing_error_message 0x0
 int string certificate_invalid_caf 0x0
 int string character_counter_content_description 0x0
 int string character_counter_overflowed_content_description 0x0
@@ -2198,7 +2199,12 @@ int string common_signin_button_text 0x0
 int string common_signin_button_text_long 0x0
 int string error_100_message 0x0
 int string error_200_message 0x0
+int string error_300_message 0x0
+int string error_400_message 0x0
+int string error_500_message 0x0
+int string error_600_message 0x0
 int string error_700 0x0
+int string error_700_message 0x0
 int string error_icon_content_description 0x0
 int string exposed_dropdown_menu_content_description 0x0
 int string eyes_closed 0x0

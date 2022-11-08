@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml:2:3-4:14
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml:2:3-4:14
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml:2:3-4:14
+ADDED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml:2:3-4:14
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml:2:3-4:14
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml:2:3-4:14
 	package
-		ADDED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml:3:7-54
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+		ADDED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml:3:7-54
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml:2:13-71
+		ADDED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml:2:13-71
 uses-sdk
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-		ADDED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+		ADDED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-		ADDED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\passive-face-liveness-plugin\android\src\main\AndroidManifest.xml
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+		ADDED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml

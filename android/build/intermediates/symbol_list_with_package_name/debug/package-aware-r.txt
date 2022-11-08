@@ -2171,6 +2171,7 @@ string bottom_sheet_behavior
 string camera_error
 string camera_helper_error_caf
 string camera_helper_no_camera_exception
+string capture_processing_error_message
 string certificate_invalid_caf
 string character_counter_content_description
 string character_counter_overflowed_content_description
@@ -2199,7 +2200,12 @@ string common_signin_button_text
 string common_signin_button_text_long
 string error_100_message
 string error_200_message
+string error_300_message
+string error_400_message
+string error_500_message
+string error_600_message
 string error_700
+string error_700_message
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string eyes_closed

@@ -67,8 +67,22 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         PassiveFaceLiveness.Builder mPassiveFaceLivenessBuilder = new PassiveFaceLiveness.Builder(mobileToken);
 
         // People ID
-        String peopleId = (String) argumentsMap.get("peopleId");
-        mPassiveFaceLivenessBuilder.setPersonId(peopleId);
+        if(argumentsMap.get("peopleId") != null){
+            String peopleId = (String) argumentsMap.get("peopleId");
+            mPassiveFaceLivenessBuilder.setPersonId(peopleId);
+        }
+
+        // Person Name
+        if(argumentsMap.get("personName") != null){
+            String personName = (String) argumentsMap.get("personName");
+            mPassiveFaceLivenessBuilder.setPersonName(personName);
+        }
+
+        // Person CPF
+        if(argumentsMap.get("personCPF") != null){
+            String personCPF = (String) argumentsMap.get("personCPF");
+            mPassiveFaceLivenessBuilder.setPersonCPF(personCPF);
+        }
 
         // Use Analytics
         Boolean useAnalytics = (Boolean) argumentsMap.get("useAnalytics");

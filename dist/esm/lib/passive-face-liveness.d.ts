@@ -19,6 +19,8 @@ export { SensorStabilitySettingsIos } from './ios/sensor-stability-settings';
 export declare class PassiveFaceLiveness {
     private mobileToken;
     private peopleId;
+    private personName;
+    private personCpf;
     private useAnalytics;
     private sound?;
     private enableSound;
@@ -35,6 +37,8 @@ export declare class PassiveFaceLiveness {
     constructor();
     set setMobileToken(mobileToken: string);
     set setPeopleId(peopleId: string);
+    set setPersonName(personName: string);
+    set setPersonCpf(personCpf: string);
     set setUseAnalytics(useAnalytics: boolean);
     setAudioSettings(enable: boolean, soundResId?: string): void;
     set setRequestTimeout(requestTimeout: number);
