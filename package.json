@@ -1,6 +1,6 @@
 {
   "name": "passive-face-liveness-plugin",
-  "version": "6.1.0",
+  "version": "7.0.0-rc01",
   "description": "PassiveFaceLiveness",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
