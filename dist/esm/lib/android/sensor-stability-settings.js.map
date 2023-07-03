@@ -1,1 +1,0 @@
-{"version":3,"file":"sensor-stability-settings.js","sourceRoot":"","sources":["../../../../lib/android/sensor-stability-settings.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,8BAA8B;IAKzC,YACI,qBAA6B,EAC7B,sBAA8B,EAC9B,kBAA0B;QACxB,IAAI,CAAC,qBAAqB,GAAG,qBAAqB,CAAC;QACnD,IAAI,CAAC,sBAAsB,GAAG,sBAAsB,CAAC;QACrD,IAAI,CAAC,kBAAkB,GAAG,kBAAkB,CAAC;IAC/C,CAAC;CACN"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"sensor-stability-settings.js","sourceRoot":"","sources":["../../../../lib/ios/sensor-stability-settings.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,0BAA0B;IAInC,YACI,OAEC;QACD,IAAI,CAAC,OAAO,GAAG,OAAO,aAAP,OAAO,uBAAP,OAAO,CAAE,OAAO,CAAC;QAChC,IAAI,CAAC,kBAAkB,GAAG,OAAO,aAAP,OAAO,uBAAP,OAAO,CAAE,kBAAkB,CAAC;IAC1D,CAAC;CACJ"}

@@ -1,9 +1,8 @@
 import { PassiveFaceLivenessResult } from './passive-face-liveness-result';
 export class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
-    constructor(message, type) {
+    constructor(errorMessage) {
         super("FAILURE");
-        this.message = message;
-        this.type = type;
+        this.errorMessage = errorMessage;
     }
 }
 //# sourceMappingURL=passive-face-liveness-failure.js.map

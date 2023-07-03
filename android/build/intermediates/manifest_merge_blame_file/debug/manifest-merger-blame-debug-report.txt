@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="21"
-6-->/Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
-7        android:targetSdkVersion="30" />
-7-->/Users/caf/Documents/combateafraude/ionic-example/node_modules/passive-face-liveness-plugin/android/src/main/AndroidManifest.xml
+6-->/Users/caf/Documents/combateafraude/Ionic/android/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="33" />
+7-->/Users/caf/Documents/combateafraude/Ionic/android/src/main/AndroidManifest.xml
 8
 9</manifest>

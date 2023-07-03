@@ -66,16 +66,15 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   public List<DataBinderMapper> collectDependencies() {
     ArrayList<DataBinderMapper> result = new ArrayList<DataBinderMapper>(2);
     result.add(new androidx.databinding.library.baseAdapters.DataBinderMapperImpl());
-    result.add(new com.combateafraude.passivefaceliveness.DataBinderMapperImpl());
+    result.add(new com.caf.facelivenessiproov.DataBinderMapperImpl());
     return result;
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(2);
+    static final SparseArray<String> sKeys = new SparseArray<String>(1);
 
     static {
       sKeys.put(0, "_all");
-      sKeys.put(1, "viewModel");
     }
   }
 

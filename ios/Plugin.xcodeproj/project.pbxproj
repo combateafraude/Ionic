@@ -284,15 +284,17 @@
 				"${PODS_ROOT}/Target Support Files/Pods-PluginTests/Pods-PluginTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Capacitor/Capacitor.framework",
 				"${BUILT_PRODUCTS_DIR}/CapacitorCordova/Cordova.framework",
-				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/PassiveFaceLiveness/PassiveFaceLiveness.framework/PassiveFaceLiveness",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/FaceLivenessIproov/FaceLivenessIproov.framework/FaceLivenessIproov",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/iProov/iProov.framework/iProov",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Capacitor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cordova.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PassiveFaceLiveness.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaceLivenessIproov.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iProov.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

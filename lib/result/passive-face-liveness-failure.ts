@@ -1,12 +1,10 @@
 import { PassiveFaceLivenessResult } from './passive-face-liveness-result';
 
 export class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
-  private message: string;
-  private type: string;
+  private errorMessage: string;
 
-  constructor(message: string, type: string){
+  constructor(errorMessage: string){
       super("FAILURE");
-      this.message = message;
-      this.type = type;
+      this.errorMessage = errorMessage;
   }
 }
