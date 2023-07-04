@@ -1,11 +1,11 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.passive.passivefacelivenessplugin" >
+3    package="com.authenticator.faceauthenticatorplugin" >
 4
 5    <uses-sdk
 6        android:minSdkVersion="21"
-6-->C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\document-detector-ionic\android\src\main\AndroidManifest.xml
+6-->/Users/caf/Documents/combateafraude/Ionic/android/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="30" />
-7-->C:\Users\CAF\Documents\Combate a Fraude\ionic-example\node_modules\document-detector-ionic\android\src\main\AndroidManifest.xml
+7-->/Users/caf/Documents/combateafraude/Ionic/android/src/main/AndroidManifest.xml
 8
 9</manifest>

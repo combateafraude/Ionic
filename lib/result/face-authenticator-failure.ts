@@ -1,12 +1,10 @@
 import { FaceAuthenticatorResult } from './face-authenticator-result';
 
 export class FaceAuthenticatorFailure extends FaceAuthenticatorResult {
-  private message: string;
-  private type: string;
+  private errorMessage: string;
 
-  constructor(message: string, type: string){
+  constructor(errorMessage: string){
       super("FAILURE");
-      this.message = message;
-      this.type = type;
+      this.errorMessage = errorMessage;
   }
 }

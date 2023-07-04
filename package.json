@@ -1,6 +1,6 @@
 {
-  "name": "face-authenticator-plugin",
-  "version": "2.7.0",
+  "name": "new-face-authenticator-plugin",
+  "version": "0.0.1",
   "description": "FaceAuthenticator",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",

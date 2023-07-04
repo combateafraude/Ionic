@@ -18,7 +18,8 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://repo.combateafraude.com/android/release"}
+        maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
+        maven { url 'https://repo.combateafraude.com/android/release' }
     }
 }
 
@@ -61,7 +62,7 @@ repositories {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.combateafraude.sdk:face-authenticator:5.8.13'
+    implementation 'com.combateafraude.sdk:new-face-authenticator:1.0.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation 'org.jetbrains:annotations:15.0'

@@ -34,22 +34,18 @@ class FaceAuthenticatorResult {
 }
 
 class FaceAuthenticatorSuccess extends FaceAuthenticatorResult {
-    constructor(isAuthenticated, signedResponse, trackingId, lensFacing) {
+    constructor(isMatch, isAlive, userId) {
         super("SUCCESS");
-        this.isAuthenticated = isAuthenticated;
-        this.signedResponse = signedResponse;
-        this.trackingId = trackingId;
-        this.lensFacing = lensFacing;
+        this.isMatch = isMatch;
+        this.isAlive = isAlive;
+        this.userId = userId;
     }
 }
-FaceAuthenticatorSuccess.LENS_FACING_FRONT = 0;
-FaceAuthenticatorSuccess.LENS_FACING_BACK = 1;
 
 class FaceAuthenticatorFailure extends FaceAuthenticatorResult {
-    constructor(message, type) {
+    constructor(errorMessage) {
         super("FAILURE");
-        this.message = message;
-        this.type = type;
+        this.errorMessage = errorMessage;
     }
 }
 
@@ -338,99 +334,11 @@ Capacitor.registerPlugin;
  */
 const Plugins = Capacitor.Plugins;
 
-class AndroidSettings {
-    constructor(options) {
-        this.customization = options === null || options === void 0 ? void 0 : options.customization;
-        this.sensorSettings = options === null || options === void 0 ? void 0 : options.sensorSettings;
-        this.showButtonTime = options === null || options === void 0 ? void 0 : options.showButtonTime;
-        this.enableSwitchCameraButton = options === null || options === void 0 ? void 0 : options.enableSwitchCameraButton;
-        this.enableGoogleServices = options === null || options === void 0 ? void 0 : options.enableGoogleServices;
-        this.useEmulator = options === null || options === void 0 ? void 0 : options.useEmulator;
-        this.useRoot = options === null || options === void 0 ? void 0 : options.useRoot;
-        this.enableBrightnessIncrease = options === null || options === void 0 ? void 0 : options.enableBrightnessIncrease;
-        this.useDeveloperMode = options === null || options === void 0 ? void 0 : options.useDeveloperMode;
-        this.useAdb = options === null || options === void 0 ? void 0 : options.useAdb;
-        this.useDebug = options === null || options === void 0 ? void 0 : options.useDebug;
-    }
-}
-
-class VideoCapture {
-    constructor(options) {
-        this.use = options.use;
-        this.time = options.time;
-    }
-}
-
-class ImageCapture {
-    constructor(options) {
-        this.use = options.use;
-        this.beforePictureMillis = options.beforePictureMillis;
-        this.afterPictureMillis = options.afterPictureMillis;
-    }
-}
-
-class CaptureMode {
-    constructor(options) {
-        this.videoCapture = options.videoCapture;
-        this.imageCapture = options.imageCapture;
-    }
-}
-
-class SensorSettingsAndroid {
-    constructor(sensorStabilitySettings) {
-        this.sensorStabilitySettings = sensorStabilitySettings;
-    }
-}
-
-class IosSettings {
-    constructor(customization, beforePictureMillis, sensorStability) {
-        this.customization = customization;
-        this.beforePictureMillis = beforePictureMillis;
-        this.sensorStability = sensorStability;
-    }
-}
-
 const { FaceAuthenticatorPlugin } = Plugins;
 class FaceAuthenticator {
-    constructor() { }
-    set setMobileToken(mobileToken) {
+    constructor(mobileToken, personId) {
         this.mobileToken = mobileToken;
-    }
-    set setPeopleId(peopleId) {
-        this.peopleId = peopleId;
-    }
-    set setUseAnalytics(useAnalytics) {
-        this.useAnalytics = useAnalytics;
-    }
-    setAudioSettings(enable, soundResId) {
-        this.enableSound = enable;
-        this.sound = soundResId;
-    }
-    set setRequestTimeout(requestTimeout) {
-        this.requestTimeout = requestTimeout;
-    }
-    set setShowDelay(showDelay) {
-        this.showDelay = showDelay;
-    }
-    set setDelay(delay) {
-        this.delay = delay;
-    }
-    setCurrentStepDoneDelay(showDelay, delay) {
-        this.showDelay = showDelay;
-        this.delay = delay;
-    }
-    set setAndroidSettings(androidSettings) {
-        this.androidSettings = androidSettings;
-    }
-    setIosSettings(iosSettings) {
-        this.iosSettings = iosSettings;
-    }
-    set setCaptureMode(captureMode) {
-        this.captureMode = captureMode;
-    }
-    setEyesClosedSettings(enable, threshold) {
-        this.useOpenEyeValidation = enable;
-        this.openEyesThreshold = threshold;
+        this.personId = personId;
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -440,20 +348,14 @@ class FaceAuthenticator {
                 return new FaceAuthenticatorClosed();
             }
             else if (result.success) {
-                return new FaceAuthenticatorSuccess(result.isAuthenticated, result.signedResponse, result.trackingId, result.lensFacing);
+                return new FaceAuthenticatorSuccess(result.isMatch, result.isAlive, result.userId);
             }
             else {
-                return new FaceAuthenticatorFailure(result.message, result.type);
+                return new FaceAuthenticatorFailure(result.errorMessage);
             }
         });
     }
 }
 
-exports.AndroidSettings = AndroidSettings;
-exports.CaptureMode = CaptureMode;
 exports.FaceAuthenticator = FaceAuthenticator;
-exports.ImageCapture = ImageCapture;
-exports.IosSettings = IosSettings;
-exports.SensorSettingsAndroid = SensorSettingsAndroid;
-exports.VideoCapture = VideoCapture;
 //# sourceMappingURL=plugin.js.map

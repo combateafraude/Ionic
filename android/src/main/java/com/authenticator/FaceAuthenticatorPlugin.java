@@ -1,21 +1,11 @@
 package com.authenticator;
-
-import android.app.Activity;
-import android.content.Intent;
-
 import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
+import input.FaceAuthenticator;
+import input.VerifyAuthenticationListener;
+import output.FaceAuthenticatorResult;
 
-import com.authenticator.faceauthenticatorplugin.R;
-import com.combateafraude.faceauthenticator.input.FaceAuthenticator;
-
-import com.combateafraude.faceauthenticator.FaceAuthenticatorActivity;
-import com.combateafraude.faceauthenticator.input.SensorStabilitySettings;
-import com.combateafraude.faceauthenticator.output.FaceAuthenticatorResult;
-import com.combateafraude.faceauthenticator.output.failure.SDKFailure;
-import com.combateafraude.faceauthenticator.input.VideoCapture;
-import com.combateafraude.faceauthenticator.input.ImageCapture;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -23,7 +13,6 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.ActivityCallback;
 import com.getcapacitor.annotation.CapacitorPlugin;
 
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,12 +25,6 @@ import java.util.Map;
 
 @CapacitorPlugin()
 public class FaceAuthenticatorPlugin extends Plugin {
-
-    private static final String DRAWABLE_RES = "drawable";
-    private static final String STYLE_RES = "style";
-    private static final String STRING_RES = "string";
-    private static final String RAW_RES = "raw";
-    private static final String LAYOUT_RES = "layout";
 
     @PluginMethod()
     public void start(PluginCall call) throws JSONException {
@@ -56,160 +39,47 @@ public class FaceAuthenticatorPlugin extends Plugin {
             Log.d("Error", err.toString());
        }
         Map<String, Object> argumentsMap = jsonToMap(jsonObject);
-        // Mobile token
+        
+
         String mobileToken = (String) argumentsMap.get("mobileToken");
+        String personId = (String) argumentsMap.get("personId");
 
-        FaceAuthenticator.Builder mFaceAuthenticatorBuilder = new FaceAuthenticator.Builder(mobileToken);
 
-        mFaceAuthenticatorBuilder.enableSwitchCameraButton(false);
+        FaceAuthenticator faceAuthenticator = new FaceAuthenticator.Builder(mobileToken)
+                .build();
 
-        // People ID
-        String peopleId = (String) argumentsMap.get("peopleId");
-        mFaceAuthenticatorBuilder.setPeopleId(peopleId);
-
-        // Use Analytics
-        Boolean useAnalytics = (Boolean) argumentsMap.get("useAnalytics");
-        if (useAnalytics != null) mFaceAuthenticatorBuilder.setAnalyticsSettings(useAnalytics);
-
-        HashMap<String, Object> captureMode = (HashMap<String, Object>) argumentsMap.get("captureMode");
-        if (captureMode != null){
-            //VideoCapture
-            HashMap<String, Object> videoCapture = (HashMap<String, Object>) captureMode.get("videoCapture");
-            if(videoCapture != null){
-                boolean use = (Boolean) videoCapture.get("use");
-
-                if(use){
-                    if(videoCapture.get("time") != null){
-                        Integer time = (Integer) videoCapture.get("time");
-                        mFaceAuthenticatorBuilder.setCaptureSettings(new VideoCapture(time));
-                    }else{
-                        mFaceAuthenticatorBuilder.setCaptureSettings(new VideoCapture());
-                    }
-                }
+        faceAuthenticator.authenticate(this.getActivity().getApplicationContext(), personId, new VerifyAuthenticationListener() {
+            @Override
+            public void onSuccess(FaceAuthenticatorResult faceAuthenticatorResult) {
+                getSucessResponseMap(faceAuthenticatorResult);
             }
-            //ImageCapture
-            HashMap<String, Object> imageCapture = (HashMap<String, Object>) captureMode.get("imageCapture");
-            if(imageCapture != null){
-                boolean use = (Boolean) imageCapture.get("use");
-                Integer afterPictureMillis = (Integer) imageCapture.get("afterPictureMillis");
-                Integer beforePictureMillis = (Integer) imageCapture.get("beforePictureMillis");
 
-                if(use){
-                    if(afterPictureMillis != null && beforePictureMillis != null){
-                        mFaceAuthenticatorBuilder.setCaptureSettings(new ImageCapture(afterPictureMillis, beforePictureMillis));
-                    }else{
-                        mFaceAuthenticatorBuilder.setCaptureSettings(new ImageCapture());
-                    }
-                }
+            @Override
+            public void onError(FaceAuthenticatorResult faceAuthenticatorResult) {
+                getFailureResponseMap(faceAuthenticatorResult);
             }
-        }
 
-        // Android specific settings
-        HashMap<String, Object> androidSettings = (HashMap<String, Object>) argumentsMap.get("androidSettings");
-        if (androidSettings != null) {
+            @Override
+            public void onCancel(FaceAuthenticatorResult faceAuthenticatorResult) {
+                getClosedResponseMap();
+            }
 
-            if(androidSettings.get("customization") != null){
-                // Layout customization
-                HashMap<String, Object> customizationAndroid = (HashMap<String, Object>) androidSettings.get("customization");
-                if (customizationAndroid != null) {
-                    Integer styleId = getResourceId((String) customizationAndroid.get("styleResIdName"), STYLE_RES);
-                    if (styleId != null) mFaceAuthenticatorBuilder.setStyle(styleId);
-
-                    Integer layoutId = getResourceId((String) customizationAndroid.get("layoutResIdName"), LAYOUT_RES);
-                    Integer greenMaskId = getResourceId((String) customizationAndroid.get("greenMaskResIdName"), DRAWABLE_RES);
-                    Integer whiteMaskId = getResourceId((String) customizationAndroid.get("whiteMaskResIdName"), DRAWABLE_RES);
-                    Integer redMaskId = getResourceId((String) customizationAndroid.get("redMaskResIdName"), DRAWABLE_RES);
-                    mFaceAuthenticatorBuilder.setLayout(layoutId);
-                    mFaceAuthenticatorBuilder.setMask(greenMaskId, whiteMaskId, redMaskId);
-                }
+            @Override
+            public void onLoading() {
 
             }
 
-            if(androidSettings.get("sensorSettings") != null){
+            @Override
+            public void onLoaded() {
 
-                // Sensor settings
-                HashMap<String, Object> sensorSettings = (HashMap<String, Object>) androidSettings.get("sensorSettings");
-                if (sensorSettings != null) {
-                    HashMap<String, Object> sensorStability = (HashMap<String, Object>) sensorSettings.get("sensorStabilitySettings");
-                    if (sensorStability != null) {
-                        Integer stabilityStabledMillis = (Integer) sensorStability.get("stabilityStabledMillis");
-                        Double stabilityThreshold = (Double) sensorStability.get("stabilityThreshold");
-                        if (stabilityStabledMillis != null && stabilityThreshold != null) {
-                            mFaceAuthenticatorBuilder.setStabilitySensorSettings(new SensorStabilitySettings(R.string.error_100_message,stabilityStabledMillis, stabilityThreshold));
-                        }
-                    } else {
-                        mFaceAuthenticatorBuilder.setStabilitySensorSettings(null);
-                    }
-                }
             }
+        });
 
-            if (androidSettings.get("enableSwitchCameraButton") != null){
-               boolean enableSwitchCameraButton = (boolean) androidSettings.get("enableSwitchCameraButton");
-               mFaceAuthenticatorBuilder.enableSwitchCameraButton(false);
-            }
-            
-            if(androidSettings.get("enableBrightnessIncrease") != null){
-                boolean enableBrightnessIncrease = (boolean) androidSettings.get("enableBrightnessIncrease");
-                mFaceAuthenticatorBuilder.enableBrightnessIncrease(enableBrightnessIncrease);
-            }
+    
 
-            if (androidSettings.get("enableGoogleServices") != null){
-                boolean enableGoogleServices = (boolean) androidSettings.get("enableGoogleServices");
-                mFaceAuthenticatorBuilder.enableGoogleServices(enableGoogleServices);
-            }
-
-            if (androidSettings.get("useEmulator") != null){
-                boolean useEmulator = (boolean) androidSettings.get("useEmulator");
-                mFaceAuthenticatorBuilder.setUseEmulator(useEmulator);
-            }
-
-            if (androidSettings.get("useRoot") != null){
-                boolean useRoot = (boolean) androidSettings.get("useRoot");
-                mFaceAuthenticatorBuilder.setUseRoot(useRoot);
-            }
-
-            if(androidSettings.get("useDeveloperMode") != null){
-                Boolean useDeveloperMode = (Boolean) androidSettings.get("useDeveloperMode");
-                mFaceAuthenticatorBuilder.setUseDeveloperMode(useDeveloperMode);
-            }
-
-            if(androidSettings.get("useAdb") != null){
-                Boolean useAdb = (Boolean) androidSettings.get("useAdb");
-                mFaceAuthenticatorBuilder.setUseAdb(useAdb);
-            }
-
-            if(androidSettings.get("useDebug") != null){
-                Boolean useDebug = (Boolean) androidSettings.get("useDebug");
-                mFaceAuthenticatorBuilder.setUseDebug(useDebug);
-            }
-        }
-
-        // Sound settings
-        Boolean enableSound = (Boolean) argumentsMap.get("EnableSound");
-        if (enableSound != null) mFaceAuthenticatorBuilder.setAudioSettings(enableSound);
-
-        Integer soundResId = getResourceId((String) argumentsMap.get("sound"), RAW_RES);
-        if (soundResId != null) mFaceAuthenticatorBuilder.setAudioSettings(soundResId);
-
-        // Network settings
-        Integer requestTimeout = (Integer) argumentsMap.get("requestTimeout");
-        if (requestTimeout != null) mFaceAuthenticatorBuilder.setNetworkSettings(requestTimeout);
-
-        Boolean useOpenEyeValidation = (Boolean) argumentsMap.get("useOpenEyeValidation");
-        if(useOpenEyeValidation != null){
-            Double openEyesThreshold = (Double) argumentsMap.get("openEyesThreshold");
-            if(openEyesThreshold != null){
-                mFaceAuthenticatorBuilder.setEyesClosedSettings(useOpenEyeValidation, openEyesThreshold);
-            }else{
-                mFaceAuthenticatorBuilder.setEyesClosedSettings(useOpenEyeValidation);
-            }
-        } 
+        
 
         saveCall(call);
-
-        Intent mIntent = new Intent(this.getContext(), FaceAuthenticatorActivity.class);
-        mIntent.putExtra(FaceAuthenticator.PARAMETER_NAME, mFaceAuthenticatorBuilder.build());
-        startActivityForResult(call, mIntent, "faceAuthenticatorResult");
     }
 
     @ActivityCallback
@@ -222,25 +92,6 @@ public class FaceAuthenticatorPlugin extends Plugin {
         if (savedCall == null) {
             return;
         }
-
-        if (resultCode == Activity.RESULT_OK && result.getData() != null) {
-
-            FaceAuthenticatorResult mFaceAuthenticatorResult = (FaceAuthenticatorResult) result.getData().getSerializableExtra(FaceAuthenticatorResult.PARAMETER_NAME);
-            if (mFaceAuthenticatorResult.wasSuccessful()) {
-                call.resolve(getSucessResponseMap(mFaceAuthenticatorResult));
-            } else {
-                call.resolve(getFailureResponseMap(mFaceAuthenticatorResult.getSdkFailure()));
-            }
-        } else {
-            call.resolve(getClosedResponseMap());
-        }
-
-    }
-
-    private Integer getResourceId(@Nullable String resourceName, String resourceType) {
-        if (resourceName == null || this.bridge.getActivity() == null) return null;
-        int resId = this.bridge.getActivity().getResources().getIdentifier(resourceName, resourceType, this.bridge.getActivity().getPackageName());
-        return resId == 0 ? null : resId;
     }
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
@@ -251,6 +102,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
         }
         return retMap;
     }
+
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -288,24 +140,22 @@ public class FaceAuthenticatorPlugin extends Plugin {
     }
 
 
-    private JSObject getSucessResponseMap(FaceAuthenticatorResult mFaceAuthenticatorResult) {
+    private JSObject getSucessResponseMap(FaceAuthenticatorResult faceAuthenticatorResult) {
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", Boolean.TRUE);
-        responseMap.put("isAuthenticated", mFaceAuthenticatorResult.isAuthenticated());
-        responseMap.put("signedResponse", mFaceAuthenticatorResult.getSignedResponse());
-        responseMap.put("trackingId", mFaceAuthenticatorResult.getTrackingId());
-        responseMap.put("lensFacing", mFaceAuthenticatorResult.getLensFacing());
+        responseMap.put("isMatch", faceAuthenticatorResult.isMatch());
+        responseMap.put("isAlive", faceAuthenticatorResult.isAlive());
+        responseMap.put("userId", faceAuthenticatorResult.getUserId());
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
         result.put("results", jsonObject);
         return result;
     }
 
-    private JSObject getFailureResponseMap(SDKFailure sdkFailure) {
+    private JSObject getFailureResponseMap(FaceAuthenticatorResult faceAuthenticatorResult) {
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", Boolean.FALSE);
-        responseMap.put("message", sdkFailure.getMessage());
-        responseMap.put("type", sdkFailure.getClass().getSimpleName());
+        responseMap.put("errorMessage", faceAuthenticatorResult.getErrorMessage());
 
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
