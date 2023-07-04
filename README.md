@@ -1,8 +1,6 @@
-# [FaceAuthenticatorPlugin](https://docs.combateafraude.com/docs/mobile/introduction/home/#faceauthenticator-autentica%C3%A7%C3%A3o-facial) - Ionic Plugin
+# [FaceAuthenticatorPlugin](https://docs.caf.io/sdks/ionic/getting-started) - Ionic Plugin
 
-Plugin que chama os SDKs nativos em [Android](https://docs.combateafraude.com/docs/mobile/android/face-authenticator/) e [iOS](https://docs.combateafraude.com/docs/mobile/ios/face-authenticator/). Caso tenha alguma dúvida, envie um email para o nosso [Head of Mobile](mailto:daniel.seitenfus@combateafraude.com)
-
-Atualmente, os documentos suportados são RG, CNH, RNE e CRLV. Caso tenha alguma sugestão de outro documento, contate-nos!
+Plugin que chama os SDKs nativos em [Android](https://docs.caf.io/sdks/android/getting-started/faceauthenticator) e [iOS](https://docs.caf.io/sdks/ios/getting-started/newfaceauthenticator).
 
 # Políticas de privacidade e termos e condições de uso
 
@@ -25,6 +23,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+  rootProject.allprojects {
+    repositories {
+        maven { url "https://repo.combateafraude.com/android/release" }
+        maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
+    }
+  }
 }
 ```
 
@@ -68,7 +73,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "face-authenticator-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/face-authenticator-v2.6.0.tar.gz"
+    "new-face-authenticator-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/new-face-authenticator-plugin-v1.0.0.tar.gz"
 }
 ```
 
@@ -80,59 +85,33 @@ Após, execute:
 
 ```typescript
 
-import { FaceAuthenticator } from 'face-authenticator-plugin';
+import { FaceAuthenticator } from 'new-face-authenticator-plugin';
 
 ```
 
 ## Utilizando 
 ```typescript
 
-    let faceAuthenticator = await new FaceAuthenticator();
+    const faceLiveness = new FaceAuthenticator(this.mobileToken, '038871233334');
 
-    faceAuthenticator.setMobileToken = '<mobile token>'
-    faceAuthenticator.setPeopleId = '<cpf>';
+    const response = await faceLiveness.start();
 
-    //Habilitar captura por vídeo
-    let captureMode = new CaptureMode ({videoCapture: new VideoCapture ({use: true, time: 3})});
-    faceAuthenticator.setCaptureMode = captureMode;
+      this.results = [];
 
-    const response = await faceAuthenticator.start();
+      if(response.result == 'SUCCESS'){
+        this.results.push('result: SUCCESS');
+        this.results.push('isMatch: '+response.isMatch);
+        this.results.push('isAlive: '+response.isAlive);
+        this.results.push('userId: '+response.userId);
 
-    if(response.result == "SUCCESS"){
-      // Sucesso. Confira response.isAuthenticated e response.signedResponse
-    }else if(response.result == "FAILURE"){
-      // Falha. Confira reponse.type e response.message
-    }else{
-      // Usuário fechou a tela.
-    }
+      }else if(response.result == 'FAILURE'){
+        this.results.push('result: FAILURE');
+        this.results.push('errorMessage: '+response.errorMessage);
+      }else{
+        this.results.push('result: CANCEL');
+      }
 
 ```
-
-
-### Customizações gerais
-
-| FaceAuthenticator |
-| --------- |
-| `.setPeopleId(String peopleId)`<br><br>CPF do usuário que está utilizando o plugin à ser usado para detecção de fraudes via analytics |
-| `.setAnalyticsSettings(bool useAnalytics)`<br><br>Habilita/desabilita a coleta de dados para maximização da informação antifraude. O padrão é `true` |
-| `.enableSound(bool enable)`<br><br>Habilita/desabilita os sons. O padrão é `true` |
-| `.setNetworkSettings(int requestTimeout)`<br><br>Altera as configurações de rede padrão. O padrão é `60` segundos |
-| `.setAndroidSettings(AndroidSettings androidSettings)`<br><br>Customizações somente aplicadas em Android |
-| `.setIosSettings(IosSettings iosSettings)`<br><br>Customizações somente aplicadas em iOS |
-| `.setCaptureMode(CaptureMode captureMode)`<br><br> Define as configurações de captura |
-
-| CaptureMode |
-| --------- |
-| `videoCapture: VideoCapture(use: boolean, time: number) `<br><br>Configura a captura por vídeo |
-| `imageCapture: ImageCapture(use: boolean, beforePictureMillis: number, afterPictureMillis: number)`<br><br>Configura a captura por foto |
-
-##### Exemplo de uso
-```typescript
-    let imageCapture = new ImageCapture({use: true});
-    let captureMode = new CaptureMode({imageCapture: imageCapture});
-    faceAuthenticator.setCaptureMode = captureMode;
-```
-
 
 ### Coletando o resultado
 
@@ -142,26 +121,15 @@ O objeto de retorno do FaceAuthenticator terá o atributo `result` que contém u
 
 | Campo |
 | --------- |
-| `Boolean isAuthenticated`<br><br>Endereço completo da imagem no dispositivo |
-| `String signedResponse`<br><br>Resposta assinada do servidor da CAF que confirmou que a selfie capturada possui um rosto verdadeiro (não é foto de foto ou vídeo). Utilize esse parâmetro caso queira uma camada extra de segurança verificando se a assinatura da resposta não está quebrada, provocada por uma interceptação da requisição. Se estiver quebrada, há um grande indício de interceptação da requisição |
-| `String trackingId`<br><br>Identificador dessa execução em nossos servidores. Se possível, salve este campo e mande-o junto para nossa API. Assim, teremos mais dados de como o usuário se comportou durante a execução | Será nulo se o usuário configurar useAnalytics = false ou as chamadas de analytics não funcionarem |
+| `String imageUrl`<br><br> URL da imagem armazenada temporariamente nos servidores da CAF.|
+| `bool isAlive`<br><br> Retorno do Liveness, use este retorno para validar se o usuário foi aprovado ou não pelos serviços da caf. |
+| `String userId`<br><br> Identificador interno do usuário. |
 
 #### FaceAuthenticatorFailure
 
 | Campo |
 | --------- |
-| `String message`<br><br>Mensagem amigável explicando o motivo da falha do SDK |
-| `String type`<br><br>Tipo de falha que encerrou o SDK |
-
-Os tipos de falha existentes são:
-- `InvalidTokenReason`: quando o token informado é inválido. Não deve ocorrer em um ambiente de produção;
-- `PermissionReason`: quando alguma permissão obrigatória não foi concedida pelo usuário. Só ocorrerá em um ambiente de produção se o seu app não solicitar ao seu usuário ou o mesmo desabilitar manualmente antes de iniciar;
-- `NetworkReason`: falha de conexão com o servidor. Ocorrerá em produção se o dispositivo do usuário estiver sem internet;
-- `ServerReason`: falha em alguma requisição com nossos servidores. Ocorrerá em produção somente no caso de uma falha nossa;
-- `SecurityReason`: quando o dispositivo não é seguro para executar o SDK. Se esta falha ocorrer, avise-nos;
-- `StorageReason`: quando o dispositivo não possui espaço suficiente para a captura de alguma foto. Pode ocorrer em produção;
-- `LibraryReason`: quando alguma falha interna impossibilitou a execução do SDK. Pode ocorrer devico à erros de configuração do projeto, não deve ocorrer em produção;
-
+| `String errorMessage`<br><br>Mensagem explicando o motivo da falha do SDK.|
 
 #### FaceAuthenticatorClosed
 Objeto vazio indicando fechamento da tela de captura pelo usuário.
