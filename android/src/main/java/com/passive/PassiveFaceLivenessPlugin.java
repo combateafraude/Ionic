@@ -35,13 +35,10 @@ import java.util.Map;
 @CapacitorPlugin(requestCodes = { PassiveFaceLivenessPlugin.REQUEST_CODE })
 public class PassiveFaceLivenessPlugin extends Plugin {
     protected static final int REQUEST_CODE = 1002;
-    private Context context;
 
     @PluginMethod()
     public void start(PluginCall call) throws JSONException {
         saveCall(call);
-        Plugin plugin = new Plugin();
-        this.context = plugin.getContext();
 
         String value = call.getString("builder");
 
@@ -71,7 +68,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
                 .build();
 
 
-        faceLiveness.startSDK(context, personId, new VerifyLivenessListener() {
+        faceLiveness.startSDK(this.getActivity().getApplicationContext(), personId, new VerifyLivenessListener() {
             @Override
             public void onSuccess(FaceLivenessResult result) {
                 getSucessResponseMap(result);
