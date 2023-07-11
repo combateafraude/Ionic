@@ -146,9 +146,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
         HashMap<String, Object> responseMap = new HashMap<>();
 
         responseMap.put("success", Boolean.TRUE);
-        responseMap.put("imageUrl", faceLivenessResult.imageUrl);
-        responseMap.put("isAlive", faceLivenessResult.isAlive);
-        responseMap.put("token", faceLivenessResult.token);
+        responseMap.put("signedResponse", faceLivenessResult.getSignedResponse());
 
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();
@@ -159,7 +157,7 @@ public class PassiveFaceLivenessPlugin extends Plugin {
     private JSObject getFailureResponseMap(FaceLivenessResult faceLivenessResult) {
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("success", Boolean.FALSE);
-        responseMap.put("errorMessage", faceLivenessResult.errorMessage);
+        responseMap.put("errorMessage", faceLivenessResult.getErrorMessage());
 
         JSONObject jsonObject = new JSONObject(responseMap);
         JSObject result = new JSObject();

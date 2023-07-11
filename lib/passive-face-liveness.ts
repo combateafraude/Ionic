@@ -24,7 +24,7 @@ export class PassiveFaceLiveness {
     if (result.success == null) {
       return new PassiveFaceLivenessClosed();
     } else if (result.success) {
-      return new PassiveFaceLivenessSuccess(result.imageUrl, result.isAlive, result.userId)
+      return new PassiveFaceLivenessSuccess(result.signedResponse)
     } else {
       return new PassiveFaceLivenessFailure(result.errorMessage)
     }
