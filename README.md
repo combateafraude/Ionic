@@ -92,7 +92,7 @@ import { FaceAuthenticator } from 'new-face-authenticator-plugin';
 ## Utilizando 
 ```typescript
 
-    const faceLiveness = new FaceAuthenticator(this.mobileToken, '038871233334');
+    const faceLiveness = new FaceAuthenticator(this.mobileToken, this.personId);
 
     const response = await faceLiveness.start();
 

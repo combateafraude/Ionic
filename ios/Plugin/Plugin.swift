@@ -25,7 +25,6 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
                 
                 var faceLiveness = FaceLivenessSDK.Build()
                     .setCredentials(mobileToken: mobileToken, personId: peopleId)
-                    .setStage(stage: .DEV)
                     .build()
                 
                 faceLiveness.delegate = self
