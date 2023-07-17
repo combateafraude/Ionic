@@ -68,7 +68,7 @@ In the file `ROOT_PROJECT/package.json` add:
 
 ```json
 "dependencies": {
-    "new-passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/new-passive-face-liveness-v1.0.0.tar.gz"
+    "new-passive-face-liveness-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/new-passive-face-liveness-v1.1.0.tar.gz"
 }
 ```
 
