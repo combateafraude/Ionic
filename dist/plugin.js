@@ -34,15 +34,11 @@ class PassiveFaceLivenessResult {
 }
 
 class PassiveFaceLivenessSuccess extends PassiveFaceLivenessResult {
-    constructor(imageUrl, isAlive, userId) {
+    constructor(signedResponse) {
         super("SUCCESS");
-        this.imageUrl = imageUrl;
-        this.isAlive = isAlive;
-        this.userId = userId;
+        this.signedResponse = signedResponse;
     }
 }
-PassiveFaceLivenessSuccess.LENS_FACING_FRONT = 0;
-PassiveFaceLivenessSuccess.LENS_FACING_BACK = 1;
 
 class PassiveFaceLivenessFailure extends PassiveFaceLivenessResult {
     constructor(errorMessage) {
@@ -350,7 +346,7 @@ class PassiveFaceLiveness {
                 return new PassiveFaceLivenessClosed();
             }
             else if (result.success) {
-                return new PassiveFaceLivenessSuccess(result.imageUrl, result.isAlive, result.userId);
+                return new PassiveFaceLivenessSuccess(result.signedResponse);
             }
             else {
                 return new PassiveFaceLivenessFailure(result.errorMessage);

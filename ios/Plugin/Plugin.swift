@@ -27,7 +27,6 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
         
                 var faceLiveness = FaceLivenessSDK.Build()
                     .setCredentials(mobileToken: mobileToken, personId: peopleId)
-                    .setStage(stage: .DEV)
                     .build()
                 
                 faceLiveness.delegate = self
@@ -53,13 +52,10 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
 
             if faceLivenesResult.errorMessage != nil {
                 response["success"] = NSNumber(value: false)
-                response["isAlive"] = faceLivenesResult.isAlive
                 response["errorMessage"] = faceLivenesResult.errorMessage
             } else {
                 response["success"] = NSNumber(value: true)
-                response["imageUrl"] = faceLivenesResult.imageUrl
-                response["isAlive"] = faceLivenesResult.isAlive
-                response["token"] = faceLivenesResult.token
+                response["signedResponse"] = faceLivenesResult.signedResponse
             }
 
             self.call?.resolve(["results": response])
