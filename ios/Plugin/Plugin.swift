@@ -1,13 +1,13 @@
 import Foundation
 import Capacitor
-import PassiveFaceLiveness
+import FaceLiveness
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(PassiveFaceLivenessPlugin)
-public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessControllerDelegate {
+public class PassiveFaceLivenessPlugin: CAPPlugin {
 
     
     
@@ -44,26 +44,25 @@ public class PassiveFaceLivenessPlugin: CAPPlugin, PassiveFaceLivenessController
             print(error)
         }
     }
-    
-    extension SwiftPassiveFaceLivenessPlugin: FaceLivenessDelegate {
-        public func didFinishLiveness(with faceLivenesResult: FaceLivenessIproov.FaceLivenessResult) {
-
-            let response : NSMutableDictionary! = [:]
-
-            if faceLivenesResult.errorMessage != nil {
-                response["success"] = NSNumber(value: false)
-                response["errorMessage"] = faceLivenesResult.errorMessage
-            } else {
-                response["success"] = NSNumber(value: true)
-                response["signedResponse"] = faceLivenesResult.signedResponse
-            }
-
-            self.call?.resolve(["results": response])
-        }
-    }
 
     public func startLoadingScreen() {
         print("StartLoadScreen")
     }
-    
+}
+
+extension PassiveFaceLivenessPlugin: FaceLivenessDelegate {
+    public func didFinishLiveness(with faceLivenesResult: FaceLivenessResult) {
+
+        let response : NSMutableDictionary! = [:]
+
+        if faceLivenesResult.errorMessage != nil {
+            response["success"] = NSNumber(value: false)
+            response["errorMessage"] = faceLivenesResult.errorMessage
+        } else {
+            response["success"] = NSNumber(value: true)
+            response["signedResponse"] = faceLivenesResult.signedResponse
+        }
+
+        self.call?.resolve(["results": response])
+    }
 }
