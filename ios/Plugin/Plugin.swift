@@ -1,13 +1,12 @@
 import Foundation
 import Capacitor
 import FaceAuthenticator
-
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(FaceAuthenticatorPlugin)
-public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDelegate {
+public class FaceAuthenticatorPlugin: CAPPlugin {
     
     var call: CAPPluginCall?
     
@@ -23,15 +22,16 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
                                 
                 let peopleId = arguments["personId"] as! String
                 
-                var faceLiveness = FaceLivenessSDK.Build()
-                    .setCredentials(mobileToken: mobileToken, personId: peopleId)
+                var faceAuth: FaceAuthSDK!
+                faceAuth = FaceAuthSDK.Builder()
+                    .setCredentials(token: mobileToken, personId: peopleId)
                     .build()
                 
-                faceLiveness.delegate = self
+                faceAuth.delegate = self
                 
                 let controller = UIApplication.shared.keyWindow!.rootViewController!
                 
-                faceLiveness.startSDK(viewController: controller)
+                faceAuth.startFaceAuthSDK(viewController: controller)
         
                 
             }else {
@@ -43,28 +43,28 @@ public class FaceAuthenticatorPlugin: CAPPlugin, FaceAuthenticatorControllerDele
         
     }
 
-    extension SwiftPassiveFaceLivenessPlugin: FaceLivenessDelegate {
-        public func didFinishLiveness(with faceLivenesResult: FaceLivenessIproov.FaceLivenessResult) {
-
-            let response : NSMutableDictionary! = [:]
-
-            if faceLivenesResult.errorMessage != nil {
-                response["success"] = NSNumber(value: false)
-                response["isAlive"] = faceLivenesResult.isAlive
-                response["errorMessage"] = faceLivenesResult.errorMessage
-            } else {
-                response["success"] = NSNumber(value: true)
-                response["imageUrl"] = faceLivenesResult.imageUrl
-                response["isAlive"] = faceLivenesResult.isAlive
-                response["token"] = faceLivenesResult.token
-            }
-
-            self.call?.resolve(["results": response])
-        }
-    }
-
     public func startLoadingScreen() {
         print("StartLoadScreen")
     }
     
 }
+
+extension FaceAuthenticatorPlugin: FaceAuthSDKDelegate {
+    public func didFinishFaceAuth(with faceAuthenticatorResult: FaceAuthenticatorResult) {        
+        let response : NSMutableDictionary! = [:]
+        
+        
+        if faceAuthenticatorResult.errorMessage != nil {
+            response["success"] = NSNumber(value: false)
+            response["errorMessage"] = faceAuthenticatorResult.errorMessage
+        } else {
+            response["success"] = NSNumber(value: true)
+            response["isAlive"] = faceAuthenticatorResult.isAlive
+            response["isMatch"] = faceAuthenticatorResult.isMatch
+            response["userId"] = faceAuthenticatorResult.userId
+        }
+
+        self.call?.resolve(["results": response])
+    }
+}
+

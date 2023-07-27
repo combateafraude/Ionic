@@ -73,7 +73,7 @@ Adicione o plugin no seu arquivo `ROOT_PROJECT/package.json`:
 
 ```json
 "dependencies": {
-    "new-face-authenticator-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/new-face-authenticator-plugin-v1.0.0.tar.gz"
+    "new-face-authenticator-plugin": "https://github.com/combateafraude/Ionic/archive/refs/tags/new-face-authenticator-plugin-v1.2.0.tar.gz"
 }
 ```
 
