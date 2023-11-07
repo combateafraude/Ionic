@@ -1,11 +1,11 @@
-# teste-plugin
+# @caf/capacitor-face-authenticator
 
 teste
 
 ## Install
 
 ```bash
-npm install teste-plugin
+npm install @caf/capacitor-face-authenticator
 npx cap sync
 ```
 
