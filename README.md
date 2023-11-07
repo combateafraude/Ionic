@@ -29,6 +29,10 @@ npx cap sync
 Configure(options: ConfigureOptions) => Promise<void>
 ```
 
+Allows to cofigure the FaceAuthenticatorPlugin.
+
+You only need to call it once, but you must call it before other methods in this class.
+
 | Param         | Type                                                          |
 | ------------- | ------------------------------------------------------------- |
 | **`options`** | <code><a href="#configureoptions">ConfigureOptions</a></code> |
@@ -42,10 +46,12 @@ Configure(options: ConfigureOptions) => Promise<void>
 authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Promise<string>
 ```
 
-| Param          | Type                                                                  |
-| -------------- | --------------------------------------------------------------------- |
-| **`options`**  | <code><a href="#authenticateoptions">AuthenticateOptions</a></code>   |
-| **`callback`** | <code><a href="#authenticatecallback">AuthenticateCallback</a></code> |
+Allows to authenticate a person.
+
+| Param          | Type                                                                  | Description                                                                                                          |
+| -------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **`options`**  | <code><a href="#authenticateoptions">AuthenticateOptions</a></code>   | Options to enable the authentication method to happen.                                                               |
+| **`callback`** | <code><a href="#authenticatecallback">AuthenticateCallback</a></code> | Allows you to specify a callback and receive the events or any error that happens during the authentication process. |
 
 **Returns:** <code>Promise&lt;string&gt;</code>
 
@@ -57,22 +63,27 @@ authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Pr
 
 #### ConfigureOptions
 
-| Prop                         | Type                                                      |
-| ---------------------------- | --------------------------------------------------------- |
-| **`mobileToken`**            | <code>string</code>                                       |
-| **`stage`**                  | <code><a href="#cafstagevalues">CAFStageValues</a></code> |
-| **`filter`**                 | <code><a href="#filtervalues">FilterValues</a></code>     |
-| **`useCustomLoadingScreen`** | <code>boolean</code>                                      |
+| Prop                         | Type                                                      | Description                                                                                                                                                                   | Default                     |
+| ---------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| **`mobileToken`**            | <code>string</code>                                       | Token to configure the SDK with.                                                                                                                                              |                             |
+| **`stage`**                  | <code><a href="#cafstagevalues">CAFStageValues</a></code> | Stage that is related to the token.                                                                                                                                           | <code>'prod'</code>         |
+| **`filter`**                 | <code><a href="#filtervalues">FilterValues</a></code>     | Filter to be used.                                                                                                                                                            | <code>'line-drawing'</code> |
+| **`useCustomLoadingScreen`** | <code>boolean</code>                                      | Used to enable a default loading progressbar during loading events. You can set your customized loading screen instead, using the {@link <a href="#loadevent">LoadEvent</a>}. | <code>false</code>          |
 
 
 #### AuthenticateOptions
 
-| Prop           | Type                |
-| -------------- | ------------------- |
-| **`personId`** | <code>string</code> |
+| Prop           | Type                | Description                              |
+| -------------- | ------------------- | ---------------------------------------- |
+| **`personId`** | <code>string</code> | Identification of the person (E.g.: CPF) |
 
 
 #### LoadEvent
+
+Simple Load events that hints when there is a loding process happening.
+
+The events following this interface are emmited from the onLoading and onLoaded
+native callback methods.
 
 | Prop       | Type                               |
 | ---------- | ---------------------------------- |
@@ -80,6 +91,8 @@ authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Pr
 
 
 #### SuccessEvent
+
+Success event emmited by the onSuccess native callback method.
 
 | Prop       | Type                                                                        |
 | ---------- | --------------------------------------------------------------------------- |
@@ -89,9 +102,9 @@ authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Pr
 
 #### AuthenticateSuccessData
 
-| Prop                 | Type                |
-| -------------------- | ------------------- |
-| **`signedResponse`** | <code>string</code> |
+| Prop                 | Type                | Description                                                   |
+| -------------------- | ------------------- | ------------------------------------------------------------- |
+| **`signedResponse`** | <code>string</code> | JWT containing the information related to the authentication. |
 
 
 ### Type Aliases
@@ -113,6 +126,9 @@ authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Pr
 
 
 #### AuthenticateCallback
+
+Callback that allow handling of events that happens during the authentication process.
+The error argument will be set when the onCancel and onError native callbacks execute.
 
 <code>(events: <a href="#loadevent">LoadEvent</a> | <a href="#successevent">SuccessEvent</a> | null, err?: any): void</code>
 
