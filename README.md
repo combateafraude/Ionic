@@ -1,7 +1,5 @@
 # @caf/capacitor-face-authenticator
 
-teste
-
 ## Install
 
 ```bash

@@ -75,7 +75,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 case "natural":
                     filter = Filter.NATURAL;
                     break;
-                case "line_drawing":
+                case "line-drawing":
                     filter = Filter.LINE_DRAWING;
                     break;
                 default:
