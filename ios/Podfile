@@ -1,10 +1,13 @@
 platform :ios, '13.0'
+source 'https://github.com/combateafraude/iOS.git'
+source 'https://cdn.cocoapods.org'
 
 def capacitor_pods
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
+  pod 'FaceAuth', '3.1.7'
 end
 
 target 'Plugin' do
