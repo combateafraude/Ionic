@@ -7,58 +7,64 @@ import FaceAuthenticator
  */
 @objc(FaceAuthenticatorPlugin)
 public class FaceAuthenticatorPlugin: CAPPlugin {
-    var faceAuth: FaceAuthSDK?
     var userViewController: UIViewController?
-    var externalCall: CAPPluginCall? = nil
+    var stage: CAFStage?
+    var filter: Filter?
+    var mobileToken: String
     
-//    @objc func echo(_ call: CAPPluginCall) {
-//        let value = call.getString("value") ?? ""
-//        call.resolve([
-//            "value": implementation.echo(value)
-//        ])
-//    }
-    
-    @objc func Configure(_ call: CAPPluginCall) {
-        var builder = FaceAuthSDK.Builder()
-        
-        guard let mobileToken = call.getString("mobileToken") else {
+    @objc func Configure(_ call: CAPPluginCall) {        
+        guard let mobileTokenValue = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
+
+        mobileToken = mobileTokenValue
+
         let stageValue = call.getString("stage") ?? "prod"
-        let personId = call.getString("personId") ?? ""
-        
+
         switch stageValue {
         case "prod":
-            builder.setStage(stage: .PROD)
+            stage = CAFStage.PROD
+            break
         case "beta":
-            builder.setStage(stage: .BETA)
+            stage = CAFStage.BETA
         default:
             call.reject("Invalid stage value: \(stageValue)")
+            return
         }
         
-        let filter = call.getString("filter") ?? ""
+        let filterValue = call.getString("filter") ?? ""
         
-        switch filter {
+        switch filterValue {
         case "natural":
-            builder.setFilter(filter: .natural)
+            filter = Filter.natural
         case "line-drawing":
-            builder.setFilter(filter: .lineDrawing)
+            filter = Filter.lineDrawing
         default:
-            call.reject("Invalid stage value: \(filter)")
+            call.reject("Invalid filter value: \(filter)")
+            return
         }
-        
-        builder.setCredentials(token: mobileToken, personId: personId)
-        
-        faceAuth = builder.build()
-        faceAuth?.delegate = self
         
         call.resolve()
     }
     
     @objc func authenticate(_ call: CAPPluginCall) {
-        externalCall = call
+        guard let personId = call.getString("personId") else {
+            call.reject("personId must be provided")
+            return
+        }
+
+        var faceAuth = FaceAuthSDK.Builder()
+        .setStage(stage: stage)
+        .setFilter(filter: filter)
+        .setCredentials(token: mobileToken, personId: personId)
+        .build()
+        
+        faceAuth?.delegate = self
+
         call.keepAlive = true
+
+        call.callBackId
         
         if let viewController = userViewController {
             faceAuth?.startFaceAuthSDK(viewController: viewController)
