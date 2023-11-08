@@ -128,6 +128,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 event.put("data", new JSObject().put("signedResponse", result.getSignedResponse()));
 
                 call.resolve(event);
+                bridge.releaseCall(call);
             }
 
             @Override
@@ -140,10 +141,11 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 SDKFailure sdkFailure = result.getSdkFailure();
 
                 ret.put("error", "GenericError");
-                ret.put("message", genericErrorMessage);
+                ret.put("message", result.getErrorMessage() != null || result.getErrorMessage().isEmpty()  ? result.getErrorMessage() : genericErrorMessage);
 
                 if (sdkFailure == null) {
                     call.reject(genericErrorMessage, ret);
+                    bridge.releaseCall(call);
                     return;
                 }
 
@@ -159,6 +161,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 }
 
                 call.reject(sdkFailure.getMessage(), ret);
+                bridge.releaseCall(call);
             }
 
             @Override
@@ -166,6 +169,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 //The sdk has been closed by the user.
                 Log.d(FaceAuthenticatorPlugin.class.getSimpleName(), "Operation was cancelled");
                 call.reject("Operation cancelled");
+                bridge.releaseCall(call);
             }
 
             @Override
