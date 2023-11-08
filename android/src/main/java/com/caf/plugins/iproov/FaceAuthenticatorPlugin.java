@@ -1,10 +1,9 @@
-package com.mycompany.plugins.example;
+package com.caf.plugins.iproov;
 
 import android.Manifest;
 import android.util.Log;
 
 import com.getcapacitor.JSObject;
-import com.getcapacitor.PermissionState;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -44,9 +43,8 @@ public class FaceAuthenticatorPlugin extends Plugin {
         FaceAuthenticator.Builder builder = new FaceAuthenticator.Builder(call.getString("mobileToken"));
 
         /**
-         * Configure the stage provided by the options
-         *
-         * If not set the default is PROD
+         * Configure the stage provided by the options.
+         * If not set the default is PROD.
          */
         String stageValue = call.getString("stage", "prod");
         CafStage stage;
