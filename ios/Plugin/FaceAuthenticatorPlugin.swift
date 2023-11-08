@@ -1,6 +1,7 @@
 import Foundation
 import Capacitor
 import FaceAuthenticator
+import FaceLiveness
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
@@ -8,9 +9,9 @@ import FaceAuthenticator
 @objc(FaceAuthenticatorPlugin)
 public class FaceAuthenticatorPlugin: CAPPlugin {
     var userViewController: UIViewController?
-    var stage: CAFStage?
-    var filter: Filter?
-    var mobileToken: String
+    var stage: FaceLiveness.CAFStage?
+    var filter: FaceLiveness.Filter?
+    var mobileToken: String?
     
     @objc func Configure(_ call: CAPPluginCall) {        
         guard let mobileTokenValue = call.getString("mobileToken") else {
@@ -51,28 +52,35 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
     @objc func authenticate(_ call: CAPPluginCall) {
         guard let personId = call.getString("personId") else {
             call.reject("personId must be provided")
+            bridge?.releaseCall(call)
+            return
+        }
+        
+        if mobileToken == nil {
+            call.reject("You must first configure the FaceAuthenticator")
+            bridge?.releaseCall(call)
             return
         }
 
         var faceAuth = FaceAuthSDK.Builder()
-        .setStage(stage: stage)
-        .setFilter(filter: filter)
-        .setCredentials(token: mobileToken, personId: personId)
+            .setStage(stage: stage ?? .PROD)
+            .setFilter(filter: filter ?? .lineDrawing)
+        .setCredentials(token: mobileToken!, personId: personId)
         .build()
         
-        faceAuth?.delegate = self
+        faceAuth.delegate = self
 
         call.keepAlive = true
-
-        call.callBackId
+        call.callbackId
         
         if let viewController = userViewController {
-            faceAuth?.startFaceAuthSDK(viewController: viewController)
+            faceAuth.startFaceAuthSDK(viewController: viewController)
         }
     }
+    
 }
 
-extension FaceAuthenticatorPlugin: FaceAuthenticator.FaceAuthSDKDelegate {
+extension FaceAuthenticatorPlugin: FaceAuthSDKDelegate {
     public func didFinishSuccess(with faceAuthenticatorResult: FaceAuthenticator.FaceAuthenticatorResult) {
         var dict :[String : Any] = [:]
         var dictData: [String: Any] = [:]
@@ -80,8 +88,10 @@ extension FaceAuthenticatorPlugin: FaceAuthenticator.FaceAuthSDKDelegate {
         dictData["signedResponse"] = faceAuthenticatorResult.signedResponse
         dict["data"] = dictData
         
-        externalCall?.resolve(dict)
-
+        var call = bridge?.savedCall(withID: <#T##String#>)
+        
+        call?.resolve(dict)
+        bridge?.releaseCall(call!)
     }
     
     public func didFinishWithError(with faceAuthenticatorErrorResult: FaceAuthenticator.FaceAuthenticatorErrorResult) {
