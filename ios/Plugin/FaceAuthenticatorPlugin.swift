@@ -11,15 +11,15 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
     var userViewController: UIViewController?
     var stage: FaceLiveness.CAFStage?
     var filter: FaceLiveness.Filter?
-    var mobileToken: String?
+    var faceAuth: FaceAuthSDK?
+    var builder: FaceAuthSDK.Builder?
     
     @objc func Configure(_ call: CAPPluginCall) {        
-        guard let mobileTokenValue = call.getString("mobileToken") else {
+        guard let mobileToken = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
-
-        mobileToken = mobileTokenValue
+        builder = FaceAuthSDK.Builder(mobileToken: mobileToken)
 
         let stageValue = call.getString("stage") ?? "prod"
 
@@ -33,6 +33,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             call.reject("Invalid stage value: \(stageValue)")
             return
         }
+        builder?.setStage(stage: stage ?? .PROD)
         
         let filterValue = call.getString("filter") ?? ""
         
@@ -42,10 +43,14 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         case "line-drawing":
             filter = Filter.lineDrawing
         default:
-            call.reject("Invalid filter value: \(filter)")
+            call.reject("Invalid filter value: \(String(describing: filter))")
             return
         }
         
+        builder?.setFilter(filter: filter ?? .lineDrawing)
+        builder?.setLoading(withLoading: true)
+        
+        faceAuth?.delegate = self
         call.resolve()
     }
     
@@ -55,106 +60,93 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             bridge?.releaseCall(call)
             return
         }
+        builder?.setPersonId(personId: personId)
+        faceAuth = builder?.build()
         
-        if mobileToken == nil {
+        if faceAuth == nil {
             call.reject("You must first configure the FaceAuthenticator")
             bridge?.releaseCall(call)
             return
         }
-
-        var faceAuth = FaceAuthSDK.Builder()
-            .setStage(stage: stage ?? .PROD)
-            .setFilter(filter: filter ?? .lineDrawing)
-        .setCredentials(token: mobileToken!, personId: personId)
-        .build()
         
-        faceAuth.delegate = self
-
         call.keepAlive = true
+        
         call.callbackId
         
         if let viewController = userViewController {
-            faceAuth.startFaceAuthSDK(viewController: viewController)
+            faceAuth?.startFaceAuthSDK(viewController: viewController) { faceAuthResult, status in
+                switch status {
+                case .sucess:
+                    var dict :[String : Any] = [:]
+                    var dictData: [String: Any] = [:]
+                    dict["type"] = "success"
+                    dictData["signedResponse"] = faceAuthResult
+                    dict["data"] = dictData
+                    
+                    call.resolve(dict)
+                    self.bridge?.releaseCall(call)
+                case .error:
+                    var dict :[String : Any] = [:]
+                    let genericErrorMessage = "Error on authentication process"
+                    
+                    dict["error"] = "GenericError"
+                    dict["message"] = genericErrorMessage
+                    
+                    dict["message"] = faceAuthResult.errorMessage
+                    
+                    if faceAuthResult.errorType == .networkError {
+                        dict["error"] = "NetworkReason"
+                    }
+                    
+                    if faceAuthResult.errorType == .serverError {
+                        dict["error"] = "ServerReason"
+                        dict["statusCode"] = faceAuthResult.code
+                    }
+                    
+                    call.reject(faceAuthResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
+                case .fail:
+                    var dict :[String : Any] = [:]
+                    let genericFailMessage = "Fail in authentication process"
+                    
+                    dict["fail"] = "GenericFail"
+                    if faceAuthResult.failType == FaceLiveness.FailType.unknown {
+                        dict["fail"] = "unknown"
+                    }
+                    
+                    call.reject(genericFailMessage, nil, nil, dict)
+                case .cancelled:
+                    call.reject("Operation cancelled")
+                @unknown default:
+                    call.reject("Fatal error")
+                }
+            }
         }
     }
-    
 }
 
 extension FaceAuthenticatorPlugin: FaceAuthSDKDelegate {
-    public func didFinishSuccess(with faceAuthenticatorResult: FaceAuthenticator.FaceAuthenticatorResult) {
-        var dict :[String : Any] = [:]
-        var dictData: [String: Any] = [:]
-        dict["type"] = "success"
-        dictData["signedResponse"] = faceAuthenticatorResult.signedResponse
-        dict["data"] = dictData
-        
-        var call = bridge?.savedCall(withID: <#T##String#>)
-        
-        call?.resolve(dict)
-        bridge?.releaseCall(call!)
-    }
-    
-    public func didFinishWithError(with faceAuthenticatorErrorResult: FaceAuthenticator.FaceAuthenticatorErrorResult) {
-        var dict :[String : Any] = [:]
-        let genericErrorMessage = "Error on authentication process"
-        
-        dict["error"] = "GenericError"
-        dict["message"] = genericErrorMessage
-        
-        dict["message"] = faceAuthenticatorErrorResult.description
-        
-        if faceAuthenticatorErrorResult.errorType == .networkError {
-            dict["error"] = "NetworkReason"
-        }
-        
-        if faceAuthenticatorErrorResult.errorType == .serverError {
-            dict["error"] = "ServerReason"
-            dict["statusCode"] = faceAuthenticatorErrorResult.code
-        }
-        
-        externalCall?.reject(faceAuthenticatorErrorResult.description ?? genericErrorMessage, nil, nil, dict)
-    }
-    
-    public func didFinishWithCancell(with faceAuthenticatorResult: FaceAuthenticator.FaceAuthenticatorResult) {
-        externalCall?.reject("Operation cancelled");
-    }
-    
-    public func didFinishWithFail(with faceAuthenticatorResult: FaceAuthenticator.FaceAuthenticatorFailResult) {
-        var dict :[String : Any] = [:]
-        let genericFailMessage = "Fail in authentication process"
-        
-        dict["fail"] = "GenericFail"
-        if faceAuthenticatorResult.errorType == .unknown {
-            dict["fail"] = "unknown"
-        }
-        
-        externalCall?.reject(genericFailMessage, nil, nil, dict)
-        
-        
-    }
-    
     public func openLoadingScreenStartSDK() {
-        var dict :[String : Any] = [:]
-        dict["type"] = "loading"
-        externalCall?.resolve(dict)
+//        var dict :[String : Any] = [:]
+//        dict["type"] = "loading"
+//        call?.resolve(dict)
     }
     
     public func closeLoadingScreenStartSDK() {
-        var dict :[String : Any] = [:]
-        dict["type"] = "loaded"
-        externalCall?.resolve(dict)
+//        var dict :[String : Any] = [:]
+//        dict["type"] = "loaded"
+//        externalCall?.resolve(dict)
     }
     
     public func openLoadingScreenValidation() {
-        var dict :[String : Any] = [:]
-        dict["type"] = "loading"
-        externalCall?.resolve(dict)
+//        var dict :[String : Any] = [:]
+//        dict["type"] = "loading"
+//        externalCall?.resolve(dict)
     }
     
     public func closeLoadingScreenValidation() {
-        var dict :[String : Any] = [:]
-        dict["type"] = "loaded"
-        externalCall?.resolve(dict)
+//        var dict :[String : Any] = [:]
+//        dict["type"] = "loaded"
+//        externalCall?.resolve(dict)
     }
     
     
