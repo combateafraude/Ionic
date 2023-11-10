@@ -41,15 +41,15 @@ You only need to call it once, but you must call it before other methods in this
 ### authenticate(...)
 
 ```typescript
-authenticate(options: AuthenticateOptions, callback: AuthenticateCallback) => Promise<string>
+authenticate(options: AuthenticateOptions, callback: GenericCallback) => Promise<string>
 ```
 
 Allows to authenticate a person.
 
-| Param          | Type                                                                  | Description                                                                                                          |
-| -------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **`options`**  | <code><a href="#authenticateoptions">AuthenticateOptions</a></code>   | Options to enable the authentication method to happen.                                                               |
-| **`callback`** | <code><a href="#authenticatecallback">AuthenticateCallback</a></code> | Allows you to specify a callback and receive the events or any error that happens during the authentication process. |
+| Param          | Type                                                                | Description                                                                                                          |
+| -------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **`options`**  | <code><a href="#authenticateoptions">AuthenticateOptions</a></code> | Options to enable the authentication method to happen.                                                               |
+| **`callback`** | <code><a href="#genericcallback">GenericCallback</a></code>         | Allows you to specify a callback and receive the events or any error that happens during the authentication process. |
 
 **Returns:** <code>Promise&lt;string&gt;</code>
 
@@ -92,17 +92,17 @@ native callback methods.
 
 Success event emmited by the onSuccess native callback method.
 
-| Prop       | Type                                                                        |
-| ---------- | --------------------------------------------------------------------------- |
-| **`type`** | <code>'success'</code>                                                      |
-| **`data`** | <code><a href="#authenticatesuccessdata">AuthenticateSuccessData</a></code> |
+| Prop       | Type                                                |
+| ---------- | --------------------------------------------------- |
+| **`type`** | <code>'success'</code>                              |
+| **`data`** | <code><a href="#successdata">SuccessData</a></code> |
 
 
-#### AuthenticateSuccessData
+#### SuccessData
 
-| Prop                 | Type                | Description                                                   |
-| -------------------- | ------------------- | ------------------------------------------------------------- |
-| **`signedResponse`** | <code>string</code> | JWT containing the information related to the authentication. |
+| Prop                 | Type                | Description                                                                   |
+| -------------------- | ------------------- | ----------------------------------------------------------------------------- |
+| **`signedResponse`** | <code>string</code> | JWT containing the information related to the FaceAuthenticator/FaceLiveness. |
 
 
 ### Type Aliases
@@ -123,9 +123,9 @@ Success event emmited by the onSuccess native callback method.
 <code><a href="#dictionaryvalues">DictionaryValues</a>&lt;typeof Filter&gt;</code>
 
 
-#### AuthenticateCallback
+#### GenericCallback
 
-Callback that allow handling of events that happens during the authentication process.
+Callback that allow handling of events that happens during the authentication/liveness process.
 The error argument will be set when the onCancel and onError native callbacks execute.
 
 <code>(events: <a href="#loadevent">LoadEvent</a> | <a href="#successevent">SuccessEvent</a> | null, err?: any): void</code>
