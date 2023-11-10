@@ -21,7 +21,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
         builder = FaceAuthSDK.Builder(mobileToken: mobileToken)
 
-        let stageValue = call.getString("stage") ?? "prod"
+        let stageValue = call.getString("stage", "prod")
 
         switch stageValue {
         case "prod":
@@ -35,7 +35,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
         builder?.setStage(stage: stage ?? .PROD)
         
-        let filterValue = call.getString("filter") ?? ""
+        let filterValue = call.getString("filter", "line-drawing")
         
         switch filterValue {
         case "natural":
@@ -71,8 +71,6 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         
         call.keepAlive = true
         
-        call.callbackId
-        
         if let viewController = userViewController {
             faceAuth?.startFaceAuthSDK(viewController: viewController) { faceAuthResult, status in
                 switch status {
@@ -104,6 +102,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
                     }
                     
                     call.reject(faceAuthResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
+                    self.bridge?.releaseCall(call)
                 case .fail:
                     var dict :[String : Any] = [:]
                     let genericFailMessage = "Fail in authentication process"
@@ -114,10 +113,13 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
                     }
                     
                     call.reject(genericFailMessage, nil, nil, dict)
+                    self.bridge?.releaseCall(call)
                 case .cancelled:
                     call.reject("Operation cancelled")
+                    self.bridge?.releaseCall(call)
                 @unknown default:
                     call.reject("Fatal error")
+                    self.bridge?.releaseCall(call)
                 }
             }
         }
