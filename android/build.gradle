@@ -4,6 +4,7 @@ ext {
     androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
     androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
     faceauthenticatorVersion = '1.6.4'
+    facelivenessVersion = '1.5.4'
 }
 
 buildscript {
@@ -58,6 +59,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation "com.combateafraude.sdk:new-face-authenticator:$faceauthenticatorVersion"
+    implementation "com.combateafraude.sdk:new-face-liveness:$facelivenessVersion"
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
