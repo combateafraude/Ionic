@@ -141,7 +141,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
                 SDKFailure sdkFailure = result.getSdkFailure();
 
                 ret.put("error", "GenericError");
-                ret.put("message", result.getErrorMessage() != null || result.getErrorMessage().isEmpty()  ? result.getErrorMessage() : genericErrorMessage);
+                ret.put("message", result.getErrorMessage() != null ? result.getErrorMessage() : genericErrorMessage);
 
                 if (sdkFailure == null) {
                     call.reject(genericErrorMessage, ret);
