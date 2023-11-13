@@ -14,27 +14,29 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
     var faceAuth: FaceAuthSDK?
     var builder: FaceAuthSDK.Builder?
     
-    @objc func Configure(_ call: CAPPluginCall) {        
+    @objc func Configure(_ call: CAPPluginCall) { 
+        print("chamou a configure")
         guard let mobileToken = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
+        print("pegou o token: \(mobileToken)")
         builder = FaceAuthSDK.Builder(mobileToken: mobileToken)
 
         let stageValue = call.getString("stage", "prod")
-
+        print("pegou o stage\(stageValue)")
         switch stageValue {
         case "prod":
             stage = CAFStage.PROD
             break
         case "beta":
-            stage = CAFStage.BETA
+            stage = CAFStage.DEV
         default:
             call.reject("Invalid stage value: \(stageValue)")
             return
         }
         builder?.setStage(stage: stage ?? .PROD)
-        
+        print("setou o stage: \(stage?.rawValue))")
         let filterValue = call.getString("filter", "line-drawing")
         
         switch filterValue {
@@ -47,9 +49,9 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             return
         }
         
-        builder?.setFilter(filter: filter ?? .lineDrawing)
-        builder?.setLoading(withLoading: true)
-        
+        builder?.setFilter(filter: filter ?? Filter.lineDrawing)
+        builder?.setLoading(withLoading: false)
+        print("pegou o filtro: \(filter?.rawValue)")
         faceAuth?.delegate = self
         call.resolve()
     }
@@ -60,6 +62,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             bridge?.releaseCall(call)
             return
         }
+        print("setou o personID: \(personId)")
         builder?.setPersonId(personId: personId)
         faceAuth = builder?.build()
         
@@ -71,56 +74,58 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         
         call.keepAlive = true
         
-        if let viewController = userViewController {
-            faceAuth?.startFaceAuthSDK(viewController: viewController) { faceAuthResult, status in
-                switch status {
-                case .sucess:
-                    var dict :[String : Any] = [:]
-                    var dictData: [String: Any] = [:]
-                    dict["type"] = "success"
-                    dictData["signedResponse"] = faceAuthResult
-                    dict["data"] = dictData
-                    
-                    call.resolve(dict)
-                    self.bridge?.releaseCall(call)
-                case .error:
-                    var dict :[String : Any] = [:]
-                    let genericErrorMessage = "Error on authentication process"
-                    
-                    dict["error"] = "GenericError"
-                    dict["message"] = genericErrorMessage
-                    
-                    dict["message"] = faceAuthResult.errorMessage
-                    
-                    if faceAuthResult.errorType == .networkError {
-                        dict["error"] = "NetworkReason"
-                    }
-                    
-                    if faceAuthResult.errorType == .serverError {
-                        dict["error"] = "ServerReason"
-                        dict["statusCode"] = faceAuthResult.code
-                    }
-                    
-                    call.reject(faceAuthResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
-                    self.bridge?.releaseCall(call)
-                case .fail:
-                    var dict :[String : Any] = [:]
-                    let genericFailMessage = "Fail in authentication process"
-                    
-                    dict["fail"] = "GenericFail"
-                    if faceAuthResult.failType == FaceLiveness.FailType.unknown {
-                        dict["fail"] = "unknown"
-                    }
-                    
-                    call.reject(genericFailMessage, nil, nil, dict)
-                    self.bridge?.releaseCall(call)
-                case .cancelled:
-                    call.reject("Operation cancelled")
-                    self.bridge?.releaseCall(call)
-                @unknown default:
-                    call.reject("Fatal error")
-                    self.bridge?.releaseCall(call)
+        userViewController = UIApplication.shared.windows.first?.rootViewController
+        
+        print("startdou a sdk\(userViewController)")
+        faceAuth?.startFaceAuthSDK(viewController: userViewController!) { faceAuthResult, status in
+            switch status {
+            case .sucess:
+                var dict :[String : Any] = [:]
+                var dictData: [String: Any] = [:]
+                dict["type"] = "success"
+                dictData["signedResponse"] = faceAuthResult.signedResponse
+                dict["data"] = dictData
+                
+                call.resolve(dict)
+                self.bridge?.releaseCall(call)
+            case .error:
+                var dict :[String : Any] = [:]
+                let genericErrorMessage = "Error on authentication process"
+                
+                dict["error"] = "GenericError"
+                dict["message"] = genericErrorMessage
+                
+                dict["message"] = faceAuthResult.errorMessage
+                
+                if faceAuthResult.errorType == .networkError {
+                    dict["error"] = "NetworkReason"
                 }
+                
+                if faceAuthResult.errorType == .serverError {
+                    dict["error"] = "ServerReason"
+                    dict["statusCode"] = faceAuthResult.code
+                }
+                
+                call.reject(faceAuthResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
+                self.bridge?.releaseCall(call)
+            case .fail:
+                var dict :[String : Any] = [:]
+                let genericFailMessage = "Fail in authentication process"
+                
+                dict["fail"] = "GenericFail"
+                dict["signedResponse"] = faceAuthResult.signedResponse
+                if faceAuthResult.failType == FaceLiveness.FailType.unknown {
+                    dict["fail"] = "unknown"
+                }
+                
+                call.reject(genericFailMessage, nil, nil, dict)
+                self.bridge?.releaseCall(call)
+            case .cancelled:
+                call.reject("Operation cancelled")
+                self.bridge?.releaseCall(call)
+            @unknown default:
+                call.reject("Fatal error")
+                self.bridge?.releaseCall(call)
             }
         }
     }
