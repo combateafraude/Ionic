@@ -94,6 +94,14 @@ public class FaceAuthenticatorPlugin extends Plugin {
             builder.setLoadingScreen(useCustomLoadingScreen);
         }
 
+        /**
+         * Configure whether to enable screenshots
+         */
+        if (call.hasOption("enableScreenshots")) {
+            Boolean enableScreenshots = call.getBoolean("enableScreenshots");
+            builder.setLoadingScreen(enableScreenshots);
+        }
+
         this.faceAuthenticator = builder.build();
 
         Log.d(this.getClass().getSimpleName(), "FaceAuthenticator configured successfully");
