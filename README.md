@@ -67,6 +67,7 @@ Allows to authenticate a person.
 | **`stage`**                  | <code><a href="#cafstagevalues">CAFStageValues</a></code> | Stage that is related to the token.                                                                                                                                           | <code>'prod'</code>         |
 | **`filter`**                 | <code><a href="#filtervalues">FilterValues</a></code>     | Filter to be used.                                                                                                                                                            | <code>'line-drawing'</code> |
 | **`useCustomLoadingScreen`** | <code>boolean</code>                                      | Used to enable a default loading progressbar during loading events. You can set your customized loading screen instead, using the {@link <a href="#loadevent">LoadEvent</a>}. | <code>false</code>          |
+| **`enableScreenshots`**      | <code>boolean</code>                                      | Android Only Used to enable screenshots during the SDK scan. Disabled by default for security reasons.                                                                        | <code>false</code>          |
 
 
 #### AuthenticateOptions

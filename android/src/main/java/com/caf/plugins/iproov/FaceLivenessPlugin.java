@@ -133,7 +133,7 @@ public class FaceLivenessPlugin extends Plugin {
             public void onSuccess(FaceLivenessResult result) {
                 //The sdk has finished with success, it doesn't mean that the user is approved. It means that everything
                 // went through and worked.
-                Log.d(FaceLivenessPlugin.class.getSimpleName(), "Authenticated with success");
+                Log.d(FaceLivenessPlugin.class.getSimpleName(), "Liveness executed with success");
                 JSObject event = new JSObject();
                 event.put("type", "success");
                 event.put("data", new JSObject().put("signedResponse", result.getSignedResponse()));
