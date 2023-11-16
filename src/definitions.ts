@@ -116,6 +116,15 @@ export interface ConfigureOptions {
    * @default false
    */
   useCustomLoadingScreen?: boolean;
+
+  /**
+   * Android Only
+   * 
+   * Used to enable screenshots during the SDK scan. Disabled by default for security reasons.
+   * 
+   * @default false
+   */
+  enableScreenshots?: boolean
 }
 
 export interface AuthenticateOptions {

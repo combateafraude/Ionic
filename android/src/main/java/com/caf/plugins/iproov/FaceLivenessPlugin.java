@@ -97,23 +97,31 @@ public class FaceLivenessPlugin extends Plugin {
             builder.setLoadingScreen(useCustomLoadingScreen);
         }
 
+        /**
+         * Configure whether to enable screenshots
+         */
+        if (call.hasOption("enableScreenshots")) {
+            Boolean enableScreenshots = call.getBoolean("enableScreenshots");
+            builder.setEnableScreenshots(enableScreenshots);
+        }
+
         this.faceLiveness = builder.build();
 
-        Log.d(this.getClass().getSimpleName(), "FaceAuthenticator configured successfully");
+        Log.d(this.getClass().getSimpleName(), "FaceLiveness configured successfully");
 
         call.resolve();
     }
 
     @PluginMethod(returnType = PluginMethod.RETURN_CALLBACK)
-    public void authenticate(PluginCall call) {
-        Log.d(this.getClass().getSimpleName(), "Starting authentication");
+    public void startSDK(PluginCall call) {
+        Log.d(this.getClass().getSimpleName(), "Starting SDK");
         if (!call.hasOption("personId")) {
             call.reject("personId attribute must be provided");
             return;
         }
 
         if (this.faceLiveness == null) {
-            call.reject("You must first configure the FaceAuthenticator");
+            call.reject("You must first configure the FaceLiveness");
             return;
         }
 
@@ -125,7 +133,7 @@ public class FaceLivenessPlugin extends Plugin {
             public void onSuccess(FaceLivenessResult result) {
                 //The sdk has finished with success, it doesn't mean that the user is approved. It means that everything
                 // went through and worked.
-                Log.d(FaceLivenessPlugin.class.getSimpleName(), "Authenticated with success");
+                Log.d(FaceLivenessPlugin.class.getSimpleName(), "Liveness executed with success");
                 JSObject event = new JSObject();
                 event.put("type", "success");
                 event.put("data", new JSObject().put("signedResponse", result.getSignedResponse()));
@@ -137,7 +145,7 @@ public class FaceLivenessPlugin extends Plugin {
             @Override
             public void onError(FaceLivenessResult result) {
                 //The sdk has finished with an error, the message will be return in the result, so you can see what went wrong.
-                String genericErrorMessage = "Error on authentication process";
+                String genericErrorMessage = "Error on liveness process";
                 Log.d(FaceLivenessPlugin.class.getSimpleName(), genericErrorMessage);
 
                 JSObject ret = new JSObject();
