@@ -29,7 +29,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             stage = CAFStage.PROD
             break
         case "beta":
-            stage = CAFStage.DEV
+            stage = CAFStage.BETA
         default:
             call.reject("Invalid stage value: \(stageValue)")
             return
