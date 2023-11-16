@@ -7,7 +7,8 @@ def capacitor_pods
   use_frameworks!
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
-  pod 'FaceAuth', '3.1.9-ionic'
+  pod 'FaceAuth', '0.0.2-ionic'
+  
 end
 
 target 'Plugin' do

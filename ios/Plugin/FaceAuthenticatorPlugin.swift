@@ -8,7 +8,6 @@ import FaceLiveness
  */
 @objc(FaceAuthenticatorPlugin)
 public class FaceAuthenticatorPlugin: CAPPlugin {
-    var userViewController: UIViewController?
     var stage: FaceLiveness.CAFStage?
     var filter: FaceLiveness.Filter?
     var faceAuth: FaceAuthSDK?
@@ -36,9 +35,9 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             return
         }
         builder?.setStage(stage: stage ?? .PROD)
-        print("setou o stage: \(stage?.rawValue))")
+        print("setou o stage: \(stage))")
         let filterValue = call.getString("filter", "line-drawing")
-        
+        print("pegou o filtro: \(filterValue))")
         switch filterValue {
         case "natural":
             filter = Filter.natural
@@ -50,9 +49,10 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
         
         builder?.setFilter(filter: filter ?? Filter.lineDrawing)
-        builder?.setLoading(withLoading: false)
-        print("pegou o filtro: \(filter?.rawValue)")
-        faceAuth?.delegate = self
+        builder?.setLoading(withLoading: true)
+
+        print("pegou o filtro: \(filter)")
+        
         call.resolve()
     }
     
@@ -64,7 +64,9 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
         print("setou o personID: \(personId)")
         builder?.setPersonId(personId: personId)
+    
         faceAuth = builder?.build()
+        
         
         if faceAuth == nil {
             call.reject("You must first configure the FaceAuthenticator")
@@ -74,10 +76,9 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         
         call.keepAlive = true
         
-        userViewController = UIApplication.shared.windows.first?.rootViewController
+        let controller = UIApplication.shared.keyWindow!.rootViewController!
         
-        print("startdou a sdk\(userViewController)")
-        faceAuth?.startFaceAuthSDK(viewController: userViewController!) { faceAuthResult, status in
+        faceAuth?.startFaceAuthSDK(viewController: controller) { faceAuthResult, status in
             switch status {
             case .sucess:
                 var dict :[String : Any] = [:]
@@ -130,31 +131,21 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
     }
 }
-
 extension FaceAuthenticatorPlugin: FaceAuthSDKDelegate {
-    public func openLoadingScreenStartSDK() {
-//        var dict :[String : Any] = [:]
-//        dict["type"] = "loading"
-//        call?.resolve(dict)
+    public func openLoadingScreenAuthSDK() {
+        print("DELEGATE DISPARADO - ")
     }
     
-    public func closeLoadingScreenStartSDK() {
-//        var dict :[String : Any] = [:]
-//        dict["type"] = "loaded"
-//        externalCall?.resolve(dict)
+    public func closeLoadingScreenAuthSDK() {
+        print("DELEGATE DISPARADO - ")
     }
     
-    public func openLoadingScreenValidation() {
-//        var dict :[String : Any] = [:]
-//        dict["type"] = "loading"
-//        externalCall?.resolve(dict)
+    public func openLoadingScreenAuth() {
+        print("DELEGATE DISPARADO - ")
     }
     
-    public func closeLoadingScreenValidation() {
-//        var dict :[String : Any] = [:]
-//        dict["type"] = "loaded"
-//        externalCall?.resolve(dict)
+    public func closeLoadingScreenAuth() {
+        print("DELEGATE DISPARADO - ")
     }
-    
     
 }
