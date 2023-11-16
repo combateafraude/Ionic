@@ -102,7 +102,7 @@ public class FaceLivenessPlugin extends Plugin {
          */
         if (call.hasOption("enableScreenshots")) {
             Boolean enableScreenshots = call.getBoolean("enableScreenshots");
-            builder.setLoadingScreen(enableScreenshots);
+            builder.setEnableScreenshots(enableScreenshots);
         }
 
         this.faceLiveness = builder.build();

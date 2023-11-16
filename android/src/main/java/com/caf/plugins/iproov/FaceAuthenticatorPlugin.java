@@ -99,7 +99,7 @@ public class FaceAuthenticatorPlugin extends Plugin {
          */
         if (call.hasOption("enableScreenshots")) {
             Boolean enableScreenshots = call.getBoolean("enableScreenshots");
-            builder.setLoadingScreen(enableScreenshots);
+            builder.setEnableScreenshots(enableScreenshots);
         }
 
         this.faceAuthenticator = builder.build();
