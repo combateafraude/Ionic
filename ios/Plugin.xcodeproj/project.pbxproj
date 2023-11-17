@@ -13,6 +13,8 @@
 		50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFFA52020D75100D50D53 /* Capacitor.framework */; };
 		50E1A94820377CB70090CE1A /* FaceAuthenticatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* FaceAuthenticatorPlugin.swift */; };
 		9BEB18186617A0EC9EBE55D7 /* Pods_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE013BBA30BA0052B706DE6 /* Pods_PluginTests.framework */; };
+		E75DDFA32B07D6E0006D438F /* FaceLivenessPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75DDFA22B07D6E0006D438F /* FaceLivenessPlugin.swift */; };
+		E75DDFA52B07D734006D438F /* FaceLivenessPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E75DDFA42B07D734006D438F /* FaceLivenessPlugin.m */; };
 		E763B7182AFE6C28001A2982 /* FaceAuthenticatorPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E763B7172AFE6C28001A2982 /* FaceAuthenticatorPlugin.m */; };
 		E763B71A2AFE6C31001A2982 /* FaceAuthenticatorPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = E763B7192AFE6C30001A2982 /* FaceAuthenticatorPlugin.h */; };
 /* End PBXBuildFile section */
@@ -41,6 +43,9 @@
 		A59F9C7A4790283A1D747C81 /* Pods-Plugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.debug.xcconfig"; path = "Target Support Files/Pods-Plugin/Pods-Plugin.debug.xcconfig"; sourceTree = "<group>"; };
 		BB69532718CD7681B96F7F66 /* Pods-Plugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.release.xcconfig"; path = "Target Support Files/Pods-Plugin/Pods-Plugin.release.xcconfig"; sourceTree = "<group>"; };
 		D17F9CF8412CEFA3228BD194 /* Pods-PluginTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.release.xcconfig"; path = "Target Support Files/Pods-PluginTests/Pods-PluginTests.release.xcconfig"; sourceTree = "<group>"; };
+		E75DDFA22B07D6E0006D438F /* FaceLivenessPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceLivenessPlugin.swift; sourceTree = "<group>"; };
+		E75DDFA42B07D734006D438F /* FaceLivenessPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceLivenessPlugin.m; sourceTree = "<group>"; };
+		E75DDFA72B07E2C9006D438F /* FaceLivenessPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceLivenessPlugin.h; sourceTree = "<group>"; };
 		E763B7172AFE6C28001A2982 /* FaceAuthenticatorPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceAuthenticatorPlugin.m; sourceTree = "<group>"; };
 		E763B7192AFE6C30001A2982 /* FaceAuthenticatorPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceAuthenticatorPlugin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +110,9 @@
 				E763B7172AFE6C28001A2982 /* FaceAuthenticatorPlugin.m */,
 				E763B7192AFE6C30001A2982 /* FaceAuthenticatorPlugin.h */,
 				50ADFF8C201F53D600D50D53 /* Info.plist */,
+				E75DDFA22B07D6E0006D438F /* FaceLivenessPlugin.swift */,
+				E75DDFA42B07D734006D438F /* FaceLivenessPlugin.m */,
+				E75DDFA72B07E2C9006D438F /* FaceLivenessPlugin.h */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -317,7 +325,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E75DDFA32B07D6E0006D438F /* FaceLivenessPlugin.swift in Sources */,
 				50E1A94820377CB70090CE1A /* FaceAuthenticatorPlugin.swift in Sources */,
+				E75DDFA52B07D734006D438F /* FaceLivenessPlugin.m in Sources */,
 				E763B7182AFE6C28001A2982 /* FaceAuthenticatorPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

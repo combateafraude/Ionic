@@ -1,3 +1,11 @@
+//
+//  FaceLivenessPlugin.swift
+//  Plugin
+//
+//  Created by Gabriel Caldeira Martins on 17/11/23.
+//  Copyright © 2023 Max Lynch. All rights reserved.
+//
+
 import Foundation
 import Capacitor
 import FaceAuthenticator
@@ -6,21 +14,21 @@ import FaceLiveness
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(FaceAuthenticatorPlugin)
-public class FaceAuthenticatorPlugin: CAPPlugin {
+@objc(FaceLivenessPlugin)
+public class FaceLivenessPlugin: CAPPlugin {
     var stage: FaceLiveness.CAFStage?
     var filter: FaceLiveness.Filter?
-    var faceAuth: FaceAuthSDK?
-    var builder: FaceAuthSDK.Builder?
+    var faceLiveness: FaceLivenessSDK?
+    var builder: FaceLivenessSDK.Build?
     
-    @objc func Configure(_ call: CAPPluginCall) { 
+    @objc func Configure(_ call: CAPPluginCall) {
         print("chamou a configure")
         guard let mobileToken = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
         print("pegou o token: \(mobileToken)")
-        builder = FaceAuthSDK.Builder(mobileToken: mobileToken)
+        builder = FaceLivenessSDK.Build(mobileToken: mobileToken)
 
         let stageValue = call.getString("stage", "prod")
         print("pegou o stage\(stageValue)")
@@ -49,14 +57,14 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
         
         builder?.setFilter(filter: filter ?? Filter.lineDrawing)
-        builder?.setLoading(withLoading: true)
+        builder?.setLoadingScreen(withLoading: true)
 
         print("pegou o filtro: \(filter)")
         
         call.resolve()
     }
     
-    @objc func authenticate(_ call: CAPPluginCall) {
+    @objc func startSDK(_ call: CAPPluginCall) {
         guard let personId = call.getString("personId") else {
             call.reject("personId must be provided")
             bridge?.releaseCall(call)
@@ -65,11 +73,11 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         print("setou o personID: \(personId)")
         builder?.setPersonId(personId: personId)
     
-        faceAuth = builder?.build()
+        faceLiveness = builder?.build()
         
         
-        if faceAuth == nil {
-            call.reject("You must first configure the FaceAuthenticator")
+        if faceLiveness == nil {
+            call.reject("You must first configure the FaceLiveness")
             bridge?.releaseCall(call)
             return
         }
@@ -78,44 +86,25 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         
         let controller = UIApplication.shared.keyWindow!.rootViewController!
         
-        faceAuth?.startFaceAuthSDK(viewController: controller) { faceAuthResult, status in
+        faceLiveness?.startSDK(viewController: controller) {faceLivenessResult, status in
             switch status {
+                
             case .sucess:
                 var dict :[String : Any] = [:]
                 var dictData: [String: Any] = [:]
                 dict["type"] = "success"
-                dictData["signedResponse"] = faceAuthResult.signedResponse
+                dictData["signedResponse"] = faceLivenessResult.signedResponse
                 dict["data"] = dictData
                 
                 call.resolve(dict)
-                self.bridge?.releaseCall(call)
-            case .error:
-                var dict :[String : Any] = [:]
-                let genericErrorMessage = "Error on authentication process"
-                
-                dict["error"] = "GenericError"
-                dict["message"] = genericErrorMessage
-                
-                dict["message"] = faceAuthResult.errorMessage
-                
-                if faceAuthResult.errorType == .networkError {
-                    dict["error"] = "NetworkReason"
-                }
-                
-                if faceAuthResult.errorType == .serverError {
-                    dict["error"] = "ServerReason"
-                    dict["statusCode"] = faceAuthResult.code
-                }
-                
-                call.reject(faceAuthResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
                 self.bridge?.releaseCall(call)
             case .fail:
                 var dict :[String : Any] = [:]
                 let genericFailMessage = "Fail in authentication process"
                 
                 dict["fail"] = "GenericFail"
-                dict["signedResponse"] = faceAuthResult.signedResponse
-                if faceAuthResult.failType == FaceLiveness.FailType.unknown {
+                dict["signedResponse"] = faceLivenessResult.signedResponse
+                if faceLivenessResult.failType == FaceLiveness.FailType.unknown {
                     dict["fail"] = "unknown"
                 }
                 
@@ -124,6 +113,26 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             case .cancelled:
                 call.reject("Operation cancelled")
                 self.bridge?.releaseCall(call)
+            case .error:
+                var dict :[String : Any] = [:]
+                let genericErrorMessage = "Error on authentication process"
+                
+                dict["error"] = "GenericError"
+                dict["message"] = genericErrorMessage
+                
+                dict["message"] = faceLivenessResult.errorMessage
+                
+                if faceLivenessResult.errorType == .networkError {
+                    dict["error"] = "NetworkReason"
+                }
+                
+                if faceLivenessResult.errorType == .serverError {
+                    dict["error"] = "ServerReason"
+                    dict["statusCode"] = faceLivenessResult.code
+                }
+                
+                call.reject(faceLivenessResult.errorMessage ?? genericErrorMessage, nil, nil, dict)
+                self.bridge?.releaseCall(call)
             @unknown default:
                 call.reject("Fatal error")
                 self.bridge?.releaseCall(call)
@@ -131,21 +140,20 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         }
     }
 }
-extension FaceAuthenticatorPlugin: FaceAuthSDKDelegate {
-    public func openLoadingScreenAuthSDK() {
-        print("DELEGATE DISPARADO - ")
+extension FaceLivenessPlugin: FaceLivenessDelegate {
+    public func openLoadingScreenStartSDK() {
+        print("Delegate disparado")
     }
     
-    public func closeLoadingScreenAuthSDK() {
-        print("DELEGATE DISPARADO - ")
+    public func closeLoadingScreenStartSDK() {
+        print("Delegate disparado")
     }
     
-    public func openLoadingScreenAuth() {
-        print("DELEGATE DISPARADO - ")
+    public func openLoadingScreenValidation() {
+        print("Delegate disparado")
     }
     
-    public func closeLoadingScreenAuth() {
-        print("DELEGATE DISPARADO - ")
+    public func closeLoadingScreenValidation() {
+        print("Delegate disparado")
     }
-    
 }
