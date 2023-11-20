@@ -22,16 +22,13 @@ public class FaceLivenessPlugin: CAPPlugin {
     var builder: FaceLivenessSDK.Build?
     
     @objc func Configure(_ call: CAPPluginCall) {
-        print("chamou a configure")
         guard let mobileToken = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
-        print("pegou o token: \(mobileToken)")
         builder = FaceLivenessSDK.Build(mobileToken: mobileToken)
 
         let stageValue = call.getString("stage", "prod")
-        print("pegou o stage\(stageValue)")
         switch stageValue {
         case "prod":
             stage = CAFStage.PROD
@@ -43,9 +40,7 @@ public class FaceLivenessPlugin: CAPPlugin {
             return
         }
         builder?.setStage(stage: stage ?? .PROD)
-        print("setou o stage: \(stage))")
         let filterValue = call.getString("filter", "line-drawing")
-        print("pegou o filtro: \(filterValue))")
         switch filterValue {
         case "natural":
             filter = Filter.natural
@@ -58,8 +53,6 @@ public class FaceLivenessPlugin: CAPPlugin {
         
         builder?.setFilter(filter: filter ?? Filter.lineDrawing)
         builder?.setLoadingScreen(withLoading: true)
-
-        print("pegou o filtro: \(filter)")
         
         call.resolve()
     }
@@ -70,7 +63,6 @@ public class FaceLivenessPlugin: CAPPlugin {
             bridge?.releaseCall(call)
             return
         }
-        print("setou o personID: \(personId)")
         builder?.setPersonId(personId: personId)
     
         faceLiveness = builder?.build()

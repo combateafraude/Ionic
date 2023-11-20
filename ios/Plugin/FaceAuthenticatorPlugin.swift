@@ -13,17 +13,14 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
     var faceAuth: FaceAuthSDK?
     var builder: FaceAuthSDK.Builder?
     
-    @objc func Configure(_ call: CAPPluginCall) { 
-        print("chamou a configure")
+    @objc func Configure(_ call: CAPPluginCall) {
         guard let mobileToken = call.getString("mobileToken") else {
             call.reject("mobileToken must be provided")
             return
         }
-        print("pegou o token: \(mobileToken)")
         builder = FaceAuthSDK.Builder(mobileToken: mobileToken)
 
         let stageValue = call.getString("stage", "prod")
-        print("pegou o stage\(stageValue)")
         switch stageValue {
         case "prod":
             stage = CAFStage.PROD
@@ -35,9 +32,7 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             return
         }
         builder?.setStage(stage: stage ?? .PROD)
-        print("setou o stage: \(stage))")
         let filterValue = call.getString("filter", "line-drawing")
-        print("pegou o filtro: \(filterValue))")
         switch filterValue {
         case "natural":
             filter = Filter.natural
@@ -50,8 +45,6 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
         
         builder?.setFilter(filter: filter ?? Filter.lineDrawing)
         builder?.setLoading(withLoading: true)
-
-        print("pegou o filtro: \(filter)")
         
         call.resolve()
     }
@@ -62,7 +55,6 @@ public class FaceAuthenticatorPlugin: CAPPlugin {
             bridge?.releaseCall(call)
             return
         }
-        print("setou o personID: \(personId)")
         builder?.setPersonId(personId: personId)
     
         faceAuth = builder?.build()
