@@ -1,7 +1,7 @@
 {
-  "name": "@caf/capacitor-face-authenticator",
+  "name": "@caf/capacitor-faces",
   "version": "0.0.1",
-  "description": "FaceAuthenticator Capacitor plugin.",
+  "description": "Faces Capacitor plugin.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -11,7 +11,7 @@
     "android/build.gradle",
     "dist/",
     "ios/Plugin/",
-    "CafCapacitorFaceAuthenticator.podspec"
+    "CafCapacitorFaces.podspec"
   ],
   "author": "danieldspx",
   "license": "MIT",

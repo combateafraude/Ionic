@@ -1,9 +1,9 @@
-# @caf/capacitor-face-authenticator
+# @caf/capacitor-faces
 
 ## Install
 
 ```bash
-npm install @caf/capacitor-face-authenticator
+npm install @caf/capacitor-faces
 npx cap sync
 ```
 
