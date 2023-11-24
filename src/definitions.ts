@@ -10,9 +10,14 @@ export const Filter = Object.freeze({
   LINE_DRAWING: 'line-drawing' 
 } as const);
 
+export const Time = Object.freeze({
+  THREE_HOURS: 'three-hours',
+  THIRTY_DAYS: 'thirty-days'
+} as const);
 
 export type CAFStageValues =  DictionaryValues<typeof CAFStage>;
 export type FilterValues =  DictionaryValues<typeof Filter>;
+export type TimeValues =  DictionaryValues<typeof Time>;
 
 /**
  * Simple Load events that hints when there is a loding process happening.
@@ -124,7 +129,15 @@ export interface ConfigureOptions {
    * 
    * @default false
    */
-  enableScreenshots?: boolean
+  enableScreenshots?: boolean;
+
+   /**
+     * Used to configure an image URL expiration time.
+     *
+     * @default 'null'
+     */
+
+    imageUrlExpirationTime?: TimeValues;
 }
 
 export interface AuthenticateOptions {

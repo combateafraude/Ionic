@@ -18,6 +18,8 @@ import com.getcapacitor.annotation.Permission;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.output.failure.SDKFailure;
 
+import com.caf.facelivenessiproov.input.iproov.Filter;
+import com.caf.facelivenessiproov.input.*;
 import com.caf.facelivenessiproov.input.CAFStage;
 
 @CapacitorPlugin(
@@ -104,6 +106,28 @@ public class FaceLivenessPlugin extends Plugin {
             Boolean enableScreenshots = call.getBoolean("enableScreenshots");
             builder.setEnableScreenshots(enableScreenshots);
         }
+
+         /**
+         * Configure the image URL expiration time provided by the options
+         */
+        if (call.hasOption("imageUrlExpirationTime")) {
+            String imageUrlTimeExpirationTime = call.getString("imageUrlExpirationTime");
+            Time timeValue;
+ 
+           switch (imageUrlTimeExpirationTime) {
+               case "three-hours":
+                   timeValue = Time.THREE_HOURS;
+                   break;
+               case "thirty-days":
+                   timeValue = Time.THIRTY_DAYS;
+                   break;
+               default:
+                   call.reject("Invalid time value: " + imageUrlTimeExpirationTime);
+                   return;
+           }
+
+             builder.setImageUrlExpirationTime(timeValue);
+       }
 
         this.faceLiveness = builder.build();
 

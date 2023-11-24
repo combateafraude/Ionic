@@ -17,6 +17,9 @@ import input.iproov.Filter;
 import output.FaceAuthenticatorResult;
 import output.failure.SDKFailure;
 
+import com.caf.facelivenessiproov.input.*;
+import input.*;
+
 @CapacitorPlugin(
         name = "FaceAuthenticator",
         permissions = {
@@ -100,6 +103,27 @@ public class FaceAuthenticatorPlugin extends Plugin {
         if (call.hasOption("enableScreenshots")) {
             Boolean enableScreenshots = call.getBoolean("enableScreenshots");
             builder.setEnableScreenshots(enableScreenshots);
+        }
+
+        /**
+         * Configure the image URL expiration time provided by the options
+         */
+        if (call.hasOption("imageUrlExpirationTime")) {
+            String imageUrlTimeExpirationTime = call.getString("imageUrlExpirationTime");
+            Time timeValue;
+
+            switch (imageUrlTimeExpirationTime) {
+                case "three-hours":
+                    timeValue = Time.THREE_HOURS;
+                    break;
+                case "thirty-days":
+                    timeValue = Time.THIRTY_DAYS;
+                    break;
+                default:
+                    call.reject("Invalid time value: " + imageUrlTimeExpirationTime);
+                    return;
+            }
+            builder.setImageUrlExpirationTime(timeValue);
         }
 
         this.faceAuthenticator = builder.build();

@@ -68,6 +68,7 @@ Allows to authenticate a person.
 | **`filter`**                 | <code><a href="#filtervalues">FilterValues</a></code>     | Filter to be used.                                                                                                                                                            | <code>'line-drawing'</code> |
 | **`useCustomLoadingScreen`** | <code>boolean</code>                                      | Used to enable a default loading progressbar during loading events. You can set your customized loading screen instead, using the {@link <a href="#loadevent">LoadEvent</a>}. | <code>false</code>          |
 | **`enableScreenshots`**      | <code>boolean</code>                                      | Android Only Used to enable screenshots during the SDK scan. Disabled by default for security reasons.                                                                        | <code>false</code>          |
+| **`imageUrlExpirationTime`** | <code><a href="#timevalues">TimeValues</a></code>         | Used to configure an image URL expiration time.                                                                                                                               | <code>'null'</code>         |
 
 
 #### AuthenticateOptions
@@ -122,6 +123,11 @@ Success event emmited by the onSuccess native callback method.
 #### FilterValues
 
 <code><a href="#dictionaryvalues">DictionaryValues</a>&lt;typeof Filter&gt;</code>
+
+
+#### TimeValues
+
+<code><a href="#dictionaryvalues">DictionaryValues</a>&lt;typeof Time&gt;</code>
 
 
 #### GenericCallback
