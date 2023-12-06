@@ -17,7 +17,6 @@ import input.iproov.Filter;
 import output.FaceAuthenticatorResult;
 import output.failure.SDKFailure;
 
-import com.caf.facelivenessiproov.input.*;
 import input.*;
 
 @CapacitorPlugin(
